@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block header %}{% endblock %}
+{% block customstyles %}
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+{% endblock %}
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <section class="signup">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4 mt-1 hidden-sm-down">
+                            <h1>Why to login?</h1>
+
+                            <ul class="advantages-list">
+                                <li><span class="green-text"><i class="fa fa-check"></i></span> Ensures Non-anonymity
+                                </li>
+                                <li><span class="green-text"><i class="fa fa-check"></i></span> Provides customised
+                                    experience
+                                </li>
+                                <li>...and way way more!</li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-5 offset-md-2">
+
+                            <!--Form with header-->
+                            <div class="card">
+                                <div class="card-block">
+                                    <form method="post">
+                                        <!--Header-->
+                                        <div class="form-header">
+                                            <h3><i class="fa fa-lock"></i> Login:</h3>
+                                        </div>
+                                        {% csrf_token %}
+                                        <!--Body-->
+                                        <div class="md-form">
+                                            <i class="fa fa-envelope prefix"></i>
+                                            <input type="text" name="username" id="username" class="form-control">
+                                            <label for="username">Username</label>
+                                        </div>
+
+                                        <div class="md-form">
+                                            <i class="fa fa-lock prefix"></i>
+                                            <input type="password" name="password" id="password" class="form-control">
+                                            <label for="password">Password</label>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button class="btn btn-primary" type="submit">Login</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--/Form with header-->
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+{% block navscripts %}{% endblock %}
+{% block footer %}{% endblock %}

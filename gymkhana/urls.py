@@ -17,8 +17,14 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    url(
+        '^login/$',
+        auth_views.LoginView.as_view(template_name='login.html'),
+    ),
+    url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^forum/', include('forum.urls')),

@@ -24,6 +24,7 @@ urlpatterns = [
         '^login/$',
         auth_views.LoginView.as_view(template_name='login.html'),
     ),
+    url(r'^logout/$', auth_views.logout, {'next_page': '/forum/'}, name='logout'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),

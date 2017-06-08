@@ -13,18 +13,22 @@ class Topic(models.Model):
     owner = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
     category = models.CharField(max_length=3, choices=CAT_CHOICES, default='Q')
     title = models.CharField(max_length=256)
-    content = RichTextUploadingField
+    content = RichTextUploadingField()
     slug = models.SlugField(unique=True)
     views = models.PositiveIntegerField(default=0)
     answers = models.PositiveIntegerField(default=0)
     tags = models.CharField(max_length=50)
-    date_created = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
 
 
 class Answer(models.Model):
     topic = models.OneToOneField(Topic, on_delete=models.CASCADE)
     user = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
-    content = RichTextUploadingField
+    content = RichTextUploadingField()
+    created_at = models.DateTimeField(auto_now_add=True)
     total_votes = models.SmallIntegerField(default=0)
 
 

@@ -17,14 +17,14 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import LoginView, logout
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     url(
         '^login/$',
         LoginView.as_view(template_name='login.html'),
     ),
-    url(r'^logout/$', logout, {'next_page': '/forum/'}, name='logout'),
+    url(r'^logout/$', LogoutView.as_view(next_page='forum:index'), name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^forum/', include('forum.urls')),

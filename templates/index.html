@@ -21,7 +21,6 @@
 
 {% block main %}
     <!--Main layout-->
-    <main class="">
         <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
             <a class="btn-floating btn-large red" data-toggle="tooltip" data-placement="left" title="Create New Topic">
                 <i class="fa fa-pencil"></i>
@@ -89,7 +88,7 @@
                                             <td><img src="/media/{{ topic.owner.avatar }}"
                                                      alt="{{ topic.owner.user.get_full_name }}"
                                                      class="avatar-32"> {{ topic.owner.user.get_full_name }}</td>
-                                            <td>{{ topic.title }}</td>
+                                            <td><a href="{% url 'forum:detail' topic.id %}">{{ topic.title }}</a></td>
                                             <td><span class="grey-text"><small><i
                                                     class="fa fa-clock-o"></i> {{ topic.created_at }}</small></span>
                                             </td>
@@ -123,7 +122,5 @@
             <!-- /.First row -->
 
         </div>
-
-    </main>
     <!--/Main layout-->
 {% endblock %}

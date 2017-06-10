@@ -1,6 +1,7 @@
 from django.db import models
 from oauth.models import UserProfile
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.core.urlresolvers import reverse
 
 
 class Topic(models.Model):
@@ -20,6 +21,9 @@ class Topic(models.Model):
     tags = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def get_absolute_url(self):
+        return reverse('forum:detail', kwargs={'pk': self.pk})
+
     def __str__(self):
         return self.title
 
@@ -27,7 +31,7 @@ class Topic(models.Model):
 class Answer(models.Model):
     topic = models.OneToOneField(Topic, on_delete=models.CASCADE)
     user = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
-    content = RichTextUploadingField()
+    content = RichTextUploadingField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     total_votes = models.SmallIntegerField(default=0)
 

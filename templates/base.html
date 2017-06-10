@@ -141,13 +141,15 @@
     <!--/.Double navigation-->
 {% endblock %}
 <!--Content-->
-{% block main %}
-    <main>
+
+<main>
+    {% block main %}
         <div class="container-fluid">
             <div style="height: 2000px"></div>
         </div>
-    </main>
-{% endblock %}
+    {% endblock %}
+</main>
+
 
 <!--Scripts-->
 {% block scripts %}

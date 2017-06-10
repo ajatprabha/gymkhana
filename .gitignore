@@ -16,3 +16,5 @@ forum/__pycache__/views.cpython-36.pyc
 forum/__pycache__/models.cpython-36.pyc
 forum/__pycache__/models.cpython-36.pyc
 forum/__pycache__/urls.cpython-36.pyc
+forum/__pycache__/views.cpython-36.pyc
+*.pyc

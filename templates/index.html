@@ -21,9 +21,9 @@
 
 {% block main %}
     <!--Main layout-->
-        <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
-            <a class="btn-floating btn-large red" data-toggle="tooltip" data-placement="left" title="Create New Topic">
-                <i class="fa fa-pencil"></i>
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large red" href="{% url 'forum:add_topic' %}" role="button" data-toggle="tooltip" data-placement="left" title="Create New Topic">
+                <i class="fa fa-plus"></i>
             </a>
         </div>
 
@@ -57,7 +57,7 @@
                 <!-- /.First column -->{% endcomment %}
 
                 <!-- Second column -->
-                <div class="col-md-12 white z-depth-1 py-1 pt-1">
+                <div class="col-md-12 white z-depth-1 py-1 pt-1" style="min-height: 100vh;">
 
                     <div class="row">
                         <div class="col-sm-6 col-md-9 py-1 px-1">

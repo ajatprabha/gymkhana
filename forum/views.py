@@ -1,6 +1,7 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Topic, Answer
+from .forms import TopicForm
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
@@ -30,7 +31,8 @@ class TopicDetailView(generic.DetailView):
 
 class TopicCreateView(CreateView):
     model = Topic
-    fields = ['category', 'title', 'content', 'tags']
+    form_class = TopicForm
+    template_name = 'topic_form.html'
 
 
 @login_required

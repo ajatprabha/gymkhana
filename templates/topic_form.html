@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Add New Topic{% endblock %}
+{% block mdbcss %}
+    <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
+{% block userphoto %}/media/{{ request.user.userprofile.avatar }}{% endblock %}
+{% block username %}{{ request.user.get_full_name }}{% endblock %}
+{% block main %}
+    <div class="row">
+        <!--Form without header-->
+        <div class="card">
+            <div class="card-block">
+
+                <!--Header-->
+                <div>
+                    <h3><i class="fa fa-pencil"></i> Post New Topic:</h3>
+                    <hr class="mt-2 mb-2">
+                </div>
+
+                <!--Body-->
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="md-form">
+                        {{ form.category }}
+                    </div>
+                    <div class="md-form">
+                        {{ form.title }}
+                    </div>
+                    <div>
+                        <button class="btn btn-deep-orange" type="submit"
+                                onsubmit="return confirm('Are you sure you want to post this?')">Post Topic
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--/Form without header-->
+    </div>
+{% endblock %}

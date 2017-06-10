@@ -1,4 +1,14 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Add New Topic{% endblock %}
+{% block mdbcss %}
+    <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
+{% block userphoto %}/media/{{ request.user.userprofile.avatar }}{% endblock %}
+{% block username %}{{ request.user.get_full_name }}{% endblock %}
 {% block main %}
-<h2>{{ topic.title }}</h2>
+<h2>{{ topic_list.title }}</h2>
+    No.s: {{ topic_list.number_of_answers }}
+    {% for answer in answer_list %}
+        {{ answer.content|safe }}
+    {% endfor %}
 {% endblock %}

@@ -11,7 +11,7 @@ class Topic(models.Model):
         ('F', 'Feedback'),
     )
     # Topic Database Model
-    owner = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     category = models.CharField(max_length=3, choices=CAT_CHOICES, default='Q')
     title = models.CharField(max_length=256)
     content = RichTextUploadingField(blank=True)

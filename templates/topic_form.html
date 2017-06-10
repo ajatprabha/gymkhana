@@ -19,14 +19,18 @@
 
                 <!--Body-->
                 <form action="" method="post" enctype="multipart/form-data">
-                    {{ form.category }}
-                        <select title="Choose your option" class="mdb-select" name="category" id="id_category">
-                            <option value="" disabled selected>Choose your option</option>
-                            {% for value, label in form.category.field.choices %}
-                                <option value="{{ value }}">{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                        <label>Category</label>
+                {% csrf_token %}
+                {% for field in form %}
+                    <p class="red-text">{{ field.errors }}</p>
+                {% endfor %}
+                <input type='hidden' name='owner' id="id_owner" value='{{ request.user.userprofile.id }}' />
+                    <label for="id_category">Category</label>
+                    <select class="mdb-select" name="category" id="id_category" required>
+                        <option value="" disabled selected>Choose your option</option>
+                        {% for value, label in form.category.field.choices %}
+                            <option value="{{ value }}">{{ label }}</option>
+                        {% endfor %}
+                    </select>
                     <div class="md-form">
                         {{ form.title }}
                         <label for="{{ form.title.name }}">{{ form.title.label }}</label>
@@ -39,8 +43,8 @@
                         {{ form.content }}
                     </div>
                     <div>
-                        <button class="btn btn-deep-orange" type="submit"
-                                onsubmit="return confirm('Are you sure you want to post this?')">Post Topic
+                        <button class="btn btn-deep-orange" type="submit" value="submit"
+                                onsubmit="return confirm('Are you sure you want to post this?');">Post Topic
                         </button>
                     </div>
                 </form>
@@ -50,11 +54,29 @@
     </div>
 {% endblock %}
 
-{% block customscripts %}
+{% block scripts %}
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
     {{ form.media }}
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/compiled.min.js' %}"></script>
     <script>
         $(document).ready(function () {
             $('.mdb-select').material_select();
         });
     </script>
+    {% block navscripts %}
+        <script>
+            $(".button-collapse").sideNav();
+            // Custom scrollbar init
+            var el = document.querySelector('.custom-scrollbar');
+            Ps.initialize(el);
+            // Tooltips Initialization
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
+    {% endblock %}
 {% endblock %}

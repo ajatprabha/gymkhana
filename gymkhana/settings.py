@@ -138,7 +138,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # CKEditor
-CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+CKEDITOR_JQUERY_URL = '/static/js/jquery-3.1.1.min.js'
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_IMAGE_BACKEND = 'pillow'

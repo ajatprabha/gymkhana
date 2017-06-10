@@ -38,7 +38,10 @@ class Answer(models.Model):
     owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     content = RichTextUploadingField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    total_votes = models.SmallIntegerField(default=0)
+
+    @property
+    def number_of_votes(self):
+        return self.vote_set.count()
 
     def __str__(self):
         return "On: " + str(self.topic.title) + " by " + str(self.owner.user.first_name) + " " + str(self.owner.user.last_name)
@@ -51,7 +54,8 @@ class Vote(models.Model):
         (0, 'Neutral'),
         (1, 'Like'),
     )
-    user = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     value = models.SmallIntegerField(choices=VOTE_CHOICE, default=0)
 
 

@@ -1,9 +1,9 @@
-#SuperUser Details
+# SuperUser Details
 
 - username: admin 
 - password: golmaalkarke9211
     
-#Dependencies
+# Dependencies
 
 - django v1.11.2
 - django-material v1.0.0

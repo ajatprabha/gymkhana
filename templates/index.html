@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block mdbcss %}<link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
+{% block mdbcss %}
+    <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
 {% block userphoto %}/media/{{ request.user.userprofile.avatar }}{% endblock %}
-{% block username %}{{ request.user.first_name }} {{ request.user.last_name }}{% endblock %}
+{% block username %}{{ request.user.get_full_name }}{% endblock %}
 
 {% block sidenavlower %}
-    <li><h4 class="h4-responsive black-text text-center">Categories</h4></li>
+    <li><h4 class="h4-responsive text-primary text-center">Categories</h4></li>
     <li>
         <ul class="collapsible collapsible-accordion">
             <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-question"></i>
@@ -19,15 +20,20 @@
 {% endblock %}
 
 {% block main %}
-<!--Main layout-->
+    <!--Main layout-->
     <main class="">
+        <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
+            <a class="btn-floating btn-large red" data-toggle="tooltip" data-placement="left" title="Create New Topic">
+                <i class="fa fa-pencil"></i>
+            </a>
+        </div>
 
         <div class="container-fluid">
 
             <!-- First row -->
             <div class="row">
 
-                <!-- First column -->
+                {% comment %}<!-- First column -->
                 <div class="col-md-3">
                     <div class="card-body">
 
@@ -49,14 +55,14 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.First column -->
+                <!-- /.First column -->{% endcomment %}
 
                 <!-- Second column -->
-                <div class="col-md-8 offset-md-1 white z-depth-1 py-1 pt-1">
+                <div class="col-md-12 white z-depth-1 py-1 pt-1">
 
                     <div class="row">
                         <div class="col-sm-6 col-md-9 py-1 px-1">
-                            <h4 class="h4-responsive ml-3">Support Tickets (36)</h4>
+                            <h4 class="h4-responsive ml-3">Discussion Topics ({{ topic_list.count }})</h4>
                         </div>
                         <div class="col-sm-6 col-md-3">
                             <div class="md-form">
@@ -71,67 +77,29 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Title</th>
-                                            <th></th>
-                                        </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Title</th>
+                                        <th></th>
+                                    </tr>
                                     </thead>
                                     <tbody>
+                                    {% for topic in topic_list %}
                                         <tr>
-                                            <td><div class="avatar-placeholder green darken-3">A</div> Abby Barret</td>
-                                            <td>Can't create a modal</td>
-                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 5 min</small></span></td>
+                                            <td><img src="/media/{{ topic.owner.avatar }}"
+                                                     alt="{{ topic.owner.user.get_full_name }}"
+                                                     class="avatar-32"> {{ topic.owner.user.get_full_name }}</td>
+                                            <td>{{ topic.title }}</td>
+                                            <td><span class="grey-text"><small><i
+                                                    class="fa fa-clock-o"></i> {{ topic.created_at }}</small></span>
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td><img src="https://mdbootstrap.com/wp-content/uploads/2015/10/avatar-1.jpg" alt="Danny Collins" class="avatar-32"> Danny Collins</td>
-                                            <td>Account changes won't save</td>
-                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="https://mdbootstrap.com/wp-content/uploads/2015/10/avatar-3.jpg" alt="Danny Collins" class="avatar-32"> Clara Ericson</td>
-                                            <td>How to import my campaign from Business Manager?</td>
-                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><div class="avatar-placeholder green darken-3">A</div> Abby Barret</td>
-                                            <td>Can't create a modal</td>
-                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 5 min</small></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><div class="avatar-placeholder yellow darken-2">D</div> Danny Collins</td>
-                                            <td>Account changes won't save</td>
-                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><div class="avatar-placeholder red darken-2">C</div> Clara Ericson</td>
-                                            <td>How to import my campaign from Business Manager?</td>
-                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="https://mdbootstrap.com/wp-content/uploads/2015/10/avatar-2.jpg" alt="Danny Collins" class="avatar-32"> Abby Barret</td>
-                                            <td>Can't create a modal</td>
-                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 5 min</small></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><div class="avatar-placeholder yellow darken-2">D</div> Danny Collins</td>
-                                            <td>Account changes won't save</td>
-                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><div class="avatar-placeholder red darken-2">C</div> Clara Ericson</td>
-                                            <td>How to import my campaign from Business Manager?</td>
-                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
-                                        </tr>
-                                            <td><div class="avatar-placeholder green darken-3">A</div> Abby Barret</td>
-                                            <td>Can't create a modal</td>
-                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 5 min</small></span></td>
-                                        </tr>
+                                    {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
 
-                            <!--Dropdown primary-->
+                            {% comment %}<!--Dropdown primary-->
                             <div class="dropdown dropup">
 
                                 <!--Trigger-->
@@ -144,7 +112,7 @@
                                     <a class="dropdown-item" href="#">Archive</a>
                                 </div>
                             </div>
-                            <!--/Dropdown primary-->
+                            <!--/Dropdown primary-->{% endcomment %}
                         </div>
                     </div>
 

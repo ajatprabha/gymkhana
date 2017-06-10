@@ -13,7 +13,7 @@ class Topic(models.Model):
     owner = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
     category = models.CharField(max_length=3, choices=CAT_CHOICES, default='Q')
     title = models.CharField(max_length=256)
-    content = RichTextUploadingField()
+    content = RichTextUploadingField(blank=True)
     slug = models.SlugField(unique=True)
     views = models.PositiveIntegerField(default=0)
     answers = models.PositiveIntegerField(default=0)

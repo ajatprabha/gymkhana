@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% block mdbcss %}<link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
 {% block userphoto %}/media/{{ request.user.userprofile.avatar }}{% endblock %}
 {% block username %}{{ request.user.first_name }} {{ request.user.last_name }}{% endblock %}
 
@@ -14,4 +16,234 @@
             </li>
         </ul>
     </li>
+{% endblock %}
+
+{% block main %}
+<!--Main layout-->
+    <main class="">
+
+        <div class="container-fluid">
+
+            <!-- First row -->
+            <div class="row">
+
+                <!-- First column -->
+                <div class="col-md-3">
+                    <div class="card-body">
+
+                        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#modal-support">
+                            <i class="fa fa-plus left"></i> New Ticket
+                        </button>
+
+                        <div class="mt-2">
+                            <small>Ticket categories:</small>
+
+                            <ul class="striped">
+                                <li><span class="bullet green"></span> Invoices <span class="badge bg-primary float-right">14</span></li>
+                                <li><span class="bullet blue"></span> Advertising <span class="badge bg-primary float-right">1</span></li>
+                                <li><span class="bullet red"></span> Functions <span class="badge bg-primary float-right">3</span></li>
+                                <li><span class="bullet yellow"></span> Website <span class="badge bg-primary float-right">9</span></li>
+                                <li><span class="bullet orange"></span> Clients <span class="badge bg-primary float-right">5</span></li>
+                                <li><span class="bullet deep-purple"></span> Technical Questions <span class="badge bg-primary label-pill float-right">4</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.First column -->
+
+                <!-- Second column -->
+                <div class="col-md-8 offset-md-1 white z-depth-1 py-1 pt-1">
+
+                    <div class="row">
+                        <div class="col-sm-6 col-md-9 py-1 px-1">
+                            <h4 class="h4-responsive">Support Tickets (36)</h4>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="md-form">
+                                <input placeholder="Search..." type="text" id="form5" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox0">
+                                                    <label for="checkbox0"></label>
+                                                </fieldset>
+                                            </th>
+                                            <th>Name</th>
+                                            <th>Title</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox1">
+                                                    <label for="checkbox1"></label>
+                                                </fieldset>
+                                            </th>
+                                            <td><div class="avatar-placeholder green darken-3">A</div> Abby Barret</td>
+                                            <td>Can't create a modal</td>
+                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 5 min</small></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox2">
+                                                    <label for="checkbox2"></label>
+                                                </fieldset>
+                                            </th>
+                                            <td><img src="https://mdbootstrap.com/wp-content/uploads/2015/10/avatar-1.jpg" alt="Danny Collins" class="avatar-32"> Danny Collins</td>
+                                            <td>Account changes won't save</td>
+                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox3">
+                                                    <label for="checkbox3"></label>
+                                                </fieldset>
+                                            </th>
+                                            <td><img src="https://mdbootstrap.com/wp-content/uploads/2015/10/avatar-3.jpg" alt="Danny Collins" class="avatar-32"> Clara Ericson</td>
+                                            <td>How to import my campaign from Business Manager?</td>
+                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox4">
+                                                    <label for="checkbox4"></label>
+                                                </fieldset>
+                                            </th>
+                                            <td><div class="avatar-placeholder green darken-3">A</div> Abby Barret</td>
+                                            <td>Can't create a modal</td>
+                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 5 min</small></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox5">
+                                                    <label for="checkbox5"></label>
+                                                </fieldset>
+                                            </th>
+                                            <td><div class="avatar-placeholder yellow darken-2">D</div> Danny Collins</td>
+                                            <td>Account changes won't save</td>
+                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox6">
+                                                    <label for="checkbox6"></label>
+                                                </fieldset>
+                                            </th>
+                                            <td><div class="avatar-placeholder red darken-2">C</div> Clara Ericson</td>
+                                            <td>How to import my campaign from Business Manager?</td>
+                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox7">
+                                                    <label for="checkbox7"></label>
+                                                </fieldset>
+                                            </th>
+                                            <td><img src="https://mdbootstrap.com/wp-content/uploads/2015/10/avatar-2.jpg" alt="Danny Collins" class="avatar-32"> Abby Barret</td>
+                                            <td>Can't create a modal</td>
+                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 5 min</small></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox8">
+                                                    <label for="checkbox8"></label>
+                                                </fieldset>
+                                            </th>
+                                            <td><div class="avatar-placeholder yellow darken-2">D</div> Danny Collins</td>
+                                            <td>Account changes won't save</td>
+                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox9">
+                                                    <label for="checkbox9"></label>
+                                                </fieldset>
+                                            </th>
+                                            <td><div class="avatar-placeholder red darken-2">C</div> Clara Ericson</td>
+                                            <td>How to import my campaign from Business Manager?</td>
+                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
+                                        </tr>                                        <tr>
+                                            <th scope="row">
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox10">
+                                                    <label for="checkbox10"></label>
+                                                </fieldset>
+                                            </th>
+                                            <td><div class="avatar-placeholder green darken-3">A</div> Abby Barret</td>
+                                            <td>Can't create a modal</td>
+                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 5 min</small></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox11">
+                                                    <label for="checkbox11"></label>
+                                                </fieldset>
+                                            </th>
+                                            <td><img src="https://mdbootstrap.com/wp-content/uploads/2015/10/avatar-1.jpg" alt="Danny Collins" class="avatar-32"> Danny Collins</td>
+                                            <td>Account changes won't save</td>
+                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">
+                                                <fieldset class="form-group">
+                                                    <input type="checkbox" id="checkbox12">
+                                                    <label for="checkbox12"></label>
+                                                </fieldset>
+                                            </th>
+                                            <td><div class="avatar-placeholder red darken-2">C</div> Clara Ericson</td>
+                                            <td>How to import my campaign from Business Manager?</td>
+                                            <td><span class="grey-text"><small><i class="fa fa-clock-o"></i> 1 hour</small></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!--Dropdown primary-->
+                            <div class="dropdown dropup">
+
+                                <!--Trigger-->
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Selected</button>
+
+                                <!--Menu-->
+                                <div class="dropdown-menu dropdown-primary">
+                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <a class="dropdown-item" href="#">Mark as read</a>
+                                    <a class="dropdown-item" href="#">Archive</a>
+                                </div>
+                            </div>
+                            <!--/Dropdown primary-->
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.Second column -->
+
+            </div>
+            <!-- /.First row -->
+
+        </div>
+
+    </main>
+    <!--/Main layout-->
 {% endblock %}

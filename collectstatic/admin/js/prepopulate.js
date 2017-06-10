@@ -26,7 +26,15 @@
                         values.push(field.val());
                     }
                 });
-                prepopulatedField.val(URLify(values.join(' '), maxLength, allowUnicode));
+                var value = URLify(values.join(' '), maxLength, allowUnicode);
+                prepopulatedField.val(value);
+                if(value) {
+                    prepopulatedField.addClass('active');
+                    prepopulatedField.next().addClass('active');
+                } else {
+                    prepopulatedField.removeClass('active');
+                    prepopulatedField.next().removeClass('active');
+                }
             };
 
             prepopulatedField.data('_changed', false);

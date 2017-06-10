@@ -19,11 +19,24 @@
 
                 <!--Body-->
                 <form action="" method="post" enctype="multipart/form-data">
-                    <div class="md-form">
-                        {{ form.category }}
-                    </div>
+                    {{ form.category }}
+                        <select title="Choose your option" class="mdb-select" name="category" id="id_category">
+                            <option value="" disabled selected>Choose your option</option>
+                            {% for value, label in form.category.field.choices %}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        <label>Category</label>
                     <div class="md-form">
                         {{ form.title }}
+                        <label for="{{ form.title.name }}">{{ form.title.label }}</label>
+                    </div>
+                    <div class="md-form">
+                        {{ form.tags }}
+                        <label for="{{ form.tags.name }}">{{ form.tags.label }}</label>
+                    </div>
+                    <div class="md-form">
+                        {{ form.content }}
                     </div>
                     <div>
                         <button class="btn btn-deep-orange" type="submit"
@@ -35,4 +48,13 @@
         </div>
         <!--/Form without header-->
     </div>
+{% endblock %}
+
+{% block customscripts %}
+    {{ form.media }}
+    <script>
+        $(document).ready(function () {
+            $('.mdb-select').material_select();
+        });
+    </script>
 {% endblock %}

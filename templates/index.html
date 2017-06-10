@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% block userphoto %}/media/{{ request.user.userprofile.avatar }}{% endblock %}
+{% block username %}{{ request.user.first_name }} {{ request.user.last_name }}{% endblock %}
 
 {% block sidenavlower %}
     <li><h4 class="h4-responsive black-text text-center">Categories</h4></li>

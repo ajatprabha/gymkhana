@@ -17,7 +17,7 @@ class IndexView(LoginRequiredMixin, generic.ListView):
 
 class TopicDetailView(LoginRequiredMixin, generic.DetailView):
     model = Topic
-    context_object_name = 'topic_list'
+    context_object_name = 'topic'
     template_name = 'topicdetail.html'
 
     def get_context_data(self, **kwargs):

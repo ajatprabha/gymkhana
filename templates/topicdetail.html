@@ -1,14 +1,68 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load humanize %}
 {% block title %}Add New Topic{% endblock %}
 {% block mdbcss %}
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
+{% block customstyles %}<link rel="stylesheet" href="{% static 'css/topicdetail.css' %}">{% endblock %}
 {% block userphoto %}/media/{{ request.user.userprofile.avatar }}{% endblock %}
 {% block username %}{{ request.user.get_full_name }}{% endblock %}
 {% block main %}
-<h2>{{ topic_list.title }}</h2>
-    No.s: {{ topic_list.number_of_answers }}
-    {% for answer in answer_list %}
-        {{ answer.content|safe }}
-    {% endfor %}
+    <div class="row">
+        <!--Topic-->
+        <div class="author-box">
+            <!--Title-->
+            <h3 class="h3-responsive text-center">{{ topic.title }}</h3>
+            <hr>
+            <div class="row">
+                <!--Avatar-->
+                <div class="col-12 col-sm-2">
+                    <img src="/media/{{ topic.owner.avatar }}"
+                         class="img-fluid rounded-circle z-depth-2">
+                </div>
+                <!--Author Data-->
+                <div class=" col-12 col-sm-10">
+                    <p>Written by <strong>{{ topic.owner.user.get_full_name }}</strong>&emsp;
+                        <small><i
+                                class="fa fa-clock-o"></i></small>
+                        {{ topic.created_at|naturaltime }}</p>
+                    {{ topic.content|safe }}
+                    <p class="hidden-md-down">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint esse nulla
+                        quia quam veniam commodi dicta, iusto inventore. Voluptatum pariatur eveniet ea, officiis vitae
+                        praesentium beatae quas libero, esse facere.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--/.Topic-->
+        <!--Main wrapper-->
+        <div class="comments-list text-left">
+            <div class="section-heading">
+                <h3>Answers <span class="badge blue">{{ topic.number_of_answers }}</span></h3>
+            </div>
+            {% for answer in answer_list %}
+            <!--Answer-->
+            <div class="row">
+                <!--Image column-->
+                <div class="col-sm-2 col-12">
+                    <img class="img-fluid rounded-circle z-depth-1-half" src="/media/{{ answer.owner.avatar }}">
+                </div>
+                <!--/.Image column-->
+                <!--Content column-->
+                <div class="col-sm-10 col-12">
+                    <h5 class="user-name">{{ answer.owner.user.get_full_name }}</h5>
+                    <div class="card-data">
+                        <ul>
+                            <li class="comment-date"><i class="fa fa-clock-o"></i> {{ answer.created_at|naturaltime }}</li>
+                        </ul>
+                    </div>
+                    <p class="comment-text">{{ answer.content|safe }}</p>
+                </div>
+                <!--/.Content column-->
+            </div>
+            <!--/.Answer-->
+            {% endfor %}
+        </div>
+        <!--/.Main wrapper-->
+    </div>
 {% endblock %}

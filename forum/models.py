@@ -29,11 +29,14 @@ class Topic(models.Model):
 
 
 class Answer(models.Model):
-    topic = models.OneToOneField(Topic, on_delete=models.CASCADE)
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     content = RichTextUploadingField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     total_votes = models.SmallIntegerField(default=0)
+
+    def __str__(self):
+        return "On: " + str(self.topic.title) + " by " + str(self.owner.user.first_name) + " " + str(self.owner.user.last_name)
 
 
 class Vote(models.Model):

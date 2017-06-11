@@ -138,6 +138,8 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+HITCOUNT_KEEP_HIT_ACTIVE = {'minutes': 1}
+
 # CKEditor
 CKEDITOR_JQUERY_URL = '/static/js/jquery-3.1.1.min.js'
 CKEDITOR_UPLOAD_PATH = "uploads/"

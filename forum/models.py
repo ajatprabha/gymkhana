@@ -2,9 +2,10 @@ from django.db import models
 from oauth.models import UserProfile
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.urlresolvers import reverse
+from hitcount.models import HitCountMixin
 
 
-class Topic(models.Model):
+class Topic(models.Model, HitCountMixin):
     # Choices
     CAT_CHOICES = (
         ('Q', 'Question'),

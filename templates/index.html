@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load humanize %}
+{% load hitcount_tags %}
 {% block title %}Students' Gymkhana Forum{% endblock %}
 {% block mdbcss %}
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
-{% block customstyles %}<link rel="stylesheet" href="{% static 'css/forumindex.css' %}">{% endblock %}
+{% block customstyles %}
+    <link rel="stylesheet" href="{% static 'css/forumindex.css' %}">{% endblock %}
 {% block userphoto %}/media/{{ request.user.userprofile.avatar }}{% endblock %}
 {% block username %}{{ request.user.get_full_name }}{% endblock %}
 {% block navtitle %}Students' Gymkhana Forum{% endblock %}
@@ -24,18 +26,19 @@
 
 {% block main %}
     <!--Main layout-->
-        <div class="fixed-action-btn-fix">
-            <a class="btn-floating btn-large red" href="{% url 'forum:add_topic' %}" role="button" data-toggle="tooltip" data-placement="left" title="Create New Topic">
-                <i class="fa fa-plus"></i>
-            </a>
-        </div>
+    <div class="fixed-action-btn-fix">
+        <a class="btn-floating btn-large red" href="{% url 'forum:add_topic' %}" role="button" data-toggle="tooltip"
+           data-placement="left" title="Create New Topic">
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
 
-        <div class="container-fluid">
+    <div class="container-fluid">
 
-            <!-- First row -->
-            <div class="row">
+        <!-- First row -->
+        <div class="row">
 
-                {% comment %}<!-- First column -->
+            {% comment %}<!-- First column -->
                 <div class="col-md-3">
                     <div class="card-body">
 
@@ -59,49 +62,54 @@
                 </div>
                 <!-- /.First column -->{% endcomment %}
 
-                <!-- Second column -->
-                <div class="col-md-12 white z-depth-1 py-1 pt-1" style="min-height: 80vh;">
+            <!-- Second column -->
+            <div class="col-md-12 white z-depth-1 py-1 pt-1" style="min-height: 80vh;">
 
-                    <div class="row">
-                        <div class="col-sm-6 col-md-9 py-1 px-1">
-                            <h4 class="h4-responsive ml-3">Discussion Topics ({{ topic_list.count }})</h4>
-                        </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="md-form">
-                                <input placeholder="Search..." type="text" id="form5" class="form-control">
-                            </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-9 py-1 px-1">
+                        <h4 class="h4-responsive ml-3">Discussion Topics ({{ topic_list.count }})</h4>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="md-form">
+                            <input placeholder="Search..." type="text" id="form5" class="form-control">
                         </div>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
 
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Title</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for topic in topic_list %}
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Title</th>
-                                        <th></th>
+                                        <td><img src="/media/{{ topic.owner.avatar }}"
+                                                 alt="{{ topic.owner.user.get_full_name }}"
+                                                 class="avatar-32"> {{ topic.owner.user.get_full_name }}</td>
+                                        <td><a href="{% url 'forum:detail' topic.id %}">{{ topic.title }}</a></td>
+                                        <td>
+                                            <span class="grey-text"><small><i
+                                                    class="fa fa-eye"></i> {{ topic.hit_count.hits }}</small></span>
+                                        </td>
+                                        <td><span class="grey-text"><small><i
+                                                class="fa fa-clock-o"></i> {{ topic.created_at|naturaltime }}</small></span>
+                                        </td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for topic in topic_list %}
-                                        <tr>
-                                            <td><img src="/media/{{ topic.owner.avatar }}"
-                                                     alt="{{ topic.owner.user.get_full_name }}"
-                                                     class="avatar-32"> {{ topic.owner.user.get_full_name }}</td>
-                                            <td><a href="{% url 'forum:detail' topic.id %}">{{ topic.title }}</a></td>
-                                            <td><span class="grey-text"><small><i
-                                                    class="fa fa-clock-o"></i> {{ topic.created_at|naturaltime }}</small></span>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
 
-                            {% comment %}<!--Dropdown primary-->
+                        {% comment %}<!--Dropdown primary-->
                             <div class="dropdown dropup">
 
                                 <!--Trigger-->
@@ -115,15 +123,15 @@
                                 </div>
                             </div>
                             <!--/Dropdown primary-->{% endcomment %}
-                        </div>
                     </div>
-
                 </div>
-                <!-- /.Second column -->
 
             </div>
-            <!-- /.First row -->
+            <!-- /.Second column -->
 
         </div>
+        <!-- /.First row -->
+
+    </div>
     <!--/Main layout-->
 {% endblock %}

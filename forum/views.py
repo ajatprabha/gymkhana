@@ -5,6 +5,7 @@ from .forms import TopicForm
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from hitcount.views import HitCountDetailView
 
 
 class IndexView(LoginRequiredMixin, generic.ListView):
@@ -15,8 +16,9 @@ class IndexView(LoginRequiredMixin, generic.ListView):
         return Topic.objects.all()
 
 
-class TopicDetailView(LoginRequiredMixin, generic.DetailView):
+class TopicDetailView(LoginRequiredMixin, HitCountDetailView, generic.DetailView):
     model = Topic
+    count_hit = True
     context_object_name = 'topic'
     template_name = 'topicdetail.html'
 

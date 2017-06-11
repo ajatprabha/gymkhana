@@ -4,7 +4,8 @@
 {% block title %}Add New Topic{% endblock %}
 {% block mdbcss %}
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
-{% block customstyles %}<link rel="stylesheet" href="{% static 'css/topicdetail.css' %}">{% endblock %}
+{% block customstyles %}
+    <link rel="stylesheet" href="{% static 'css/topicdetail.css' %}">{% endblock %}
 {% block userphoto %}/media/{{ request.user.userprofile.avatar }}{% endblock %}
 {% block username %}{{ request.user.get_full_name }}{% endblock %}
 {% block main %}
@@ -22,10 +23,10 @@
                 </div>
                 <!--Author Data-->
                 <div class=" col-12 col-sm-10">
-                    <p>Written by <strong>{{ topic.owner.user.get_full_name }}</strong>&emsp;
-                        <small><i
+                    <p>Written by <strong>{{ topic.owner.user.get_full_name }}</strong>&emsp;<small><i
                                 class="fa fa-clock-o"></i></small>
-                        {{ topic.created_at|naturaltime }}</p>
+                        {{ topic.created_at|naturaltime }}&emsp;
+                        <small><i class="fa fa-eye"></i></small> {{ topic.hit_count.hits }}</p>
                     {{ topic.content|safe }}
                     <p class="hidden-md-down">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint esse nulla
                         quia quam veniam commodi dicta, iusto inventore. Voluptatum pariatur eveniet ea, officiis vitae
@@ -41,26 +42,27 @@
                 <h3>Answers <span class="badge blue">{{ topic.number_of_answers }}</span></h3>
             </div>
             {% for answer in answer_list %}
-            <!--Answer-->
-            <div class="row">
-                <!--Image column-->
-                <div class="col-sm-2 col-12">
-                    <img class="img-fluid rounded-circle z-depth-1-half" src="/media/{{ answer.owner.avatar }}">
-                </div>
-                <!--/.Image column-->
-                <!--Content column-->
-                <div class="col-sm-10 col-12">
-                    <h5 class="user-name">{{ answer.owner.user.get_full_name }}</h5>
-                    <div class="card-data">
-                        <ul>
-                            <li class="comment-date"><i class="fa fa-clock-o"></i> {{ answer.created_at|naturaltime }}</li>
-                        </ul>
+                <!--Answer-->
+                <div class="row">
+                    <!--Image column-->
+                    <div class="col-sm-2 col-12">
+                        <img class="img-fluid rounded-circle z-depth-1-half" src="/media/{{ answer.owner.avatar }}">
                     </div>
-                    <p class="comment-text">{{ answer.content|safe }}</p>
+                    <!--/.Image column-->
+                    <!--Content column-->
+                    <div class="col-sm-10 col-12">
+                        <h5 class="user-name">{{ answer.owner.user.get_full_name }}</h5>
+                        <div class="card-data">
+                            <ul>
+                                <li class="comment-date"><i
+                                        class="fa fa-clock-o"></i> {{ answer.created_at|naturaltime }}</li>
+                            </ul>
+                        </div>
+                        <p class="comment-text">{{ answer.content|safe }}</p>
+                    </div>
+                    <!--/.Content column-->
                 </div>
-                <!--/.Content column-->
-            </div>
-            <!--/.Answer-->
+                <!--/.Answer-->
             {% endfor %}
         </div>
         <!--/.Main wrapper-->

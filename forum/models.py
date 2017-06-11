@@ -16,7 +16,6 @@ class Topic(models.Model, HitCountMixin):
     category = models.CharField(max_length=3, choices=CAT_CHOICES, default='Q')
     title = models.CharField(max_length=256)
     content = RichTextUploadingField(blank=True)
-    views = models.PositiveIntegerField(default=0)
     tags = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
 

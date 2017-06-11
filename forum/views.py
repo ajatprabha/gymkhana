@@ -1,6 +1,6 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Topic, Answer
+from .models import Topic
 from .forms import TopicForm
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -22,8 +22,8 @@ class TopicDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         """
-        This has been overridden to add `topic` to the templates context,
-        so you can use {{ topic }} etc. within the template
+        This has been overridden to add `answer_list` to the templates context,
+        so you can use {% for answer in answer_list %} etc. within the template
         """
         context = super(TopicDetailView, self).get_context_data(**kwargs)
         context['answer_list'] = self.object.answer_set.all()

@@ -115,11 +115,7 @@
                 </div>
                 <ul class="nav navbar-nav nav-flex-icons ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link"><i class="fa fa-envelope"></i> <span
-                                class="hidden-sm-down">Contact</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"><i class="fa fa-comments-o"></i> <span class="hidden-sm-down">Support</span></a>
+                        <a href="{% url 'forum:index' %}" class="nav-link"><i class="fa fa-home"></i> <span class="hidden-sm-down">Home</span></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="account" data-toggle="dropdown"
@@ -127,8 +123,7 @@
                             <i class="fa fa-user"></i> <span class="hidden-sm-down">Account</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Profile</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                         </div>

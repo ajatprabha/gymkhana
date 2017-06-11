@@ -164,21 +164,22 @@ CKEDITOR_CONFIGS = {
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
         ],
         'extraPlugins': ','.join([
-            'uploadimage', # the upload image feature
-            # your extra plugins here
+            'uploadimage',
             'div',
             'autolink',
-            'autoembed',
+            'iframe',
+            'embed',
             'embedsemantic',
+            'autoembed',
             'autogrow',
-            # 'devtools',
+            'uploadimage',
             'widget',
             'lineutils',
             'clipboard',
             'dialog',
             'dialogui',
             'mathjax',
-
+            'codesnippet',
         ]),
     },
 }

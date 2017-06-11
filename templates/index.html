@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/forumindex.css' %}">{% endblock %}
-{% block userphoto %}/media/{{ request.user.userprofile.avatar }}{% endblock %}
-{% block username %}{{ request.user.get_full_name }}{% endblock %}
 {% block navtitle %}Students' Gymkhana Forum{% endblock %}
 {% block sidenavlower %}
     <li><h4 class="h4-responsive text-primary text-center">Categories</h4></li>
@@ -63,16 +61,11 @@
                 <!-- /.First column -->{% endcomment %}
 
             <!-- Second column -->
-            <div class="col-md-12 white z-depth-1 py-1 pt-1" style="min-height: 80vh;">
+            <div class="col-md-12 white z-depth-1 py-1 pt-1">
 
                 <div class="row">
-                    <div class="col-sm-6 col-md-9 py-1 px-1">
+                    <div class="col-sm-6 col-md-9 py-1 px-1 mb-1">
                         <h4 class="h4-responsive ml-3">Discussion Topics ({{ topic_list.count }})</h4>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="md-form">
-                            <input placeholder="Search..." type="text" id="form5" class="form-control">
-                        </div>
                     </div>
                 </div>
 
@@ -92,7 +85,7 @@
                                 <tbody>
                                 {% for topic in topic_list %}
                                     <tr>
-                                        <td><img src="/media/{{ topic.owner.avatar }}"
+                                        <td><img src="{{ topic.owner.avatar.url }}"
                                                  alt="{{ topic.owner.user.get_full_name }}"
                                                  class="avatar-32"> {{ topic.owner.user.get_full_name }}</td>
                                         <td><a href="{% url 'forum:detail' topic.id %}">{{ topic.title }}</a></td>

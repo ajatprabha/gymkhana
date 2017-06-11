@@ -26,20 +26,22 @@
                 <!-- Logo -->
                 <li>
                     <div class="user-box">
-                        <img src="{% block userphoto %}/media/avatar/ajat.jpg{% endblock %}"
+                        <img src="{{ request.user.userprofile.avatar.url }}"
                              class="img-fluid rounded-circle">
-                        <p class="user text-center text-primary">{% block username %}Ajat Prabha{% endblock %}</p>
+                        <p class="user text-center text-primary">{{ request.user.get_full_name }}</p>
                     </div>
                 </li>
                 <!--/. Logo -->
                 <!--Social-->
                 <li>
-                    <ul class="social">
-                        <li><a class="icons-sm fb-ic"><i class="fa fa-facebook"> </i></a></li>
-                        <li><a class="icons-sm pin-ic"><i class="fa fa-pinterest"> </i></a></li>
-                        <li><a class="icons-sm gplus-ic"><i class="fa fa-google-plus"> </i></a></li>
-                        <li><a class="icons-sm tw-ic"><i class="fa fa-twitter"> </i></a></li>
-                    </ul>
+                    <form class="search-form" role="search" method="GET"
+                          autocomplete="off">
+                        <div class="form-group waves-light">
+                            <input type="text" class="form-control mb-0" name="mdw_serach" placeholder="Search"
+                                   id="mdw_main_search">
+                        </div>
+                        <div class="dropdown-wrapper"></div>
+                    </form>
                 </li>
                 <!--/Social-->
                 <br>
@@ -115,7 +117,8 @@
                 </div>
                 <ul class="nav navbar-nav nav-flex-icons ml-auto">
                     <li class="nav-item">
-                        <a href="{% url 'forum:index' %}" class="nav-link"><i class="fa fa-home"></i> <span class="hidden-sm-down">Home</span></a>
+                        <a href="{% url 'forum:index' %}" class="nav-link"><i class="fa fa-home"></i> <span
+                                class="hidden-sm-down">Home</span></a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="account" data-toggle="dropdown"

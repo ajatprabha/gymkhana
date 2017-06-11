@@ -6,8 +6,6 @@
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/topicdetail.css' %}">{% endblock %}
-{% block userphoto %}/media/{{ request.user.userprofile.avatar }}{% endblock %}
-{% block username %}{{ request.user.get_full_name }}{% endblock %}
 {% block main %}
     <div class="row">
         <!--Topic-->

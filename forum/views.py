@@ -47,7 +47,7 @@ class TopicCreateView(LoginRequiredMixin, CreateView):
         return super(TopicCreateView, self).form_valid(form)
 
 
-class TopicEditView(UserAuthorMixin, UpdateView):
+class TopicUpdateView(UserAuthorMixin, UpdateView):
     model = Topic
     form_class = TopicForm
     template_name = 'topic_form_edit.html'

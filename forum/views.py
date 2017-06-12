@@ -2,10 +2,16 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Topic
 from .forms import TopicForm
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from hitcount.views import HitCountDetailView
+from .mixins import UserAuthorMixin
+
+
+class HomeRedirectView(generic.RedirectView):
+    url = reverse_lazy('forum:index')
 
 
 class IndexView(LoginRequiredMixin, generic.ListView):
@@ -33,9 +39,18 @@ class TopicDetailView(LoginRequiredMixin, HitCountDetailView, generic.DetailView
 
 
 class TopicCreateView(LoginRequiredMixin, CreateView):
-    model = Topic
     form_class = TopicForm
     template_name = 'topic_form.html'
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user.userprofile
+        return super(TopicCreateView, self).form_valid(form)
+
+
+class TopicEditView(UserAuthorMixin, UpdateView):
+    model = Topic
+    form_class = TopicForm
+    template_name = 'topic_form_edit.html'
 
 
 @login_required

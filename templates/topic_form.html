@@ -17,11 +17,10 @@
 
                 <!--Body-->
                 <form action="" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% for field in form %}
-                    <p class="red-text">{{ field.errors }}</p>
-                {% endfor %}
-                <input type='hidden' name='owner' id="id_owner" value='{{ request.user.userprofile.id }}' />
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <p class="red-text">{{ field.errors }}</p>
+                    {% endfor %}
                     <label for="id_category">Category</label>
                     <select class="mdb-select" name="category" id="id_category" required>
                         <option value="" disabled selected>Choose your option</option>
@@ -41,9 +40,11 @@
                         {{ form.content }}
                     </div>
                     <div>
-                        <button class="btn btn-deep-orange" type="submit" value="submit"
-                                onsubmit="return confirm('Are you sure you want to post this?');">Post Topic
-                        </button>
+                        {% block updatebutton %}
+                            <button class="btn btn-deep-orange" type="submit" value="submit"
+                                    onsubmit="return confirm('Are you sure you want to post this?');">Post Topic
+                            </button>
+                        {% endblock %}
                     </div>
                 </form>
             </div>

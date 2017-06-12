@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
+from versatileimagefield.fields import VersatileImageField
 
 
 class UserProfile(models.Model):
@@ -26,7 +27,7 @@ class UserProfile(models.Model):
     dob = models.DateField()
     enroll_year = models.CharField(max_length=4, validators=[valid_year])
     phone = models.CharField(max_length=10, validators=[contact])
-    avatar = models.ImageField(upload_to='avatar')
+    avatar = VersatileImageField(upload_to='avatar')
     hometown = models.CharField(max_length=128)
     branch = models.CharField(max_length=5, choices=BRANCH_CHOICES)
     about = models.CharField(max_length=512)

@@ -26,7 +26,7 @@
                 <!-- Logo -->
                 <li>
                     <div class="user-box">
-                        <img src="{{ request.user.userprofile.avatar.url }}"
+                        <img src="{{ request.user.userprofile.avatar.thumbnail.150x150 }}"
                              class="img-fluid rounded-circle">
                         <p class="user text-center text-primary">{{ request.user.get_full_name }}</p>
                     </div>

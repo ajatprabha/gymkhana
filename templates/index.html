@@ -85,7 +85,7 @@
                                 <tbody>
                                 {% for topic in topic_list %}
                                     <tr>
-                                        <td><img src="{{ topic.owner.avatar.url }}"
+                                        <td><img src="{{ topic.owner.avatar.thumbnail.50x50 }}"
                                                  alt="{{ topic.owner.user.get_full_name }}"
                                                  class="avatar-32"> {{ topic.owner.user.get_full_name }}</td>
                                         <td><a href="{% url 'forum:detail' topic.id %}">{{ topic.title }}</a></td>

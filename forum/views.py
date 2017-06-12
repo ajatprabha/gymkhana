@@ -15,11 +15,9 @@ class HomeRedirectView(generic.RedirectView):
 
 
 class IndexView(LoginRequiredMixin, generic.ListView):
+    model = Topic
     template_name = 'index.html'
     context_object_name = 'topic_list'
-
-    def get_queryset(self):
-        return Topic.objects.all()
 
 
 class TopicDetailView(LoginRequiredMixin, HitCountDetailView, generic.DetailView):
@@ -43,7 +41,7 @@ class TopicCreateView(LoginRequiredMixin, CreateView):
     template_name = 'topic_form.html'
 
     def form_valid(self, form):
-        form.instance.owner = self.request.user.userprofile
+        form.instance.author = self.request.user.userprofile
         return super(TopicCreateView, self).form_valid(form)
 
 

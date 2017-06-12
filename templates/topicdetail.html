@@ -16,12 +16,12 @@
             <div class="row">
                 <!--Avatar-->
                 <div class="col-12 col-sm-2">
-                    <img src="/media/{{ topic.owner.avatar }}"
+                    <img src="/media/{{ topic.author.avatar }}"
                          class="img-fluid rounded-circle z-depth-2">
                 </div>
                 <!--Author Data-->
                 <div class=" col-12 col-sm-10">
-                    <p>Written by <strong>{{ topic.owner.user.get_full_name }}</strong>&emsp;<small><i
+                    <p>Written by <strong>{{ topic.author.user.get_full_name }}</strong>&emsp;<small><i
                                 class="fa fa-clock-o"></i></small>
                         {{ topic.created_at|naturaltime }}&emsp;
                         <small><i class="fa fa-eye"></i></small> {{ topic.hit_count.hits }}</p>
@@ -44,12 +44,12 @@
                 <div class="row">
                     <!--Image column-->
                     <div class="col-sm-2 col-12">
-                        <img class="img-fluid rounded-circle z-depth-1-half" src="/media/{{ answer.owner.avatar }}">
+                        <img class="img-fluid rounded-circle z-depth-1-half" src="/media/{{ answer.author.avatar }}">
                     </div>
                     <!--/.Image column-->
                     <!--Content column-->
                     <div class="col-sm-10 col-12">
-                        <h5 class="user-name">{{ answer.owner.user.get_full_name }}</h5>
+                        <h5 class="user-name">{{ answer.author.user.get_full_name }}</h5>
                         <div class="card-data">
                             <ul>
                                 <li class="comment-date"><i

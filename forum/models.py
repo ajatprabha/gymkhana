@@ -12,7 +12,7 @@ class Topic(models.Model, HitCountMixin):
         ('F', 'Feedback'),
     )
     # Topic Database Model
-    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     category = models.CharField(max_length=3, choices=CAT_CHOICES, default='Q')
     title = models.CharField(max_length=256)
     content = RichTextUploadingField(blank=True)
@@ -35,7 +35,7 @@ class Topic(models.Model, HitCountMixin):
 
 class Answer(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     content = RichTextUploadingField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -44,7 +44,7 @@ class Answer(models.Model):
         return self.vote_set.count()
 
     def __str__(self):
-        return "On: " + str(self.topic.title) + " by " + str(self.owner.user.first_name) + " " + str(self.owner.user.last_name)
+        return "On: " + str(self.topic.title) + " by " + str(self.author.user.first_name) + " " + str(self.author.user.last_name)
 
 
 class Vote(models.Model):
@@ -55,7 +55,7 @@ class Vote(models.Model):
         (1, 'Like'),
     )
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
-    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     value = models.SmallIntegerField(choices=VOTE_CHOICE, default=0)
 
 

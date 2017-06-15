@@ -45,10 +45,15 @@ class TopicCreateView(LoginRequiredMixin, CreateView):
         return super(TopicCreateView, self).form_valid(form)
 
 
-class TopicUpdateView(UserAuthorMixin, UpdateView):
+class TopicUpdateView(UpdateView):
     model = Topic
     form_class = TopicForm
     template_name = 'topic_form_edit.html'
+
+
+class TopicDeleteView(UserAuthorMixin, DeleteView):
+    model = Topic
+    success_url = reverse_lazy('forum:index')
 
 
 @login_required

@@ -74,11 +74,47 @@
                                     <tr>
                                         <td><img src="{{ topic.author.avatar.thumbnail.50x50 }}"
                                                  alt="{{ topic.author.user.get_full_name }}"
-                                                 class="avatar-32"> {{ topic.author.user.get_full_name }}</td>
+                                                 class="avatar-32"> <span class="hide-on-small-and-down">{{ topic.author.user.get_full_name }}</span></td>
                                         <td><a href="{% url 'forum:detail' topic.id %}">{{ topic.title }}</a></td>
                                         <td>
                                             <span class="grey-text"><small><i
                                                     class="fa fa-eye"></i> {{ topic.hit_count.hits }}</small></span>
+                                            {% if topic.author == request.user.userprofile %}
+                                                <a class="teal-text" data-toggle="tooltip" data-placement="top"
+                                                   title="Edit" href="{% url 'forum:update_topic' topic.id %}"><i
+                                                        class="fa fa-pencil"></i></a>
+                                                <span data-toggle="modal" data-target="#delete-{{ forloop.counter }}">
+                                                    <a class="red-text" data-toggle="tooltip" data-placement="top"
+                                                       title="Remove"><i class="fa fa-times"></i></a>
+
+                                                <div class="modal fade" id="delete-{{ forloop.counter }}" tabindex="-1" role="dialog"
+                                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                            <!--Content-->
+                                                            <div class="modal-content">
+                                                                <!--Header-->
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                    <h4 class="modal-title w-100" id="myModalLabel">Delete this topic?</h4>
+                                                                </div>
+                                                                <!--Footer-->
+                                                                <div class="modal-footer">
+                                                                    <form method="post"  action="{% url 'forum:delete_topic' topic.id %}" >
+                                                                        {% csrf_token %}
+                                                                    <button type="button" class="btn btn-light-green btn-sm"
+                                                                            data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn danger-color btn-sm">Delete</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <!--/.Content-->
+                                                        </div>
+                                                    </div>
+                                                </span>
+
+                                            {% endif %}
                                         </td>
                                         <td><span class="grey-text"><small><i
                                                 class="fa fa-clock-o"></i> {{ topic.created_at|naturaltime }}</small></span>

@@ -51,7 +51,7 @@ class TopicUpdateView(UserAuthorMixin, UpdateView):
     template_name = 'topic_form_edit.html'
 
 
-class TopicDeleteView(DeleteView):
+class TopicDeleteView(UserAuthorMixin, DeleteView):
     model = Topic
     success_url = reverse_lazy('forum:index')
 

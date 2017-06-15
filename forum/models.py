@@ -63,3 +63,9 @@ class Tag(models.Model):
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
     name = models.CharField(max_length=16)
     hits = models.PositiveIntegerField(default=1)
+
+
+class TopicFavourite(models.Model):
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    is_favourite = models.BooleanField(default=False)

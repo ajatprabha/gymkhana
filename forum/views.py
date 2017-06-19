@@ -24,7 +24,7 @@ class TopicDetailView(LoginRequiredMixin, HitCountDetailView, generic.DetailView
     model = Topic
     count_hit = True
     context_object_name = 'topic'
-    template_name = 'topicdetail.html'
+    template_name = 'topic_detail.html'
 
     def get_context_data(self, **kwargs):
         """

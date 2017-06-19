@@ -12,7 +12,7 @@ class Topic(models.Model, HitCountMixin):
         ('F', 'Feedback'),
     )
     # Topic Database Model
-    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name="author of topic")
     category = models.CharField(max_length=3, choices=CAT_CHOICES, default='Q')
     title = models.CharField(max_length=256)
     content = RichTextUploadingField(blank=True)
@@ -34,8 +34,8 @@ class Topic(models.Model, HitCountMixin):
 
 
 class Answer(models.Model):
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, verbose_name="topic of answer")
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name="author of answer")
     content = RichTextUploadingField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -45,6 +45,13 @@ class Answer(models.Model):
 
     def __str__(self):
         return "On: " + str(self.topic.title) + " by " + str(self.author.user.first_name) + " " + str(self.author.user.last_name)
+
+
+class Reply(models.Model):
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name="author of reply")
+    content = RichTextUploadingField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Vote(models.Model):
@@ -60,7 +67,7 @@ class Vote(models.Model):
 
 
 class Tag(models.Model):
-    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     name = models.CharField(max_length=16)
     hits = models.PositiveIntegerField(default=1)
 

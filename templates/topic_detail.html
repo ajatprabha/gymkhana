@@ -25,11 +25,8 @@
                                 class="fa fa-clock-o"></i></small>
                         {{ topic.created_at|naturaltime }}&emsp;
                         <small><i class="fa fa-eye"></i></small> {{ topic.hit_count.hits }}</p>
-                    {{ topic.content|safe }}
-                    <p class="hidden-md-down">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint esse nulla
-                        quia quam veniam commodi dicta, iusto inventore. Voluptatum pariatur eveniet ea, officiis vitae
-                        praesentium beatae quas libero, esse facere.
-                    </p>
+                    {{ topic.content|safe|urlize }}
+                    <p class="hidden-md-down">{% lorem random %}</p>
                 </div>
             </div>
         </div>
@@ -37,14 +34,14 @@
         <!--Main wrapper-->
         <div class="comments-list text-left">
             <div class="section-heading">
-                <h3>Answers <span class="badge blue">{{ topic.number_of_answers }}</span></h3>
+                <h3><span class="badge blue">{{ topic.number_of_answers }}</span> answer{{ topic.number_of_answers|pluralize }}</h3>
             </div>
             {% for answer in answer_list %}
                 <!--Answer-->
-                <div class="row">
+                <div class="row container">
                     <!--Image column-->
-                    <div class="col-sm-2 col-12">
-                        <img class="img-fluid rounded-circle z-depth-1-half" src="/media/{{ answer.author.avatar }}">
+                    <div class="col-sm-2 col-12 align-content-center">
+                        <img class="img-fluid rounded-circle z-depth-1-half" src="{{ answer.author.avatar.thumbnail.100x100 }}">
                     </div>
                     <!--/.Image column-->
                     <!--Content column-->

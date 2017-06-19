@@ -38,12 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'rest_framework',
     'versatileimagefield',
     'ckeditor',
     'ckeditor_uploader',
     'hitcount',
-    'oauth',
-    'forum',
+    'oauth.apps.OauthConfig',
+    'forum.apps.ForumConfig',
 ]
 
 MIDDLEWARE = [
@@ -229,3 +230,11 @@ VERSATILEIMAGEFIELD_SETTINGS = {
     # here: https://optimus.io/support/progressive-jpeg/
     'progressive_jpeg': False
 }
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ]
+}
+

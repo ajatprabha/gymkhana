@@ -79,7 +79,7 @@
                                         <td>
                                             <span class="grey-text"><small><i
                                                     class="fa fa-eye"></i> {{ topic.hit_count.hits }}</small></span>
-                                            {% if topic.author == request.user.userprofile %}
+                                            {% if topic.author.id == request.user.userprofile.id %}
                                                 <a class="teal-text" data-toggle="tooltip" data-placement="top"
                                                    title="Edit" href="{% url 'forum:update_topic' topic.id %}"><i
                                                         class="fa fa-pencil"></i></a>

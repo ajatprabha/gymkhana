@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^forum/', include('forum.urls')),
+    url(r'^forum/api/', include('forum.api.urls')),
 ]
 
 if settings.DEBUG:

@@ -33,8 +33,8 @@
                         <label for="{{ form.title.name }}">{{ form.title.label }}</label>
                     </div>
                     <div class="md-form">
-                        {{ form.tags }}
-                        <label for="{{ form.tags.name }}">{{ form.tags.label }}</label>
+                        <div class="chips chips-placeholder"></div>
+                        <input type="hidden" name="tags" id="id_tags"/>
                     </div>
                     <div class="md-form">
                         {{ form.content }}
@@ -65,17 +65,20 @@
         $(document).ready(function () {
             $('.mdb-select').material_select();
         });
+
+        $('.chips-placeholder').material_chip({
+            placeholder: 'Enter a tag',
+            secondaryPlaceholder: '+Tag',
+        });
+
+        $("form").submit(function (e) {
+            e.preventDefault();
+            var $input = $('.chips-placeholder').material_chip('data');
+            var $tags = $input.map(function (elem) {
+                return elem.tag;
+            }).join(",");
+            $('#id_tags').val($tags);
+            this.submit();
+        });
     </script>
-    {% block navscripts %}
-        <script>
-            $(".button-collapse").sideNav();
-            // Custom scrollbar init
-            var el = document.querySelector('.custom-scrollbar');
-            Ps.initialize(el);
-            // Tooltips Initialization
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
-        </script>
-    {% endblock %}
 {% endblock %}

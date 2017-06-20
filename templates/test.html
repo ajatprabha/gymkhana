@@ -1,1 +1,13 @@
 {%  extends 'base.html' %}
+{% block main %}
+    <div class="container">
+    <h2 class="h2-responsive mb-1">Tags Testing</h2>
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="chips chips-placeholder"></div>
+        <input type="hidden" name="tags" id="tags"/>
+        <button type="submit" value="submit" class="btn btn-small red">Submit</button>
+    </form>
+    </div>
+{% endblock %}
+

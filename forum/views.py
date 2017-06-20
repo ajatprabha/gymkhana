@@ -58,4 +58,6 @@ class TopicDeleteView(UserAuthorMixin, DeleteView):
 
 @login_required
 def test(request):
+    if request.POST:
+        print(request.POST)
     return render(request, 'test.html')

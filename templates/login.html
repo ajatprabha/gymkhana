@@ -2,14 +2,39 @@
 {% load static %}
 {% block title %}Login{% endblock %}
 {% block header %}{% endblock %}
-{% block mdbcss %}<link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
+{% block mdbcss %}
+    <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
+{% block customstyles %}
+    <style>
+        html,
+        body {
+            height: 100%;
+            background: url("/static/assets/others/workstation-336369.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                height: auto;
+                position: relative;
+            }
+        }
+    .card-padding{
+        background-color: rgba(255,255,255,.6);
+        padding: 2rem;
+    }
+    </style>
+{% endblock %}
 {% block main %}
     <div class="container">
         <div class="row">
             <section class="signup">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-4 mt-1 hidden-sm-down">
+                        <div class="col-md-4 mt-1 hidden-sm-down card card-padding">
                             <h1>Why to login?</h1>
 
                             <ul class="advantages-list">

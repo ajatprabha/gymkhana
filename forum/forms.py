@@ -1,5 +1,5 @@
 from django import forms
-from .models import Topic
+from .models import Topic, Answer
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
@@ -10,3 +10,11 @@ class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
         fields = ['category', 'title', 'tags', 'content']
+
+
+class AnswerForm(forms.Form):
+    content = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Answer
+        fields = ['content']

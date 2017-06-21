@@ -22,26 +22,64 @@
                 <!--Author Data-->
                 <div class=" col-12 col-sm-10">
                     <p>Written by <strong>{{ topic.author.user.get_full_name }}</strong>&emsp;<small><i
-                                class="fa fa-clock-o"></i></small>
+                            class="fa fa-clock-o"></i></small>
                         {{ topic.created_at|naturaltime }}&emsp;
-                        <small><i class="fa fa-eye"></i></small> {{ topic.hit_count.hits }}</p>
+                        <small><i class="fa fa-eye"></i></small>
+                        {{ topic.hit_count.hits }}</p>
                     {{ topic.content|safe|urlize }}
                     <p class="hidden-md-down">{% lorem random %}</p>
                 </div>
             </div>
         </div>
         <!--/.Topic-->
+        {% comment %}<!--Section: Leave a reply (Logged In User)-->
+        <section>
+            <!--Leave a reply form-->
+            <div class="reply-form">
+                <h2 class="section-heading">Answer this topic</h2>
+
+                <!--Third row-->
+                <div class="row">
+                    <!--Image column-->
+                    <div class="col-sm-2 col-12 text-center">
+                        <img class="img-fluid rounded-circle z-depth-1-half"
+                             src="{{ request.user.userprofile.avatar.thumbnail.100x100 }}">
+                    </div>
+                    <!--/.Image column-->
+                    <!--Content column-->
+
+                    <div class="col-sm-8 col-12">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="md-form">
+                                {{ form.content }}
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!--/.Content column-->
+                </div>
+                <!--/.Third row-->
+            </div>
+            <!--/.Leave a reply form-->
+
+        </section>
+        <!--/Section: Leave a reply (Logged In User)-->{% endcomment %}
         <!--Main wrapper-->
         <div class="comments-list text-left">
             <div class="section-heading">
-                <h3><span class="badge blue">{{ topic.number_of_answers }}</span> answer{{ topic.number_of_answers|pluralize }}</h3>
+                <h3><span class="badge blue">{{ topic.number_of_answers }}</span>
+                    answer{{ topic.number_of_answers|pluralize }}</h3>
             </div>
             {% for answer in answer_list %}
                 <!--Answer-->
                 <div class="row container">
                     <!--Image column-->
                     <div class="col-sm-2 col-12 align-content-center">
-                        <img class="img-fluid rounded-circle z-depth-1-half" src="{{ answer.author.avatar.thumbnail.100x100 }}">
+                        <img class="img-fluid rounded-circle z-depth-1-half"
+                             src="{{ answer.author.avatar.thumbnail.100x100 }}">
                     </div>
                     <!--/.Image column-->
                     <!--Content column-->
@@ -62,4 +100,14 @@
         </div>
         <!--/.Main wrapper-->
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    {{ form.media }}
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/compiled.min.js' %}"></script>
 {% endblock %}

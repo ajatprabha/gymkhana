@@ -151,30 +151,6 @@
         </div>
     {% endblock %}
 </main>
-<!--Scripts-->
-{% block scripts %}
-    <!-- SCRIPTS -->
-    <!-- JQuery -->
-    <script type="text/javascript" src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="{% static 'js/compiled.min.js' %}"></script>
-    {% block customscripts %}
-    {% endblock %}
-{% endblock %}
-{% block navscripts %}
-    <script>
-        $(".button-collapse").sideNav();
-        // Custom scrollbar init
-        var el = document.querySelector('.custom-scrollbar');
-        Ps.initialize(el);
-        // Tooltips Initialization
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
-{% endblock %}
 
 <!--Footer-->
 {% block footer %}
@@ -251,5 +227,33 @@
     </footer>
     <!--/.Footer-->
 {% endblock %}
+
+<!--Scripts-->
+{% block scripts %}
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/compiled.min.js' %}"></script>
+{% endblock %}
+
+{% block customscripts %}
+{% endblock %}
+
+{% block navscripts %}
+    <script>
+        $(".button-collapse").sideNav();
+        // Custom scrollbar init
+        var el = document.querySelector('.custom-scrollbar');
+        Ps.initialize(el);
+        // Tooltips Initialization
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+{% endblock %}
+
 </body>
 </html>

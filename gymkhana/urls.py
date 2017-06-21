@@ -21,7 +21,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from main.views import HomeView
 
 urlpatterns = [
-    url(r'^$', HomeView.as_view(), name='root'),
+    url(r'^', include('main.urls')),
     url(
         '^login/$',
         LoginView.as_view(template_name='forum/login.html'), name='login'

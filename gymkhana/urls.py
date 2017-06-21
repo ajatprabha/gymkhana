@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^$', HomeRedirectView.as_view(), name='root'),
     url(
         '^login/$',
-        LoginView.as_view(template_name='login.html'),
+        LoginView.as_view(template_name='forum/login.html'),
     ),
     url(r'^logout/$', LogoutView.as_view(next_page='forum:index'), name='logout'),
     url(r'^admin/', admin.site.urls),

@@ -16,7 +16,7 @@ class HomeRedirectView(generic.RedirectView):
 
 class IndexView(LoginRequiredMixin, generic.ListView):
     model = Topic
-    template_name = 'index.html'
+    template_name = 'forum/index.html'
     context_object_name = 'topic_list'
 
 
@@ -24,7 +24,7 @@ class TopicDetailView(LoginRequiredMixin, HitCountDetailView, generic.DetailView
     model = Topic
     count_hit = True
     context_object_name = 'topic'
-    template_name = 'topic_detail.html'
+    template_name = 'forum/topic_detail.html'
 
     def get_context_data(self, **kwargs):
         """
@@ -38,7 +38,7 @@ class TopicDetailView(LoginRequiredMixin, HitCountDetailView, generic.DetailView
 
 class TopicCreateView(LoginRequiredMixin, CreateView):
     form_class = TopicForm
-    template_name = 'topic_form.html'
+    template_name = 'forum/topic_form.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user.userprofile
@@ -48,7 +48,7 @@ class TopicCreateView(LoginRequiredMixin, CreateView):
 class TopicUpdateView(UserAuthorMixin, UpdateView):
     model = Topic
     form_class = TopicForm
-    template_name = 'topic_form_edit.html'
+    template_name = 'forum/topic_form_edit.html'
 
 
 class TopicDeleteView(UserAuthorMixin, DeleteView):
@@ -60,4 +60,4 @@ class TopicDeleteView(UserAuthorMixin, DeleteView):
 def test(request):
     if request.POST:
         print(request.POST)
-    return render(request, 'test.html')
+    return render(request, 'forum/test.html')

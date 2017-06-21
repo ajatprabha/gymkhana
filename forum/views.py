@@ -10,10 +10,6 @@ from hitcount.views import HitCountDetailView
 from .mixins import UserAuthorMixin
 
 
-class HomeRedirectView(generic.RedirectView):
-    url = reverse_lazy('forum:index')
-
-
 class IndexView(LoginRequiredMixin, generic.ListView):
     model = Topic
     template_name = 'forum/index.html'

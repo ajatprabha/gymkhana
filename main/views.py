@@ -1,5 +1,5 @@
-from django.shortcuts import render, Http404
+from django.views.generic import TemplateView
 
 
-def index(request):
-    return Http404
+class HomeView(TemplateView):
+    template_name = 'main/base.html'

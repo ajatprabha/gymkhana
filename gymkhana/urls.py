@@ -18,15 +18,16 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
-from forum.views import HomeRedirectView
+from main.views import HomeView
 
 urlpatterns = [
-    url(r'^$', HomeRedirectView.as_view(), name='root'),
+    url(r'^$', HomeView.as_view(), name='root'),
     url(
         '^login/$',
-        LoginView.as_view(template_name='forum/login.html'),
+        LoginView.as_view(template_name='forum/login.html'), name='login'
     ),
-    url(r'^logout/$', LogoutView.as_view(next_page='forum:index'), name='logout'),
+    url(r'^logout/$', LogoutView.as_view(next_page='login'),
+        name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^forum/', include('forum.urls')),

@@ -22,10 +22,11 @@
                 position: relative;
             }
         }
-    .card-padding{
-        background-color: rgba(255,255,255,.6);
-        padding: 2rem;
-    }
+
+        .card-padding {
+            background-color: rgba(255, 255, 255, .6);
+            padding: 2rem;
+        }
     </style>
 {% endblock %}
 {% block main %}
@@ -45,6 +46,10 @@
                                 </li>
                                 <li>...and way way more!</li>
                             </ul>
+                            <div style="text-align: right;">
+                                <a role="button" class="btn btn-small btn-primary" href="{% url 'root' %}"><i
+                                        class="fa fa-home"></i>&nbsp; Home</a>
+                            </div>
                         </div>
                         <div class="col-md-5 offset-md-2">
                             <!--Form with header-->

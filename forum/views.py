@@ -60,4 +60,4 @@ class TopicDeleteView(UserAuthorMixin, DeleteView):
 def test(request):
     if request.POST:
         print(request.POST)
-    return render(request, 'forum/test.html')
+    return render(request, 'main/base.html')

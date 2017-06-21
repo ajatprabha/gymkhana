@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'hitcount',
     'oauth.apps.OauthConfig',
+    'main.apps.MainConfig',
     'forum.apps.ForumConfig',
 ]
 

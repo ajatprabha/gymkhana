@@ -33,4 +33,4 @@ class UserProfile(models.Model):
     about = models.CharField(max_length=512)
 
     def __str__(self):
-        return self.roll
+        return self.roll + " (" + self.user.get_full_name() + ")"

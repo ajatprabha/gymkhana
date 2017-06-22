@@ -22,7 +22,7 @@ class Society(models.Model):
     secretary = models.ForeignKey(UserProfile, related_name='secy')
     vice_secretary = models.ForeignKey(UserProfile, related_name='vice_secy')
     mentor = models.ForeignKey(UserProfile, related_name='mentor')
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, help_text="This will be used as URL. /society/slug")
     is_active = models.BooleanField(default=False)
     year = models.CharField(max_length=4, choices=YEAR_CHOICES, validators=[valid_year])
 
@@ -47,7 +47,7 @@ class Club(models.Model):
     captain = models.ForeignKey(UserProfile, related_name='captain')
     vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one')
     vice_captain_two = models.ForeignKey(UserProfile, related_name='vice_cap_two')
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, help_text="This will be used as URL. /club/slug")
     published = models.BooleanField(default=False)
 
     class Meta:

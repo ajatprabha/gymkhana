@@ -1,72 +1,99 @@
 {% extends 'main/base.html' %}
-
+{% load staticfiles %}
 {% block customstyles %}
-    <!-- Template styles -->
-    <style rel="stylesheet">
-        /* TEMPLATE STYLES */
-        /* Necessary for full page carousel*/
+    <link rel="stylesheet" href="{% static 'css/snavtrans.css' %}">
+{% endblock %}
+{% block skin %}{% endblock %}
+{% block navbar %}
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-dark scrolling-navbar">
 
-        html,
-        body,
-        .view {
-            height: 100%;
-        }
+        <div class="container">
 
-        /* Navigation*/
+            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        .navbar {
-            background-color: transparent;
-        }
+            <a class="navbar-brand" href="#">
+                <img src="/static/assets/favicon.png" alt="logo" style="height: 2.2rem;width: auto;">
+            </a>
 
-        .scrolling-navbar {
-            -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
-            -moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
-            transition: background .5s ease-in-out, padding .5s ease-in-out;
-        }
+            <div class="navbar-collapse collapse" id="navbarNav" aria-expanded="false">
 
-        .top-nav-collapse {
-            background-color: #1C2331;
-        }
+                <!--Links-->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link waves-effect waves-light" href="{% url 'main:index' %}">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" href="#"
+                           id="navbarDropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Societies
+                        </a>
+                        <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdownMenuLink">
+                            {% for society in society_list %}
+                                <a class="dropdown-item waves-effect waves-light "
+                                   href="{% url 'main:soc-detail' society.slug %}">{{ society.name }}</a>
+                            {% endfor %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Ecell</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Parivartan</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" href="#"
+                           id="navbarDropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Committees
+                        </a>
+                        <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item waves-effect waves-light" href="#">HMC</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">MMC</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">SARC</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">SRC</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Counselling Service</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" href="#"
+                           id="navbarDropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Festivals
+                        </a>
+                        <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item waves-effect waves-light" href="#">Ignus</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Varchas</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Spandan</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Nimble</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="#">Pheme</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="{% url 'forum:index' %}">Forum</a>
+                    </li>
+                </ul>
 
-        footer.page-footer {
-            background-color: #1C2331;
-            margin-top: 0;
-        }
+                <!--Social Icons-->
+                <ul class="navbar-nav nav-flex-icons">
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light"><i class="fa fa-instagram"></i></a>
+                    </li>
+                </ul>
 
-        @media only screen and (max-width: 768px) {
-            .navbar {
-                background-color: #1C2331;
-            }
-        }
-
-        /* Carousel*/
-
-        .carousel,
-        .carousel-item,
-        .active {
-            height: 100%;
-        }
-
-        .carousel-inner {
-            height: 100%;
-        }
-
-        /*Caption*/
-
-        .flex-center {
-            color: #fff;
-        }
-
-        @media (min-width: 776px) {
-            .carousel .view ul li {
-                display: inline;
-            }
-
-            .carousel .view .full-bg-img ul li .flex-item {
-                margin-bottom: 1.5rem;
-            }
-        }
-    </style>
+            </div>
+        </div>
+    </nav>
+    <!--Navbar-->
 {% endblock %}
 
 {% block fullpagecontent %}

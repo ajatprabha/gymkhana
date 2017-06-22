@@ -2,11 +2,14 @@ from django.contrib import admin
 from .models import Society, Club, SocialLink
 
 
+class SocietyAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+
 # iterable list
 main_models = [
-    Society,
     Club,
     SocialLink
 ]
 
+admin.site.register(Society, SocietyAdmin)
 admin.site.register(main_models)

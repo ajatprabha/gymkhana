@@ -1,0 +1,33 @@
+.streak-photo {
+    height: 30rem;
+    background-image: url("/media/resized/society_2017/book-1845356-crop-c0-5__0-5-2160x1215-85.jpg") !important;
+    background-size: cover;
+    -webkit-background-size: cover;
+}
+
+@media (max-width: 540px) {
+    .streak-photo {
+        height: 30rem;
+        background-image: url("/media/resized/society_2017/book-1845356-crop-c0-5__0-5-1080x1440-85.jpg") !important;
+        background-size: cover;
+        -webkit-background-size: cover;
+    }
+}
+
+@media (min-width: 541px) and (max-width: 1000px) {
+    .streak-photo {
+        height: 30rem;
+        background-image: url("/media/resized/society_2017/book-1845356-crop-c0-5__0-5-1920x1440-85.jpg") !important;
+        background-size: cover;
+        -webkit-background-size: cover;
+    }
+}
+
+@media (min-width: 1001px) {
+    .streak-photo {
+        height: 30rem;
+        background-image: url("/media/resized/society_2017/book-1845356-crop-c0-5__0-5-2160x1215-85.jpg") !important;
+        background-size: cover;
+        -webkit-background-size: cover;
+    }
+}

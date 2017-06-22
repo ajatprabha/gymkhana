@@ -74,15 +74,35 @@ class SocialLink(models.Model):
         ('GP', 'Google Plus'),
         ('IG', 'Instagram'),
         ('GH', 'GitHub'),
-        ('FK', 'Flickr'),
         ('YT', 'YouTube'),
+        ('EM', 'Email'),
+    )
+
+    FA_CHOICES = (
+        ('fa fa-facebook', 'Facebook'),
+        ('fa fa-twitter', 'Twitter'),
+        ('fa fa-google-plus', 'Google Plus'),
+        ('fa fa-instagram', 'Instagram'),
+        ('fa fa-github', 'GitHub'),
+        ('fa fa-youtube', 'YouTube'),
+        ('fa fa-envelope-o', 'Email'),
+    )
+
+    IC_CHOICES = (
+        ('fb-ic', 'Facebook'),
+        ('tw-ic', 'Twitter'),
+        ('gplus-ic', 'Google Plus'),
+        ('ins-ic', 'Instagram'),
+        ('git-ic', 'GitHub'),
+        ('yt-ic', 'YouTube'),
+        ('email-ic', 'Email'),
     )
 
     club = models.ForeignKey(Club)
     social_media = models.CharField(max_length=2, choices=SM_CHOICES)
     link = models.URLField
-    icon_class = models.CharField(max_length=32, blank=True, null=True)
-    fa_icon = models.CharField(max_length=32, blank=True, null=True)
+    icon_class = models.CharField(max_length=32, choices=IC_CHOICES)
+    fa_icon = models.CharField(max_length=32, choices=FA_CHOICES)
 
     def __str__(self):
         return self.club.name + self.social_media

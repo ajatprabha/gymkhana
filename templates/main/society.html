@@ -2,18 +2,12 @@
 {% block title %}{{ society.name }} - IIT Jodhpur{% endblock %}
 
 {% block customstyles %}
+    {% if society.cover %}
     <style>
-        .society-photo {
-            height: 30rem;
-            background-image: url("{{ society.cover.crop.2160x1215.url }}") !important;
-            background-size: cover;
-            -webkit-background-size: cover;
-        }
-
         @media (max-width: 540px) {
             .society-photo {
                 height: 30rem;
-                background-image: url("{{ society.cover.crop.1080x1440.url }}") !important;
+                background-image: url("{{ society.cover.crop.1080x1440 }}") !important;
                 background-size: cover;
                 -webkit-background-size: cover;
             }
@@ -22,7 +16,7 @@
         @media (min-width: 541px) and (max-width: 1000px) {
             .society-photo {
                 height: 30rem;
-                background-image: url("{{ society.cover.crop.1920x1440.url }}") !important;
+                background-image: url("{{ society.cover.crop.1920x1440 }}") !important;
                 background-size: cover;
                 -webkit-background-size: cover;
             }
@@ -31,31 +25,35 @@
         @media (min-width: 1001px) {
             .society-photo {
                 height: 30rem;
-                background-image: url("{{ society.cover.crop.2160x1215.url }}") !important;
+                background-image: url("{{ society.cover.crop.2160x1215 }}") !important;
                 background-size: cover;
                 -webkit-background-size: cover;
             }
         }
     </style>
+    {% endif %}
 {% endblock %}
 
 {% block main %}
     <div class="streak streak-lg streak-photo society-photo">
-        <div class="flex-center text-white pattern-1">
+        <div class="flex-center text-white">
             <ul>
                 <li><h1 class="h1-responsive wow fadeIn"><b>{{ society.name }}</b></h1></li>
             </ul>
         </div>
     </div>
-    <div class="container">
+    <div class="container mt-2">
         <div class="row">
-            <div class="col-md-8">{{ society.description|safe }}</div>
+            <div class="col-md-8">
+                <h2 class="h2-responsive mb-2">About</h2>
+                {{ society.description|safe }}
+            </div>
             <div class="col-md-4">
 
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container mt-1">
         <div class="row">
             <ul>
                 {% for club in club_list %}
@@ -79,7 +77,7 @@
             <div class="gallery"></div>
         </div>
     </div>
-    <div class="container">
+    <div class="container mt-3 section team-section">
         <div class="row text-center">
             <div class="col-lg-4 col-md-6 mb-r">
                 <div class="avatar">
@@ -93,14 +91,6 @@
                 <p>{{ society.secretary.about }}</p>
                 <a class="icons-sm email-ic" href="mailto:{{ society.secretary.user.email }}"><i
                         class="fa fa-envelope-o"></i> </a>
-                {% comment %}<a class="icons-sm fb-ic" target="_blank" href="https://www.facebook.com/iAmAjat"><i
-                            class="fa fa-facebook"> </i></a>
-                    <a class="icons-sm li-ic" target="_blank" href="https://in.linkedin.com/in/ajat-prabha-87675b128"><i
-                            class="fa fa-linkedin"></i></a>
-                    <a class="icons-sm ins-ic" target="_blank" href="https://www.instagram.com/ajatprabha/"><i
-                            class="fa fa-instagram"> </i></a>
-                    <a class="icons-sm git-ic" target="_blank" href="https://github.com/ajatprabha"><i
-                            class="fa fa-github"></i></a>{% endcomment %}
             </div>
             <div class="col-lg-4 col-md-6 mb-r">
                 <div class="avatar">

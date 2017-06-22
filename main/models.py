@@ -3,6 +3,7 @@ from django.db import models
 from django.core.validators import RegexValidator
 from oauth.models import UserProfile
 from django.core.urlresolvers import reverse
+from ckeditor_uploader.fields import RichTextUploadingField
 from versatileimagefield.fields import VersatileImageField
 
 
@@ -16,7 +17,7 @@ class Society(models.Model):
     valid_year = RegexValidator(r'^[0-9]{4}$', message='Not a valid year!')
     # Model
     name = models.CharField(max_length=128)
-    description = models.TextField()
+    description = RichTextUploadingField(blank=True)
     cover = VersatileImageField(upload_to='society_%Y', blank=True, null=True)
     secretary = models.ForeignKey(UserProfile, related_name='secy')
     vice_secretary = models.ForeignKey(UserProfile, related_name='vice_secy')
@@ -40,7 +41,7 @@ class Club(models.Model):
     # Model
     name = models.CharField(max_length=128)
     society = models.ForeignKey(Society)
-    description = models.TextField()
+    description = RichTextUploadingField(blank=True)
     cover = VersatileImageField(upload_to='club_%Y', blank=True, null=True)
     captain = models.ForeignKey(UserProfile, related_name='captain')
     vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one')

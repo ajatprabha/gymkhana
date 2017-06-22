@@ -1,6 +1,5 @@
 from django.views.generic import TemplateView, DetailView
 from .models import Society, Club
-from django.shortcuts import render_to_response
 
 
 class HomeView(TemplateView):

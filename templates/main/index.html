@@ -482,12 +482,12 @@
                     <!--columns-->
                        <div class="col-lg-6 col-md-6 mb-r wow fadeIn" data-wow-delay="0s" style="visibility: visible;">
                         <!--Collection card-->
-                        <div class="card collection-card z-depth-1-half" style="height: 20em">
+                        <div class="card collection-card z-depth-1-half">
                             <!--Card image-->
                             <div class="view  hm-zoom">
-                                <img src="http://mdbootstrap.com/images/ecommerce/vertical/img%20(12).jpg" class="img-fluid" alt="">
+                                <img src="{{ society.cover.crop.720x440 }}" class="img-responsive" alt="">
                                 <div class="stripe light">
-                                    <a>
+                                    <a href="{{ society.get_absolute_url }}">
                                         <p>{{ society.name }}<i class="fa fa-chevron-right"></i></p>
                                     </a>
                                 </div>
@@ -497,7 +497,6 @@
                         <!--/.Collection card-->
                     </div>
                         <!--/column-->
-
                 {% endfor %}
             </div>
         </div>

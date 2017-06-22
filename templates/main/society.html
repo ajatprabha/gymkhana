@@ -23,7 +23,11 @@
     </div>
     <div class="container">
         <div class="row">
-
+        <ul>
+            {% for club in club_list %}
+                <li>{{ club.name }}</li>
+            {% endfor %}
+        </ul>
         </div>
     </div>
     <div class="container">

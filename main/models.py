@@ -1,10 +1,20 @@
+import datetime
 from django.db import models
+from django.core.validators import RegexValidator
 from oauth.models import UserProfile
 from django.core.urlresolvers import reverse
 from versatileimagefield.fields import VersatileImageField
 
 
+YEAR_CHOICES = []
+for r in range(2008, (datetime.datetime.now().year+2)):
+    YEAR_CHOICES.append((str(r), r))
+
+
 class Society(models.Model):
+    # Validators
+    valid_year = RegexValidator(r'^[0-9]{4}$', message='Not a valid year!')
+    # Model
     name = models.CharField(max_length=128)
     description = models.TextField()
     cover = VersatileImageField(upload_to='society_%Y', blank=True, null=True)
@@ -12,19 +22,22 @@ class Society(models.Model):
     vice_secretary = models.ForeignKey(UserProfile, related_name='vice_secy')
     mentor = models.ForeignKey(UserProfile, related_name='mentor')
     slug = models.SlugField(unique=True)
-    year = models.DateField()
+    is_active = models.BooleanField(default=False)
+    year = models.CharField(max_length=4, choices=YEAR_CHOICES, validators=[valid_year])
 
     class Meta:
         ordering = ["name"]
+        verbose_name_plural = "Societies"
 
     def get_absolute_url(self):
         return reverse('main:soc-detail', kwargs={'slug': self.slug})
 
     def __str__(self):
-        return self.name
+        return self.name + " - " + str(self.year)
 
 
 class Club(models.Model):
+    # Model
     name = models.CharField(max_length=128)
     society = models.ForeignKey(Society)
     description = models.TextField()
@@ -33,13 +46,23 @@ class Club(models.Model):
     vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one')
     vice_captain_two = models.ForeignKey(UserProfile, related_name='vice_cap_two')
     slug = models.SlugField(unique=True)
-    year = models.DateField()
+
+    class Meta:
+        ordering = ["name"]
+
+    @property
+    def year(self):
+        return self.society.year
+
+    @property
+    def is_active(self):
+        return self.society.is_active
 
     def get_absolute_url(self):
         return reverse('main:club-detail', kwargs={'slug': self.slug})
 
     def __str__(self):
-        return self.name
+        return self.name + " - " + str(self.year)
 
 
 class SocialLink(models.Model):

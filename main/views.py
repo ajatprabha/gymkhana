@@ -7,7 +7,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        society = Society.objects.all()
+        society = Society.objects.filter(is_active=True)
         context['society_list'] = society
         return context
 
@@ -18,7 +18,7 @@ class SocietyView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(SocietyView, self).get_context_data(**kwargs)
-        society = Society.objects.all()
+        society = Society.objects.filter(is_active=True)
         context['society_list'] = society
         return context
 
@@ -29,6 +29,6 @@ class ClubView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ClubView, self).get_context_data(**kwargs)
-        society = Society.objects.all()
+        society = Society.objects.filter(is_active=True)
         context['society_list'] = society
         return context

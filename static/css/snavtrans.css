@@ -17,8 +17,8 @@
         .scrolling-navbar {
             -webkit-transition: all .5s ease-in-out, padding .5s ease-in-out;
             -moz-transition: all .5s ease-in-out, padding .5s ease-in-out;
+            -o-transition: all .5s ease-in-out, padding .5s ease-in-out;
             transition: all .5s ease-in-out, padding .5s ease-in-out;
-            transition-property: background, box-shadow;
         }
 
         .top-nav-collapse {

@@ -6,21 +6,16 @@
 {% block skin %}{% endblock %}
 {% block navbar %}
     <nav class="navbar fixed-top navbar-toggleable-md navbar-dark scrolling-navbar">
-
         <div class="container">
-
             <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse"
                     data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                     aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <a class="navbar-brand" href="#">
-                <img src="/static/assets/favicon.png" alt="logo" style="height: 2.2rem;width: auto;">
+            <a class="navbar-brand" href="{% url 'main:index' %}">
+                <img src="{% static 'assets/favicon.png' %}" alt="logo" style="height: 2.2rem;width: auto;">
             </a>
-
             <div class="navbar-collapse collapse" id="navbarNav" aria-expanded="false">
-
                 <!--Links-->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">

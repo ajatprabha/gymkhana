@@ -47,6 +47,7 @@ class Club(models.Model):
     vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one')
     vice_captain_two = models.ForeignKey(UserProfile, related_name='vice_cap_two')
     slug = models.SlugField(unique=True)
+    published = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["name"]

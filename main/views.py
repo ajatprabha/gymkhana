@@ -35,13 +35,3 @@ class ClubView(DetailView):
         society = Society.objects.filter(is_active=True)
         context['society_link_list'] = society
         return context
-
-
-def dynamic_css(request, id):
-    """
-    Create a css file based on a color criteria,
-    or any other complicated calculations necessary
-    """
-    society = Society.objects.get(id=id)
-    return render_to_response('main/dynamic.css', {'society': society})
-

@@ -4,7 +4,7 @@ from django.core.validators import RegexValidator
 from oauth.models import UserProfile
 from django.core.urlresolvers import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
-from versatileimagefield.fields import VersatileImageField
+from versatileimagefield.fields import VersatileImageField, PPOIField
 
 
 YEAR_CHOICES = []
@@ -18,7 +18,7 @@ class Society(models.Model):
     # Model
     name = models.CharField(max_length=128)
     description = RichTextUploadingField(blank=True)
-    cover = VersatileImageField(upload_to='society_%Y', blank=True, null=True)
+    cover = VersatileImageField('Cover', upload_to='society_%Y', blank=True, null=True)
     secretary = models.ForeignKey(UserProfile, related_name='secy')
     vice_secretary = models.ForeignKey(UserProfile, related_name='vice_secy')
     mentor = models.ForeignKey(UserProfile, related_name='mentor')

@@ -1,14 +1,55 @@
 {% extends 'main/base.html' %}
 {% block title %}{{ society.name }} - IIT Jodhpur{% endblock %}
 
+{% block customstyles %}
+    {% comment %}<link rel="stylesheet" href="{% url 'main:dyn-css' society.id %}">{% endcomment %}
+{% endblock %}
 
 {% block main %}
-<div class="container" style="min-height: 40rem;">
-</div>
- {% endblock %}
+    <div>
+        <div class="flex-center" style="height: 20rem;">
+            <ul>
+                <li><h1 class="h1-responsive wow fadeIn">{{ society.name }}</h1></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">{{ society.description|safe }}</div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-8">
+
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="gallery"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+{% endblock %}
 
 {% block customscripts %}
-<script>
-new WOW().init();
-</script>
+    <script>
+        new WOW().init();
+    </script>
 {% endblock %}

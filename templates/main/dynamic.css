@@ -1,0 +1,33 @@
+.society-photo {
+    height: 30rem;
+    background-image: url("{{ society.cover.crop.2160x1215.url }}") no-repeat center !important;
+    background-size: cover;
+    -webkit-background-size: cover;
+}
+
+@media (max-width: 540px) {
+    .society-photo {
+        height: 30rem;
+        background-image: url("{{ society.cover.crop.1080x1440.url }}") no-repeat center !important;
+        background-size: cover;
+        -webkit-background-size: cover;
+    }
+}
+
+@media (min-width: 541px) and (max-width: 1000px) {
+    .society-photo {
+        height: 30rem;
+        background-image: url("{{ society.cover.crop.1920x1440.url }}") no-repeat center !important;
+        background-size: cover;
+        -webkit-background-size: cover;
+    }
+}
+
+@media (min-width: 1001px) {
+    .society-photo {
+        height: 30rem;
+        background-image: url("{{ society.cover.crop.2160x1215.url }}") no-repeat center !important;
+        background-size: cover;
+        -webkit-background-size: cover;
+    }
+}

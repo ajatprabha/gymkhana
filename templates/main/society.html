@@ -3,43 +3,44 @@
 
 {% block customstyles %}
     {% if society.cover %}
-    <style>
-        @media (max-width: 540px) {
-            .society-photo {
-                height: 30rem;
-                background-image: url("{{ society.cover.crop.1080x1440 }}") !important;
-                background-size: cover;
-                -webkit-background-size: cover;
+        <style>
+            @media (max-width: 540px) {
+                .society-photo {
+                    height: 30rem;
+                    background: url("{{ society.cover.crop.1080x1440 }}") no-repeat center;
+                    background-size: cover;
+                    -webkit-background-size: cover;
+                }
             }
-        }
 
-        @media (min-width: 541px) and (max-width: 1000px) {
-            .society-photo {
-                height: 30rem;
-                background-image: url("{{ society.cover.crop.1920x1440 }}") !important;
-                background-size: cover;
-                -webkit-background-size: cover;
+            @media (min-width: 541px) and (max-width: 1000px) {
+                .society-photo {
+                    height: 30rem;
+                    background: url("{{ society.cover.crop.1920x1440 }}") no-repeat center;
+                    background-size: cover;
+                    -webkit-background-size: cover;
+                }
             }
-        }
 
-        @media (min-width: 1001px) {
-            .society-photo {
-                height: 30rem;
-                background-image: url("{{ society.cover.crop.2160x1215 }}") !important;
-                background-size: cover;
-                -webkit-background-size: cover;
+            @media (min-width: 1001px) {
+                .society-photo {
+                    height: 30rem;
+                    background: url("{{ society.cover.crop.2160x1215 }}") no-repeat center;
+                    background-size: cover;
+                }
             }
-        }
-    </style>
+        </style>
     {% endif %}
 {% endblock %}
 
 {% block main %}
-    <div class="streak streak-lg streak-photo society-photo">
-        <div class="flex-center text-white">
-            <ul>
-                <li><h1 class="h1-responsive wow fadeIn"><b>{{ society.name }}</b></h1></li>
-            </ul>
+    <div class="streak streak-lg streak-photo society-photo view hm-black-light">
+        <div class="mask flex-center">
+            <div class="flex-center text-white">
+                <ul>
+                    <li><h1 class="h1-responsive wow fadeIn"><b>{{ society.name }}</b></h1></li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="container mt-2">

@@ -6,9 +6,8 @@ from django.core.urlresolvers import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
 from versatileimagefield.fields import VersatileImageField, PPOIField
 
-
 YEAR_CHOICES = []
-for r in range(2008, (datetime.datetime.now().year+2)):
+for r in range(2008, (datetime.datetime.now().year + 2)):
     YEAR_CHOICES.append((str(r), r))
 
 
@@ -18,7 +17,8 @@ class Society(models.Model):
     # Model
     name = models.CharField(max_length=128)
     description = RichTextUploadingField(blank=True)
-    cover = VersatileImageField('Cover', upload_to='society_%Y', blank=True, null=True)
+    cover = VersatileImageField('Cover', upload_to='society_%Y', blank=True, null=True,
+                                help_text="Upload high quality picture")
     secretary = models.ForeignKey(UserProfile, related_name='secy')
     vice_secretary = models.ForeignKey(UserProfile, related_name='vice_secy')
     mentor = models.ForeignKey(UserProfile, related_name='mentor')
@@ -42,7 +42,8 @@ class Club(models.Model):
     name = models.CharField(max_length=128)
     society = models.ForeignKey(Society)
     description = RichTextUploadingField(blank=True)
-    cover = VersatileImageField(upload_to='club_%Y', blank=True, null=True)
+    cover = VersatileImageField(upload_to='club_%Y', blank=True, null=True,
+                                help_text="Upload high quality picture")
     captain = models.ForeignKey(UserProfile, related_name='captain')
     vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one')
     vice_captain_two = models.ForeignKey(UserProfile, related_name='vice_cap_two')
@@ -101,9 +102,8 @@ class SocialLink(models.Model):
     club = models.ForeignKey(Club)
     social_media = models.CharField(max_length=2, choices=SM_CHOICES)
     link = models.URLField
-    icon_class = models.CharField(max_length=32, choices=IC_CHOICES)
-    fa_icon = models.CharField(max_length=32, choices=FA_CHOICES)
+    icon_class = models.CharField(max_length=50, choices=IC_CHOICES)
+    fa_icon = models.CharField(max_length=50, choices=FA_CHOICES)
 
     def __str__(self):
         return self.club.name + self.social_media
-

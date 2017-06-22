@@ -14,6 +14,9 @@ class Society(models.Model):
     slug = models.SlugField(unique=True)
     year = models.DateField()
 
+    class Meta:
+        ordering = ["name"]
+
     def get_absolute_url(self):
         return reverse('main:soc-detail', kwargs={'slug': self.slug})
 

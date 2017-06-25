@@ -4,7 +4,7 @@ from django.core.validators import RegexValidator
 from oauth.models import UserProfile
 from django.core.urlresolvers import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
-from versatileimagefield.fields import VersatileImageField, PPOIField
+from versatileimagefield.fields import VersatileImageField
 from photologue.models import Gallery
 
 YEAR_CHOICES = []
@@ -22,7 +22,7 @@ class Society(models.Model):
                                 help_text="Upload high quality picture")
     secretary = models.ForeignKey(UserProfile, related_name='secy')
     vice_secretary = models.ForeignKey(UserProfile, related_name='vice_secy')
-    mentor = models.ForeignKey(UserProfile, related_name='mentor')
+    mentor = models.ForeignKey(UserProfile, related_name='smentor')
     slug = models.SlugField(unique=True, help_text="This will be used as URL. /society/slug")
     is_active = models.BooleanField(default=False)
     year = models.CharField(max_length=4, choices=YEAR_CHOICES, validators=[valid_year])
@@ -63,6 +63,7 @@ class Club(models.Model):
     captain = models.ForeignKey(UserProfile, related_name='captain')
     vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one')
     vice_captain_two = models.ForeignKey(UserProfile, related_name='vice_cap_two')
+    mentor = models.ForeignKey(UserProfile, related_name='cmentor')
     gallery = models.ForeignKey(Gallery, blank=True, null=True, on_delete=models.SET_NULL,
                                 help_text="Select a gallery to link to this club.")
     custom_html = models.TextField(blank=True, null=True, help_text="Add custom HTML to view on club page.")

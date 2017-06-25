@@ -11,10 +11,10 @@ class News(models.Model):
     author = models.ForeignKey(UserProfile, null=True, on_delete=models.SET_NULL)
     content = RichTextUploadingField()
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
-    created_at = models.DateField(editable=True)
+    date = models.DateField(editable=True)
 
     class Meta:
-        ordering = ['created_at']
+        ordering = ['date']
         verbose_name_plural = 'news'
 
     def __str__(self):

@@ -5,6 +5,7 @@ from oauth.models import UserProfile
 from django.core.urlresolvers import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
 from versatileimagefield.fields import VersatileImageField, PPOIField
+from photologue.models import Gallery
 
 YEAR_CHOICES = []
 for r in range(2008, (datetime.datetime.now().year + 2)):
@@ -38,15 +39,33 @@ class Society(models.Model):
 
 
 class Club(models.Model):
+    # Choices
+    SKIN_CHOICES = (
+        ('white-skin', 'White'),
+        ('black-skin', 'Black'),
+        ('cyan-skin', 'Cyan'),
+        ('mdb-skin', 'MDB'),
+        ('deep-purple-skin', 'Deep Purple'),
+        ('navy-blue-skin', 'Navy Blue'),
+        ('pink-skin', 'Pink'),
+        ('indigo-skin', 'Indigo'),
+        ('light-blue-skin', 'Light Blue'),
+        ('grey-skin', 'Grey'),
+    )
     # Model
     name = models.CharField(max_length=128)
     society = models.ForeignKey(Society)
     description = RichTextUploadingField(blank=True)
     cover = VersatileImageField(upload_to='club_%Y', blank=True, null=True,
                                 help_text="Upload high quality picture")
+    skin = models.CharField(max_length=32, choices=SKIN_CHOICES, blank=True, null=True,
+                            help_text="Choose a skin while displaying club page.")
     captain = models.ForeignKey(UserProfile, related_name='captain')
     vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one')
     vice_captain_two = models.ForeignKey(UserProfile, related_name='vice_cap_two')
+    gallery = models.ForeignKey(Gallery, blank=True, null=True, on_delete=models.SET_NULL,
+                                help_text="Select a gallery to link to this club.")
+    custom_html = models.TextField(blank=True, null=True, help_text="Add custom HTML to view on club page.")
     slug = models.SlugField(unique=True, help_text="This will be used as URL. /club/slug")
     published = models.BooleanField(default=False)
 

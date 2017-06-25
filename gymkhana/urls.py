@@ -21,17 +21,18 @@ from django.contrib.auth.views import LoginView, LogoutView
 from main.views import HomeView
 
 urlpatterns = [
-    url(r'^', include('main.urls')),
     url(
         '^login/$',
         LoginView.as_view(template_name='forum/login.html'), name='login'
     ),
     url(r'^logout/$', LogoutView.as_view(next_page='login'),
         name='logout'),
+    url(r'^photologue/', include('photologue.urls', namespace='photologue')),
     url(r'^admin/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^forum/', include('forum.urls')),
     url(r'^forum/api/', include('forum.api.urls')),
+    url(r'^', include('main.urls')),
 ]
 
 if settings.DEBUG:

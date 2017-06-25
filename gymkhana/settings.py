@@ -38,14 +38,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sites',
     'rest_framework',
     'versatileimagefield',
+    'photologue',
+    'sortedm2m',
     'ckeditor',
     'ckeditor_uploader',
     'hitcount',
     'oauth.apps.OauthConfig',
     'main.apps.MainConfig',
     'forum.apps.ForumConfig',
+    'gallery',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +62,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SITE_ID = 1
+
 ROOT_URLCONF = 'gymkhana.urls'
 
 TEMPLATES = [
@@ -65,13 +71,17 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')]
         ,
-        'APP_DIRS': True,
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
             ],
         },
     },
@@ -239,3 +249,4 @@ REST_FRAMEWORK = {
     ]
 }
 
+PHOTOLOGUE_DIR = 'gallery'

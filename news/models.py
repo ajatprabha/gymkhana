@@ -10,7 +10,7 @@ class News(models.Model):
     cover = VersatileImageField(upload_to='news_%Y', help_text="Upload high quality image to use as cover photo.")
     author = models.ForeignKey(UserProfile, null=True, on_delete=models.SET_NULL)
     content = RichTextUploadingField()
-    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    club = models.ForeignKey(Club, blank=True, null=True, on_delete=models.CASCADE, default=None)
     date = models.DateField(editable=True)
 
     class Meta:

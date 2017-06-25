@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %}
 {% block title %}{{ society.name }} - IIT Jodhpur{% endblock %}
+{% block skin %}{{ society.skin }}{% endblock %}
 
 {% block customstyles %}
     {% if society.cover %}
@@ -89,22 +90,22 @@
                 <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
                         href="https://api.whatsapp.com/send?phone=91{{ society.secretary.phone }}">+91-{{ society.secretary.phone }}</a>
                 </h5>
-                <h5>Secretary</h5>
+                <h5>Student Secretary</h5>
                 <p>{{ society.secretary.about }}</p>
                 <a class="icons-sm email-ic" href="mailto:{{ society.secretary.user.email }}"><i
                         class="fa fa-envelope-o"></i> </a>
             </div>
             <div class="col-lg-4 col-md-6 mb-r">
                 <div class="avatar">
-                    <img src="{{ society.vice_secretary.avatar.thumbnail.200x200 }}" class="rounded-circle">
+                    <img src="{{ society.joint_secretary.avatar.thumbnail.200x200 }}" class="rounded-circle">
                 </div>
-                <h4>{{ society.vice_secretary.user.get_full_name }}</h4>
+                <h4>{{ society.joint_secretary.user.get_full_name }}</h4>
                 <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
-                        href="https://api.whatsapp.com/send?phone=91{{ society.vice_secretary.phone }}">+91-{{ society.vice_secretary.phone }}</a>
+                        href="https://api.whatsapp.com/send?phone=91{{ society.joint_secretary.phone }}">+91-{{ society.joint_secretary.phone }}</a>
                 </h5>
-                <h5>Vice Secretary</h5>
-                <p>{{ society.vice_secretary.about }}</p>
-                <a class="icons-sm email-ic" href="mailto:{{ society.vice_secretary.user.email }}"><i
+                <h5>Student Joint Secretary</h5>
+                <p>{{ society.joint_secretary.about }}</p>
+                <a class="icons-sm email-ic" href="mailto:{{ society.joint_secretary.user.email }}"><i
                         class="fa fa-envelope-o"></i> </a>
                 {% comment %}<a class="icons-sm fb-ic" target="_blank" href="https://www.facebook.com/iAmAjat"><i
                             class="fa fa-facebook"> </i></a>

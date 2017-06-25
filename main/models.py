@@ -11,6 +11,18 @@ YEAR_CHOICES = []
 for r in range(2008, (datetime.datetime.now().year + 2)):
     YEAR_CHOICES.append((str(r), r))
 
+SKIN_CHOICES = (
+        ('white-skin', 'White'),
+        ('black-skin', 'Black'),
+        ('cyan-skin', 'Cyan'),
+        ('mdb-skin', 'MDB'),
+        ('deep-purple-skin', 'Deep Purple'),
+        ('navy-blue-skin', 'Navy Blue'),
+        ('pink-skin', 'Pink'),
+        ('indigo-skin', 'Indigo'),
+        ('light-blue-skin', 'Light Blue'),
+        ('grey-skin', 'Grey'),
+    )
 
 class Society(models.Model):
     # Validators
@@ -20,8 +32,10 @@ class Society(models.Model):
     description = RichTextUploadingField(blank=True)
     cover = VersatileImageField('Cover', upload_to='society_%Y', blank=True, null=True,
                                 help_text="Upload high quality picture")
+    skin = models.CharField(max_length=32, choices=SKIN_CHOICES, blank=True, default='mdb-skin',
+                            help_text="Choose a skin while displaying society page.")
     secretary = models.ForeignKey(UserProfile, related_name='secy')
-    vice_secretary = models.ForeignKey(UserProfile, related_name='vice_secy')
+    joint_secretary = models.ForeignKey(UserProfile, related_name='joint_secy')
     mentor = models.ForeignKey(UserProfile, related_name='smentor')
     slug = models.SlugField(unique=True, help_text="This will be used as URL. /society/slug")
     is_active = models.BooleanField(default=False)
@@ -40,30 +54,24 @@ class Society(models.Model):
 
 class Club(models.Model):
     # Choices
-    SKIN_CHOICES = (
-        ('white-skin', 'White'),
-        ('black-skin', 'Black'),
-        ('cyan-skin', 'Cyan'),
-        ('mdb-skin', 'MDB'),
-        ('deep-purple-skin', 'Deep Purple'),
-        ('navy-blue-skin', 'Navy Blue'),
-        ('pink-skin', 'Pink'),
-        ('indigo-skin', 'Indigo'),
-        ('light-blue-skin', 'Light Blue'),
-        ('grey-skin', 'Grey'),
+    TYPE_CHOICES = (
+        ('C', 'Club'),
+        ('T', 'Team'),
     )
     # Model
     name = models.CharField(max_length=128)
-    society = models.ForeignKey(Society)
+    society = models.ForeignKey(Society, on_delete=models.CASCADE)
+    ctype = models.CharField(max_length=1, choices=TYPE_CHOICES, default='C', help_text="Specify type as Club or Team.",
+                             verbose_name="Type")
     description = RichTextUploadingField(blank=True)
     cover = VersatileImageField(upload_to='club_%Y', blank=True, null=True,
                                 help_text="Upload high quality picture")
-    skin = models.CharField(max_length=32, choices=SKIN_CHOICES, blank=True, null=True,
+    skin = models.CharField(max_length=32, choices=SKIN_CHOICES, blank=True, default='mdb-skin',
                             help_text="Choose a skin while displaying club page.")
     captain = models.ForeignKey(UserProfile, related_name='captain')
-    vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one')
-    vice_captain_two = models.ForeignKey(UserProfile, related_name='vice_cap_two')
-    mentor = models.ForeignKey(UserProfile, related_name='cmentor')
+    vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one', blank=True, null=True, default=None)
+    vice_captain_two = models.ForeignKey(UserProfile, related_name='vice_cap_two', blank=True, null=True, default=None)
+    mentor = models.ForeignKey(UserProfile, related_name='cmentor', blank=True, null=True, default=None)
     gallery = models.ForeignKey(Gallery, blank=True, null=True, on_delete=models.SET_NULL,
                                 help_text="Select a gallery to link to this club.")
     custom_html = models.TextField(blank=True, null=True, help_text="Add custom HTML to view on club page.")
@@ -119,11 +127,11 @@ class SocialLink(models.Model):
         ('email-ic', 'Email'),
     )
 
-    club = models.ForeignKey(Club)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
     social_media = models.CharField(max_length=2, choices=SM_CHOICES)
     link = models.URLField
     icon_class = models.CharField(max_length=50, choices=IC_CHOICES)
     fa_icon = models.CharField(max_length=50, choices=FA_CHOICES)
 
     def __str__(self):
-        return self.club.name + self.social_media
+        return self.club.name + ' - ' + self.social_media

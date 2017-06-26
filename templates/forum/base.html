@@ -144,14 +144,15 @@
     <!--/.Double navigation-->
 {% endblock %}
 <!--Content-->
-<main>
-    {% block main %}
-        <div class="container-fluid">
-            <div style="height: 2000px"></div>
-        </div>
-    {% endblock %}
-</main>
-
+{% block content %}
+    <main>
+        {% block main %}
+            <div class="container-fluid">
+                <div style="height: 2000px"></div>
+            </div>
+        {% endblock %}
+    </main>
+{% endblock %}
 <!--Footer-->
 {% block footer %}
     <!--Footer-->
@@ -254,6 +255,5 @@
         })
     </script>
 {% endblock %}
-
 </body>
 </html>

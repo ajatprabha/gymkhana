@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^photologue/', include('photologue.urls', namespace='photologue')),
     url(r'^admin/', admin.site.urls),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^account/', include('oauth.urls')),
     url(r'^forum/', include('forum.urls')),
     url(r'^forum/api/', include('forum.api.urls')),
     url(r'^', include('main.urls')),

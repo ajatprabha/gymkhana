@@ -1,8 +1,8 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Topic
-from .forms import TopicForm, AnswerForm
-from django.core.urlresolvers import reverse_lazy, reverse
+from .forms import TopicForm
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -54,4 +54,4 @@ class TopicDeleteView(UserAuthorMixin, DeleteView):
 
 @login_required
 def test(request):
-    return render(request, '404.html')
+    return render(request, 'forum/test.html')

@@ -5,29 +5,32 @@
 {% block customstyles %}
     {% if society.cover %}
         <style>
-            @media (max-width: 540px) {
+            @media (max-width: 415px) {
                 .society-photo {
-                    height: 30rem;
-                    background: url("{{ society.cover.crop.1080x1440 }}") no-repeat center;
-                    background-size: cover;
-                    -webkit-background-size: cover;
+                    height: 20rem !important;
+                    background: url("{{ society.cover.crop.450x420 }}") no-repeat center !important;
+                    background-size: cover !important;
+                    -webkit-background-size: cover !important;
                 }
             }
 
-            @media (min-width: 541px) and (max-width: 1000px) {
+            @media (min-width: 416px) and (max-width: 1000px) {
                 .society-photo {
-                    height: 30rem;
-                    background: url("{{ society.cover.crop.1920x1440 }}") no-repeat center;
-                    background-size: cover;
-                    -webkit-background-size: cover;
+                    height: 23rem !important;
+                    background: url("{{ society.cover.crop.1280x900 }}");
+                    background-repeat: no-repeat !important;
+                    background-size: cover !important;
+                    -webkit-background-size: cover !important;
                 }
             }
 
             @media (min-width: 1001px) {
                 .society-photo {
-                    height: 30rem;
-                    background: url("{{ society.cover.crop.2160x1215 }}") no-repeat center;
-                    background-size: cover;
+                    height: 28rem !important;
+                    background: url("{{ society.cover.crop.1440x750 }}");
+                    background-repeat: no-repeat !important;
+                    background-size: cover !important;
+                    -webkit-background-size: cover !important;
                 }
             }
         </style>

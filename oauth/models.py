@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from versatileimagefield.fields import VersatileImageField
 
 
@@ -32,5 +33,17 @@ class UserProfile(models.Model):
     branch = models.CharField(max_length=5, choices=BRANCH_CHOICES)
     about = models.CharField(max_length=512)
 
+    def get_absolute_url(self):
+        return reverse('oauth:detail', kwargs={'pk': self.pk})
+
     def __str__(self):
         return self.roll + " (" + self.user.get_full_name() + ")"
+
+    @property
+    def get_gender(self):
+        return self.get_gender_display()
+
+    @property
+    def get_branch(self):
+        return self.get_branch_display()
+

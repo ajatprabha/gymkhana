@@ -1,8 +1,7 @@
 {% extends 'forum/base.html' %}
 {% load staticfiles %}
-{% block customstyles %}
-    <link rel="stylesheet" href="{% static 'css/profile_detail.css' %}">{% endblock %}
-{% block navtitle %}About: {{ request.user.get_full_name }}{% endblock %}
+{% block customstyles %}<link rel="stylesheet" href="{% static 'css/profile_detail.css' %}">{% endblock %}
+{% block navtitle %}About: {{ userprofile.user.get_full_name }}{% endblock %}
 {% block content %}
     <div class="profile-container">
         <div class="header">
@@ -24,12 +23,12 @@
                                     </div>
                                     <!--Avatar-->
                                     <div class="avatar"><img
-                                            src="{{ request.user.userprofile.avatar.thumbnail.150x150 }}"
+                                            src="{{ userprofile.avatar.thumbnail.150x150 }}"
                                             class="rounded-circle img-responsive">
                                     </div>
                                     <!--Content-->
                                     <div class="card-block">
-                                        <h4>{{ request.user.get_full_name }}</h4><span> ({{ request.user.userprofile.roll }})</span>
+                                        <h4>{{ userprofile.user.get_full_name }}</h4><span> ({{ userprofile.roll }})</span>
                                     </div>
                                 </div>
                             </div>
@@ -50,13 +49,13 @@
                             <div id="hr"></div>
                             <div id="icons" class="flex-column">
                                 <div><i class="fa fa-phone"></i>
-                                    <span>{{ request.user.userprofile.phone }}</span>
+                                    <span>{{ userprofile.phone }}</span>
                                 </div>
                                 <div><i class="fa fa-envelope-o"></i>
-                                    <span>{{ request.user.email }}</span>
+                                    <span>{{ userprofile.user.email }}</span>
                                 </div>
                                 <div><i class="fa fa-map-marker"></i>
-                                    <span>{{ request.user.userprofile.hometown }}</span>
+                                    <span>{{ userprofile.hometown }}</span>
                                 </div>
                             </div>
                         </div>
@@ -70,13 +69,13 @@
                             <div id="hr"></div>
                             <div id="icons" class="flex-column">
                                 <div><i class="fa fa-venus-mars"></i>
-                                    <span>{{ request.user.userprofile.get_gender }}</span>
+                                    <span>{{ userprofile.get_gender }}</span>
                                 </div>
                                 <div><i class="fa fa-birthday-cake"></i>
-                                    <span>{{ request.user.userprofile.dob }}</span>
+                                    <span>{{ userprofile.dob }}</span>
                                 </div>
                                 <div><i class="fa fa-graduation-cap"></i>
-                                    <span>{{ request.user.userprofile.get_branch }}</span>
+                                    <span>{{ userprofile.get_branch }}</span>
                                 </div>
                             </div>
                         </div>

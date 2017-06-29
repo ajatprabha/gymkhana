@@ -10,6 +10,18 @@ class UserProfile(models.Model):
     valid_year = RegexValidator(r'^[0-9]{4}$', message='Not a valid year!')
     contact = RegexValidator(r'^[0-9]{10}$', message='Not a valid number!')
     # Choices
+    PROG_CHOICES = (
+        ('BT', 'B.Tech'),
+        ('MT', 'M.Tech'),
+        ('PhD', 'PhD')
+    )
+    YEAR_CHOICES = (
+        ('0', 'Alumni'),
+        ('1', 'First Year'),
+        ('2', 'Second Year'),
+        ('3', 'Third Year'),
+        ('4', 'Fourth Year')
+    )
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -26,9 +38,10 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='M')
     roll = models.CharField(max_length=15, unique=True)
     dob = models.DateField()
-    enroll_year = models.CharField(max_length=4, validators=[valid_year])
+    prog = models.CharField(max_length=5, choices=PROG_CHOICES, verbose_name='programme', default='BT')
+    year = models.CharField(max_length=1, choices=YEAR_CHOICES, default='1')
     phone = models.CharField(max_length=10, validators=[contact])
-    avatar = VersatileImageField(upload_to='avatar')
+    avatar = VersatileImageField(upload_to='avatar', blank=True, null=True)
     cover = VersatileImageField(upload_to='cover', blank=True, null=True)
     hometown = models.CharField(max_length=128)
     branch = models.CharField(max_length=5, choices=BRANCH_CHOICES)

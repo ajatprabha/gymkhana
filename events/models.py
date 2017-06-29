@@ -11,5 +11,8 @@ class Event(models.Model):
                              help_text="Leave blank to make this a general event.")
     published = models.BooleanField(default=True)
 
+    class Meta:
+        ordering = ['date']
+
     def __str__(self):
         return self.name

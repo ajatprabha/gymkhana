@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load humanize %}
 {% block title %}{{ society.name }} - IIT Jodhpur{% endblock %}
 {% block skin %}{{ society.skin }}{% endblock %}
 
@@ -55,23 +56,51 @@
                 </div>
             </div>
             <div class="col-md-4">
-
+                <div class="divider-new">
+                    <h3 class="h3-responsive">Events</h3>
+                </div>
+                <ul>
+                    {% if not event_list %}
+                        <li>No events scheduled.</li>
+                    {% endif %}
+                    {% for event in event_list %}
+                        <li>{{ event.name }}, {{ event.date|naturalday }}</li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
     <div class="container mt-1">
         <div class="row">
-            <ul>
-                {% for club in club_list %}
-                    <li>{{ club.name }}</li>
-                {% endfor %}
-            </ul>
+            <div class="col-md-12">
+                <div class="divider-new">
+                    <h3 class="h3-responsive">Clubs</h3>
+                </div>
+                <ul>
+                    {% if not club_list %}
+                        <li>No clubs to show. Maybe you've unpublished clubs!</li>
+                    {% endif %}
+                    {% for club in club_list %}
+                        <li>{{ club.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-
+                <div class="divider-new">
+                    <h3 class="h3-responsive">News</h3>
+                </div>
+                <ul>
+                    {% if not news_list %}
+                        <li>No news to display.</li>
+                    {% endif %}
+                    {% for news in news_list %}
+                        <li>{{ news.title }}, {{ news.date|naturalday }}</li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="col-md-8">
 
@@ -84,6 +113,9 @@
         </div>
     </div>
     <div class="container mt-3 section team-section">
+        <div class="divider-new">
+            <h3 class="h3-responsive">Key Persons</h3>
+        </div>
         <div class="row text-center">
             <div class="col-lg-4 col-md-6 mb-r">
                 <div class="avatar">

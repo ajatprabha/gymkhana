@@ -7,7 +7,8 @@ from versatileimagefield.fields import VersatileImageField
 
 class News(models.Model):
     title = models.CharField(max_length=128)
-    cover = VersatileImageField(upload_to='news_%Y', help_text="Upload high quality image to use as cover photo.")
+    cover = VersatileImageField(upload_to='news_%Y', blank=True, null=True,
+                                help_text="Upload high quality image to use as cover photo.")
     author = models.ForeignKey(UserProfile, null=True, on_delete=models.SET_NULL)
     content = RichTextUploadingField()
     club = models.ForeignKey(Club, blank=True, null=True, on_delete=models.CASCADE, default=None,

@@ -1,16 +1,19 @@
 {% extends 'forum/base.html' %}
 {% load staticfiles %}
-{% block customstyles %}<link rel="stylesheet" href="{% static 'css/profile_detail.css' %}">{% endblock %}
+{% block customstyles %}
+    <link rel="stylesheet" href="{% static 'css/profile_detail.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/croppie.css' %}"/>
+{% endblock %}
 {% block navtitle %}About: {{ userprofile.user.get_full_name }}{% endblock %}
 {% block content %}
     <div class="profile-container">
-        <div class="header">
+        <div class="rellax header" data-rellax-speed="-6">
             <div class="flex-center">
                 <h2 class="h2-responsive white-text"><strong>Gymkhana</strong> About Me</h2>
             </div>
         </div>
-        <div class="content">
-            <div>
+        <div class="rellax content" data-rellax-speed="10">
+            <div class="container-fluid">
                 <div class="row text-center">
                     <!--First column-->
                     <div class="col-12">
@@ -28,7 +31,8 @@
                                     </div>
                                     <!--Content-->
                                     <div class="card-block">
-                                        <h4>{{ userprofile.user.get_full_name }}</h4><span> ({{ userprofile.roll }})</span>
+                                        <h4>{{ userprofile.user.get_full_name }}</h4>
+                                        <span> ({{ userprofile.roll }})</span>
                                     </div>
                                 </div>
                             </div>
@@ -38,50 +42,63 @@
                     <!--/First column-->
                 </div>
             </div>
-            <div class="container-fluid mt-1">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card card-block">
-                            <div class="d-flex justify-content-between">
-                                <h4 class="flex-item card-title">Personal Contact Info</h4>
-                                <div id="icons" class="flex-item"><i class="fa fa-pencil blue-grey-text"></i></div>
-                            </div>
-                            <div id="hr"></div>
-                            <div id="icons" class="flex-column">
-                                <div><i class="fa fa-phone"></i>
-                                    <span>{{ userprofile.phone }}</span>
+            <div class="container-fluid mt-1 mb-1">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card card-block">
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="flex-item card-title">Personal Contact Info</h4>
+                                    <div id="icons" class="flex-item"><i class="fa fa-pencil blue-grey-text"></i></div>
                                 </div>
-                                <div><i class="fa fa-envelope-o"></i>
-                                    <span>{{ userprofile.user.email }}</span>
-                                </div>
-                                <div><i class="fa fa-map-marker"></i>
-                                    <span>{{ userprofile.hometown }}</span>
+                                <div id="hr"></div>
+                                <div id="icons" class="flex-column">
+                                    <div><i class="fa fa-phone"></i>
+                                        <span>{{ userprofile.phone }}</span>
+                                    </div>
+                                    <div><i class="fa fa-envelope-o"></i>
+                                        <span>{{ userprofile.user.email }}</span>
+                                    </div>
+                                    <div><i class="fa fa-map-marker"></i>
+                                        <span>{{ userprofile.hometown }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card card-block">
-                            <div class="d-flex justify-content-between">
-                                <h4 class="card-title">Gender, date of birth and more</h4>
-                                <div id="icons" class="flex-item"><i class="fa fa-pencil blue-grey-text"></i></div>
-                            </div>
-                            <div id="hr"></div>
-                            <div id="icons" class="flex-column">
-                                <div><i class="fa fa-venus-mars"></i>
-                                    <span>{{ userprofile.get_gender }}</span>
+                        <div class="col-md-6">
+                            <div class="card card-block">
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="card-title">Gender, date of birth and more</h4>
+                                    <div id="icons" class="flex-item"><i class="fa fa-pencil blue-grey-text"></i></div>
                                 </div>
-                                <div><i class="fa fa-birthday-cake"></i>
-                                    <span>{{ userprofile.dob }}</span>
-                                </div>
-                                <div><i class="fa fa-graduation-cap"></i>
-                                    <span>{{ userprofile.get_branch }}</span>
+                                <div id="hr"></div>
+                                <div id="icons" class="flex-column">
+                                    <div><i class="fa fa-venus-mars"></i>
+                                        <span>{{ userprofile.get_gender }}</span>
+                                    </div>
+                                    <div><i class="fa fa-birthday-cake"></i>
+                                        <span>{{ userprofile.dob }}</span>
+                                    </div>
+                                    <div><i class="fa fa-graduation-cap"></i>
+                                        <span>{{ userprofile.get_branch }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <a role="button" href="{% url 'forum:index' %}" class="btn btn-secondary waves-effect">Home</a>
             </div>
         </div>
     </div>
 {% endblock %}
+
+{% block customscripts %}
+    <script src="{% static 'js/rellax.min.js' %}"></script>
+    <script src="{% static 'js/croppie.js' %}"></script>
+    <script>
+        var rellax = new Rellax('.rellax');
+    </script>
+{% endblock %}
+
+{% block footer %}{% endblock %}

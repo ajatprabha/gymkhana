@@ -53,6 +53,9 @@ class Reply(models.Model):
     content = RichTextUploadingField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name_plural = 'replies'
+
 
 class Vote(models.Model):
     # Choices

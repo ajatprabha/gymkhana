@@ -10,3 +10,6 @@ class Event(models.Model):
     club = models.ForeignKey(Club, null=True, blank=True, default=None, on_delete=models.CASCADE,
                              help_text="Leave blank to make this a general event.")
     published = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name

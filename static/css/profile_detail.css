@@ -1,10 +1,9 @@
 .profile-container {
     padding-left: 240px;
-    margin-bottom: 10rem;
 }
 
 .profile-container .header {
-    height: 20rem;
+    height: 25rem;
     background: #2196F3;
 }
 
@@ -27,14 +26,6 @@
     font-weight: 400 !important;
 }
 
-.content .container-fluid {
-    padding: 0 !important;
-}
-
-.content .container-fluid .row {
-    padding: 0 15px;
-}
-
 .content .row .col-md-6 {
     padding: 5px !important;
 }
@@ -42,6 +33,16 @@
 .card-block #hr {
     border-top: 1px solid rgba(99, 99, 99, 0.7) !important;
     margin: 3px 0;
+}
+
+.content #hr {
+    border-top: 1px solid rgba(99, 99, 99, 0.7) !important;
+    margin: 15px 5px;
+}
+
+.profile-footer {
+    background-color: #F5F5F5;
+    margin-bottom: -20px;
 }
 
 .card-block div#icons div {
@@ -89,6 +90,6 @@
 
 @media (max-width: 992px) {
     .profile-container .content {
-        margin: -6rem 3%;
+        margin: -6rem 0;
     }
 }

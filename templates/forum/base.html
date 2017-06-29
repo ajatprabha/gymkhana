@@ -131,7 +131,8 @@
                             <i class="fa fa-user"></i> <span class="hidden-sm-down">Account</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account">
-                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item"
+                               href="{% url 'oauth:detail' request.user.userprofile.id %}">Profile</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                         </div>

@@ -24,14 +24,16 @@ class UserProfile(models.Model):
     # Database Model
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='M')
-    roll = models.CharField(max_length=15)
+    roll = models.CharField(max_length=15, unique=True)
     dob = models.DateField()
     enroll_year = models.CharField(max_length=4, validators=[valid_year])
     phone = models.CharField(max_length=10, validators=[contact])
     avatar = VersatileImageField(upload_to='avatar')
+    cover = VersatileImageField(upload_to='cover', blank=True, null=True)
     hometown = models.CharField(max_length=128)
     branch = models.CharField(max_length=5, choices=BRANCH_CHOICES)
-    about = models.CharField(max_length=512)
+    skills = models.TextField(help_text="Enter your skills, separated by comma.", max_length=1024)
+    about = models.TextField(max_length=512)
 
     def get_absolute_url(self):
         return reverse('oauth:detail', kwargs={'pk': self.pk})
@@ -47,3 +49,6 @@ class UserProfile(models.Model):
     def get_branch(self):
         return self.get_branch_display()
 
+    @property
+    def skills_as_list(self):
+        return self.skills.split(',')

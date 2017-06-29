@@ -4,10 +4,14 @@ from .models import Society, Club, SocialLink
 
 class SocietyAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name", "year")}
+    list_display = ('name', 'is_active', 'year')
+    list_filter = ('year', 'is_active')
 
 
 class ClubAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
+    list_display = ('__str__', 'society', 'ctype', 'published',)
+    list_filter = ('published', 'ctype')
 
 # iterable list
 main_models = [

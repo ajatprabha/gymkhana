@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^account/', include('oauth.urls')),
     url(r'^forum/', include('forum.urls')),
     url(r'^forum/api/', include('forum.api.urls')),
+    url(r'^konnekt/', include('konnekt.urls')),
     url(r'^', include('main.urls')),
 ]
 

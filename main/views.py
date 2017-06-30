@@ -21,12 +21,15 @@ class SocietyView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(SocietyView, self).get_context_data(**kwargs)
-        society = Society.objects.filter(is_active=True)
-        clubs = self.object.club_set.filter(published=True)
+        societies = Society.objects.filter(is_active=True)
+        raw = self.object.club_set.filter(published=True)
+        clubs = raw.filter(ctype='C')
+        teams = raw.filter(ctype='T')
         events = Event.objects.filter(club__society=self.object).filter(date__gte=timezone.now())[:5]
         news = News.objects.filter(club__society=self.object).order_by('date')[:5]
-        context['society_link_list'] = society
+        context['society_link_list'] = societies
         context['club_list'] = clubs
+        context['team_list'] = teams
         context['event_list'] = events
         context['news_list'] = news
         return context

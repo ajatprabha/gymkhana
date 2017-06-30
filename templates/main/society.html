@@ -64,7 +64,7 @@
                         <li>No events scheduled.</li>
                     {% endif %}
                     {% for event in event_list %}
-                        <li>{{ event.name }}, {{ event.date|naturalday }}</li>
+                        <li>{{ event.name }}, {{ event.date|naturaltime }}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -72,19 +72,35 @@
     </div>
     <div class="container mt-1">
         <div class="row">
-            <div class="col-md-12">
+            {% if club_list %}
+                <div class="col-md-12">
+                    <div class="divider-new">
+                        <h3 class="h3-responsive">Clubs</h3>
+                    </div>
+                    <ul>
+                        {% for club in club_list %}
+                            <li>{{ club.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% if team_list %}
+                <div class="col-md-12">
                 <div class="divider-new">
-                    <h3 class="h3-responsive">Clubs</h3>
+                    <h3 class="h3-responsive">Teams</h3>
                 </div>
                 <ul>
-                    {% if not club_list %}
-                        <li>No clubs to show. Maybe you've unpublished clubs!</li>
-                    {% endif %}
-                    {% for club in club_list %}
-                        <li>{{ club.name }}</li>
+                    {% for team in team_list %}
+                        <li>{{ team.name }}</li>
                     {% endfor %}
                 </ul>
-            </div>
+                </div>
+            {% endif %}
+            {% if not club_list and not team_list %}
+                <div class="col-md-12">
+                    <h4 class="h4-responsive">No clubs or teams are associated with this society.</h4>
+                </div>
+            {% endif %}
         </div>
     </div>
     <div class="container">

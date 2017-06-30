@@ -134,59 +134,13 @@
         </div>
         <div class="row text-center">
             <div class="col-lg-4 col-md-6 mb-r">
-                <div class="avatar">
-                    <img src="{{ society.secretary.avatar.thumbnail.200x200 }}" class="rounded-circle">
-                </div>
-                <h4>{{ society.secretary.user.get_full_name }}</h4>
-                <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
-                        href="https://api.whatsapp.com/send?phone=91{{ society.secretary.phone }}">+91-{{ society.secretary.phone }}</a>
-                </h5>
-                <h5>Student Secretary</h5>
-                <p>{{ society.secretary.about }}</p>
-                <a class="icons-sm email-ic" href="mailto:{{ society.secretary.user.email }}"><i
-                        class="fa fa-envelope-o"></i> </a>
+                {% include 'user_card_mixin.html' with userprofile=society.secretary designation='Student Secretary' %}
             </div>
             <div class="col-lg-4 col-md-6 mb-r">
-                <div class="avatar">
-                    <img src="{{ society.joint_secretary.avatar.thumbnail.200x200 }}" class="rounded-circle">
-                </div>
-                <h4>{{ society.joint_secretary.user.get_full_name }}</h4>
-                <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
-                        href="https://api.whatsapp.com/send?phone=91{{ society.joint_secretary.phone }}">+91-{{ society.joint_secretary.phone }}</a>
-                </h5>
-                <h5>Student Joint Secretary</h5>
-                <p>{{ society.joint_secretary.about }}</p>
-                <a class="icons-sm email-ic" href="mailto:{{ society.joint_secretary.user.email }}"><i
-                        class="fa fa-envelope-o"></i> </a>
-                {% comment %}<a class="icons-sm fb-ic" target="_blank" href="https://www.facebook.com/iAmAjat"><i
-                            class="fa fa-facebook"> </i></a>
-                    <a class="icons-sm li-ic" target="_blank" href="https://in.linkedin.com/in/ajat-prabha-87675b128"><i
-                            class="fa fa-linkedin"></i></a>
-                    <a class="icons-sm ins-ic" target="_blank" href="https://www.instagram.com/ajatprabha/"><i
-                            class="fa fa-instagram"> </i></a>
-                    <a class="icons-sm git-ic" target="_blank" href="https://github.com/ajatprabha"><i
-                            class="fa fa-github"></i></a>{% endcomment %}
+                {% include 'user_card_mixin.html' with userprofile=society.joint_secretary designation='Student Joint Secretary' %}
             </div>
             <div class="col-lg-4 col-md-6 mb-r">
-                <div class="avatar">
-                    <img src="{{ society.mentor.avatar.thumbnail.200x200 }}" class="rounded-circle">
-                </div>
-                <h4>{{ society.mentor.user.get_full_name }}</h4>
-                <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
-                        href="https://api.whatsapp.com/send?phone=91{{ society.mentor.phone }}">+91-{{ society.mentor.phone }}</a>
-                </h5>
-                <h5>Mentor</h5>
-                <p>{{ society.mentor.about }}</p>
-                <a class="icons-sm email-ic" href="mailto:{{ society.mentor.user.email }}"><i
-                        class="fa fa-envelope-o"></i> </a>
-                {% comment %}<a class="icons-sm fb-ic" target="_blank" href="https://www.facebook.com/iAmAjat"><i
-                            class="fa fa-facebook"> </i></a>
-                    <a class="icons-sm li-ic" target="_blank" href="https://in.linkedin.com/in/ajat-prabha-87675b128"><i
-                            class="fa fa-linkedin"></i></a>
-                    <a class="icons-sm ins-ic" target="_blank" href="https://www.instagram.com/ajatprabha/"><i
-                            class="fa fa-instagram"> </i></a>
-                    <a class="icons-sm git-ic" target="_blank" href="https://github.com/ajatprabha"><i
-                            class="fa fa-github"></i></a>{% endcomment %}
+                {% include 'user_card_mixin.html' with userprofile=society.mentor designation='Mentor' %}
             </div>
         </div>
     </div>

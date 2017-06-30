@@ -12,11 +12,6 @@
     margin: -6rem auto;
 }
 
-.profile-container .card-up {
-    background: url('/static/assets/others/aboutme.webp');
-    background-size: cover;
-}
-
 .profile-container .card-wrapper {
     height: 320px !important;
     margin: 0 5px !important;

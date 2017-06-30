@@ -4,6 +4,7 @@
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/profile_detail.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/croppie.css' %}"/>
+    {% include 'user_cover_mixin.html' with userprofile=userprofile %}
 {% endblock %}
 {% block navtitle %}About: {{ userprofile.user.get_full_name }}{% endblock %}
 {% block content %}
@@ -48,10 +49,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="card card-block">
-                                <div class="d-flex justify-content-between">
-                                    <h4 class="flex-item card-title">Personal Contact Info</h4>
-                                    <div id="icons" class="flex-item"><i class="fa fa-pencil blue-grey-text"></i></div>
-                                </div>
+                                <h4 class="flex-item card-title">Personal Contact Info</h4>
                                 <div id="hr"></div>
                                 <div id="icons" class="flex-column">
                                     <div><i class="fa fa-phone"></i>
@@ -68,20 +66,23 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card card-block">
-                                <div class="d-flex justify-content-between">
-                                    <h4 class="card-title">Gender, date of birth and more</h4>
-                                    <div id="icons" class="flex-item"><i class="fa fa-pencil blue-grey-text"></i></div>
-                                </div>
+                                <h4 class="card-title">Gender, date of birth and more</h4>
                                 <div id="hr"></div>
                                 <div id="icons" class="flex-column">
                                     <div><i class="fa fa-venus-mars"></i>
-                                        <span>{{ userprofile.get_gender }}</span>
+                                        <span>{{ userprofile.get_gender_display }}</span>
                                     </div>
                                     <div><i class="fa fa-birthday-cake"></i>
                                         <span>{{ userprofile.dob }}</span>
                                     </div>
+                                    <div><i class="fa fa-drivers-license-o"></i>
+                                        <span>{{ userprofile.get_prog_display }}</span>
+                                    </div>
                                     <div><i class="fa fa-graduation-cap"></i>
-                                        <span>{{ userprofile.get_branch }}</span>
+                                        <span>{{ userprofile.get_branch_display }}</span>
+                                    </div>
+                                    <div><i class="fa fa-calendar-o"></i>
+                                        <span>{{ userprofile.get_year_display }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -89,6 +90,9 @@
                     </div>
                 </div>
                 <a role="button" href="{% url 'forum:index' %}" class="btn btn-secondary waves-effect">Home</a>
+                {% if request.user.id == userprofile.user.id %}
+                <a role="button" href="{% url 'oauth:edit' userprofile.id %}" class="btn btn-primary waves-effect">Edit</a>
+                {% endif %}
             </div>
         </div>
     </div>

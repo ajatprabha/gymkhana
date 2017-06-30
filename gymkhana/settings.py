@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'hitcount',
+    'django_cleanup',
     'oauth.apps.OauthConfig',
     'main.apps.MainConfig',
     'forum.apps.ForumConfig',

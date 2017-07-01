@@ -1,9 +1,10 @@
 {% extends 'main/base.html' %}
-{% load humanize %}
+{% load staticfiles humanize %}
 {% block title %}{{ society.name }} - IIT Jodhpur{% endblock %}
 {% block skin %}{{ society.skin }}{% endblock %}
 
 {% block customstyles %}
+    <link rel="stylesheet" href="{% static 'css/contact_card.css' %}" />
     {% if society.cover %}
         <style>
             @media (max-width: 415px) {
@@ -208,13 +209,13 @@
         </div>
         <div class="row text-center">
             <div class="col-lg-4 col-md-6 mb-r">
-                {% include 'user_card_mixin.html' with userprofile=society.secretary designation='Student Secretary' %}
+                {% include 'main/mixins/user_card_mixin.html' with userprofile=society.secretary designation='Student Secretary' %}
             </div>
             <div class="col-lg-4 col-md-6 mb-r">
-                {% include 'user_card_mixin.html' with userprofile=society.joint_secretary designation='Student Joint Secretary' %}
+                {% include 'main/mixins/user_card_mixin.html' with userprofile=society.joint_secretary designation='Student Joint Secretary' %}
             </div>
             <div class="col-lg-4 col-md-6 mb-r">
-                {% include 'user_card_mixin.html' with userprofile=society.mentor designation='Mentor' %}
+                {% include 'main/mixins/user_card_mixin.html' with userprofile=society.mentor designation='Mentor' %}
             </div>
         </div>
     </div>

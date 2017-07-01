@@ -1,0 +1,30 @@
+
+.card-wrapper {
+    height: 340px;
+}
+
+.card-wrapper .card-up {
+    height: 40%;
+}
+
+.section.team-section .avatar {
+    margin-bottom: 0;
+}
+
+.card-wrapper .fa-repeat {
+    margin-top: 0;
+}
+
+.section.team-section h4, .section.team-section h5 {
+    margin-bottom: 0;
+}
+
+.section hr {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+.section .back a {
+    margin-top: auto;
+    margin-bottom: .5rem;
+}

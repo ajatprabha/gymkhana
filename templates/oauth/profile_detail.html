@@ -4,7 +4,6 @@
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/profile_detail.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/croppie.css' %}"/>
-    {% include 'user_cover_mixin.html' with userprofile=userprofile %}
     <style>
         .fixed-action-btn-fix {
             position: fixed;
@@ -14,6 +13,11 @@
             margin-bottom: 0;
             z-index: 998;
         }
+
+    .card-up {
+        background: url('{% include 'oauth/mixins/user_cover_src_mixin.html' with userprofile=userprofile %}');
+        background-size: cover;
+    }
     </style>
 {% endblock %}
 {% block navtitle %}About: {{ userprofile.user.get_full_name }}{% endblock %}

@@ -15,8 +15,12 @@
         img {
             width: inherit; /* This rule is very important, please do not ignore this! */
         }
+
+        .card-up {
+            background: url('{% include 'oauth/mixins/user_cover_src_mixin.html' with userprofile=userprofile %}');
+            background-size: cover;
+        }
     </style>
-    {% include 'user_cover_mixin.html' with userprofile=userprofile %}
 {% endblock %}
 {% block navtitle %}Update Profile: {{ userprofile.user.get_full_name }}{% endblock %}
 {% block main %}

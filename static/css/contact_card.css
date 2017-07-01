@@ -11,12 +11,16 @@
     margin-bottom: 0;
 }
 
-.card-wrapper .fa-repeat {
+.card-wrapper .fa-repeat, .card-wrapper .fa-undo {
     margin-top: 0;
 }
 
 .section.team-section h4, .section.team-section h5 {
     margin-bottom: 0;
+}
+
+.card-wrapper .face h5 {
+    margin-top: 0;
 }
 
 .section hr {
@@ -27,4 +31,9 @@
 .section .back a {
     margin-top: auto;
     margin-bottom: .5rem;
+}
+
+.section .back .about {
+    height: 170px;
+    overflow: hidden;
 }

@@ -25,7 +25,11 @@
             <!--Content-->
             <h4>About me</h4>
             <hr>
-            <p>{{ userprofile.about|linebreaks }}</p>
+            <div class="about">
+                <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
+                    href="https://api.whatsapp.com/send?phone=91{{ userprofile.phone }}">+91-{{ userprofile.phone }}</a></h5>
+                {{ userprofile.about|linebreaks }}
+            </div>
             <hr>
             <!--Social Icons-->
             <ul class="inline-ul">

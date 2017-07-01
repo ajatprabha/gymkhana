@@ -1,0 +1,38 @@
+{% extends 'forum/base.html' %}
+{% block title %}{{ request.GET.skills }} - Konnekt{% endblock %}
+{% block navtitle %}Konnekt - results for {{ request.GET.skills }}{% endblock %}
+{% block main %}
+    <div class="container">
+        <form action="" method="get">
+            {{ search_bar }}
+            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <hr/>
+        <div class="col-md-12" style="min-height: 40vh;">
+            {% if not userprofile_list %}
+                <div class="flex-center" style="height: 40vh;">
+                    <h4 class="h4-responsive">No results matching your search!</h4>
+                </div>
+            {% endif %}
+            {% if userprofile_list %}
+                <h3 class="h3-responsive mt-2 mb-2 text-center">{{ userprofile_list.count }} person{{ userprofile_list.count|pluralize }} found!</h3>
+            {% endif %}
+            {% for user in userprofile_list %}
+                <div class="media mb-1">
+                    <a class="media-left waves-light" href="{% url 'oauth:detail' user.id %}">
+                        <img class="rounded-circle" src="{{ user.avatar.thumbnail.100x100 }}"
+                             alt="Generic placeholder image">
+                    </a>
+                    <div class="media-body ml-3">
+                        <h4 class="media-heading">{{ user.user.get_full_name }}</h4>
+                        <h4 class="d-flex flex-wrap">
+                            {% for skill in user.skills_as_list %}
+                                <span class="chip"><a href="{% url 'konnekt:search' %}?skills={{ skill|urlencode }}">{{ skill }}</a></span>{% endfor %}
+                        </h4>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

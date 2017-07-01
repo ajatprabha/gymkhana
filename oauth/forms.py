@@ -1,6 +1,5 @@
 from django import forms
 from .models import UserProfile
-from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 class UserProfileUpdateForm(forms.ModelForm):

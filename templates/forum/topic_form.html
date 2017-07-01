@@ -23,9 +23,8 @@
                     {% endfor %}
                     <label for="id_category">Category</label>
                     <select class="mdb-select" name="category" id="id_category" required>
-                        <option value="" disabled selected>Choose your option</option>
                         {% for value, label in form.category.field.choices %}
-                            <option value="{{ value }}">{{ label }}</option>
+                            <option value="{{ value }}" {% if topic.category == value %}selected{% endif %}>{{ label }}</option>
                         {% endfor %}
                     </select>
                     <div class="md-form">

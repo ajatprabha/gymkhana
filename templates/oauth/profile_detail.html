@@ -5,16 +5,34 @@
     <link rel="stylesheet" href="{% static 'css/profile_detail.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/croppie.css' %}"/>
     {% include 'user_cover_mixin.html' with userprofile=userprofile %}
+    <style>
+        .fixed-action-btn-fix {
+            position: fixed;
+            right: 24px;
+            bottom: 35px;
+            padding-top: 15px;
+            margin-bottom: 0;
+            z-index: 998;
+        }
+    </style>
 {% endblock %}
 {% block navtitle %}About: {{ userprofile.user.get_full_name }}{% endblock %}
 {% block content %}
     <div class="profile-container">
-        <div class="rellax header" data-rellax-speed="-6">
+        {% if request.user.id == userprofile.user.id %}
+            <div class="fixed-action-btn-fix">
+                <a class="btn-floating btn-large red" href="{% url 'oauth:edit' userprofile.id %}" data-toggle="tooltip"
+                   data-placement="left" title="Edit Profile">
+                    <i class="fa fa-pencil"></i>
+                </a>
+            </div>
+        {% endif %}
+        <div class="rellax header" data-rellax-speed="-4">
             <div class="flex-center">
                 <h2 class="h2-responsive white-text"><strong>Gymkhana</strong> About Me</h2>
             </div>
         </div>
-        <div class="rellax content" data-rellax-speed="10">
+        <div class="rellax content" data-rellax-speed="5">
             <div class="container-fluid">
                 <div class="row text-center">
                     <!--First column-->
@@ -49,9 +67,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="card card-block">
-                                <h4 class="flex-item card-title">Personal Contact Info</h4>
+                                <h4 class="flex-item card-title">Personal Info</h4>
                                 <div id="hr"></div>
                                 <div id="icons" class="flex-column">
+                                    <div><i class="fa fa-venus-mars"></i>
+                                        <span>{{ userprofile.get_gender_display }}</span>
+                                    </div>
                                     <div><i class="fa fa-phone"></i>
                                         <span>{{ userprofile.phone }}</span>
                                     </div>
@@ -66,12 +87,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card card-block">
-                                <h4 class="card-title">Gender, date of birth and more</h4>
+                                <h4 class="card-title">Branch, date of birth and more</h4>
                                 <div id="hr"></div>
                                 <div id="icons" class="flex-column">
-                                    <div><i class="fa fa-venus-mars"></i>
-                                        <span>{{ userprofile.get_gender_display }}</span>
-                                    </div>
                                     <div><i class="fa fa-birthday-cake"></i>
                                         <span>{{ userprofile.dob }}</span>
                                     </div>
@@ -87,12 +105,30 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="card card-block">
+                                <h4 class="card-title">Skills</h4>
+                                <div id="hr"></div>
+                                <div class="flex-column">
+                                    <h4 class="d-flex flex-wrap">
+                                        {% for skill in userprofile.skills_as_list %}
+                                            <span class="chip"><a href="{% url 'konnekt:search' %}?skills={{ skill|urlencode }}">{{ skill }}</a></span>
+                                        {% endfor %}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card card-block">
+                                <h4 class="card-title">About</h4>
+                                <div id="hr"></div>
+                                <div class="text-center">
+                                    <p>{{ userprofile.about|linebreaks }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <a role="button" href="{% url 'forum:index' %}" class="btn btn-secondary waves-effect">Home</a>
-                {% if request.user.id == userprofile.user.id %}
-                <a role="button" href="{% url 'oauth:edit' userprofile.id %}" class="btn btn-primary waves-effect">Edit</a>
-                {% endif %}
             </div>
         </div>
     </div>

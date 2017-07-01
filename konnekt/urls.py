@@ -1,8 +1,9 @@
 from django.conf.urls import url
-from .views import SearchView
+from .views import HomeView, SearchView
 
 app_name = 'konnekt'
 
 urlpatterns = [
-    url(r'^$', SearchView.as_view(), name='search'),
+    url(r'^$', HomeView.as_view(), name='index'),
+    url(r'^search$', SearchView.as_view(), name='search'),
 ]

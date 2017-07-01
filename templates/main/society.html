@@ -35,6 +35,23 @@
                 }
             }
         </style>
+        <style>
+            table#events th i {
+                padding: 3%;
+            }
+
+            table#events td a {
+                margin: 0;
+            }
+
+            .event-modal {
+                padding: 5%;
+            }
+
+            .cream-back {
+                background: #F5F5F5
+            }
+        </style>
     {% endif %}
 {% endblock %}
 
@@ -56,53 +73,110 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="divider-new">
-                    <h3 class="h3-responsive">Events</h3>
+                <div class="d-flex justify-content-center mb-2">
+                    <div><i class="fa fa-lightbulb-o fa-2x mr-2"></i></div>
+                    <div><h3 class="h3-responsive">Event{{ event_list|pluralize }}</h3></div>
                 </div>
-                <ul>
-                    {% if not event_list %}
-                        <li>No events scheduled.</li>
-                    {% endif %}
-                    {% for event in event_list %}
-                        <li>{{ event.name }}, {{ event.date|naturaltime }}</li>
-                    {% endfor %}
-                </ul>
+                {% if not event_list %}
+                    <h4 class="h4-responsive text-center">No events to display</h4>
+                {% else %}
+                    <div class="list-group">
+                        <table class="table mb-0" id="events">
+                            <thead>
+                            <tr class="primary-color">
+                                <th class="text-center"><i class="fa fa-external-link"></i></th>
+                                <th>Name</th>
+                                <th class="text-center"><i class="fa fa-calendar-o"></i></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for event in event_list %}
+                                <tr class="list-group-item-action">
+                                    <td class="text-center"><a data-toggle="modal"
+                                                               data-target="#event-{{ forloop.counter }}"><i
+                                            class="fa fa-chevron-right"></i></a></td>
+                                    <td><a data-toggle="modal"
+                                           data-target="#event-{{ forloop.counter }}">{{ event.name|truncatechars:26 }}</a>
+                                    </td>
+                                    <td>
+                                        <a data-toggle="modal" data-target="#event-{{ forloop.counter }}">
+                                            <small>{{ event.date|naturalday }}</small>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
-    <div class="container mt-1">
-        <div class="row">
-            {% if club_list %}
-                <div class="col-md-12">
-                    <div class="divider-new">
-                        <h3 class="h3-responsive">Clubs</h3>
+    <!--Event Modals-->
+    {% for event in event_list %}
+        <div class="modal fade" id="event-{{ forloop.counter }}" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog cascading-modal" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header primary-color white-text">
+                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="title">{{ event.club.name }} Event</h4>
                     </div>
-                    <ul>
-                        {% for club in club_list %}
-                            <li>{{ club.name }}</li>
-                        {% endfor %}
-                    </ul>
+                    <!--Body-->
+                    <div class="modal-body mb-0">
+                        <h3 class="h3-responsive text-center mb-2">{{ event.name }}</h3>
+                        <div class="container-fuild">
+                            <div class="row text-center">
+                                <div class="col-4"><i
+                                        class="fa fa-calendar-o event-modal"></i>{{ event.date|naturalday }}</div>
+                                <div class="col-4"><i class="fa fa-clock-o event-modal"></i>{{ event.date|time }}</div>
+                                <div class="col-4"><i class="fa fa-map-marker event-modal"></i>{{ event.location }}
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-justify">{{ event.description|linebreaks }}</p>
+
+                        <div class="text-right mt-1-half">
+                            <button class="btn btn-primary mb-1" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
                 </div>
-            {% endif %}
-            {% if team_list %}
-                <div class="col-md-12">
-                <div class="divider-new">
-                    <h3 class="h3-responsive">Teams</h3>
-                </div>
-                <ul>
-                    {% for team in team_list %}
-                        <li>{{ team.name }}</li>
-                    {% endfor %}
-                </ul>
-                </div>
-            {% endif %}
-            {% if not club_list and not team_list %}
-                <div class="col-md-12">
-                    <h4 class="h4-responsive">No clubs or teams are associated with this society.</h4>
-                </div>
-            {% endif %}
+                <!--/.Content-->
+            </div>
         </div>
-    </div>
+    {% endfor %}
+    <!--End Modals-->
+
+    {% if club_list %}
+        <div class="cream-back pt-2 mt-3 pb-3">
+            {% include 'main/mixins/club_list_mixin.html' with club_list=club_list clubtitle='Clubs' %}
+        </div>
+    {% endif %}
+    {% if team_list %}
+        <div class="col-md-12">
+            <div class="divider-new">
+                <h3 class="h3-responsive">Teams</h3>
+            </div>
+            <ul>
+                {% for team in team_list %}
+                    <li>{{ team.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    {% if not club_list and not team_list %}
+        <div class="col-md-12">
+            <h4 class="h4-responsive">No clubs or teams are associated with this society.</h4>
+        </div>
+    {% endif %}
+
     <div class="container">
         <div class="row">
             <div class="col-md-4">

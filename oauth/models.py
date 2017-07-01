@@ -46,7 +46,7 @@ class UserProfile(models.Model):
     hometown = models.CharField(max_length=128)
     branch = models.CharField(max_length=5, choices=BRANCH_CHOICES)
     skills = models.TextField(help_text="Enter your skills, separated by comma.", max_length=1024)
-    about = models.TextField(max_length=512, verbose_name='about you')
+    about = models.TextField(max_length=160, verbose_name='about you')
 
     def get_absolute_url(self):
         return reverse('oauth:detail', kwargs={'pk': self.pk})

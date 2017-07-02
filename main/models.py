@@ -146,7 +146,7 @@ class Senate(models.Model):
 
 class SenateMembership(models.Model):
     ROLE_CHOICES = (
-        ('SECY', 'Secretary'),
+        ('SECY', 'Student Secretary'),
         ('SER', 'Student Elected Representative'),
     )
     P_YEAR_CHOICES = (

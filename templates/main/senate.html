@@ -1,5 +1,7 @@
 {% extends 'main/base.html' %}
 {% load staticfiles %}
+{% block title %}{{ senate.name }} - IIT Jodhpur{% endblock %}
+{% block skin %}{{ senate.skin }}{% endblock %}
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/contact_card.css' %}"/>
     {% if senate.cover %}
@@ -47,6 +49,17 @@
                 <ul>
                     <li><h1 class="h1-responsive wow fadeIn"><b>{{ senate.name }}</b></h1></li>
                 </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-md-8">
+                <h2 class="h2-responsive mb-2">About</h2>
+                <div id="description">{{ senate.description|safe }}
+                </div>
+            </div>
+            <div class="col-md-4">
             </div>
         </div>
     </div>

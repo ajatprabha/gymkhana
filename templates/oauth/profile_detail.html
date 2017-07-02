@@ -14,10 +14,10 @@
             z-index: 998;
         }
 
-    .card-up {
-        background: url('{% include 'oauth/mixins/user_cover_src_mixin.html' with userprofile=userprofile %}');
-        background-size: cover;
-    }
+        .card-up {
+            background: url('{% include 'oauth/mixins/user_cover_src_mixin.html' with userprofile=userprofile %}');
+            background-size: cover;
+        }
     </style>
 {% endblock %}
 {% block navtitle %}About: {{ userprofile.user.get_full_name }}{% endblock %}
@@ -116,7 +116,8 @@
                                 <div class="flex-column">
                                     <h4 class="d-flex flex-wrap">
                                         {% for skill in userprofile.skills_as_list %}
-                                            <span class="chip"><a href="{% url 'konnekt:search' %}?skills={{ skill|urlencode }}">{{ skill }}</a></span>
+                                            <span class="chip"><a
+                                                    href="{% url 'konnekt:search' %}?skills={{ skill|urlencode }}">{{ skill }}</a></span>
                                         {% endfor %}
                                     </h4>
                                 </div>
@@ -126,8 +127,21 @@
                             <div class="card card-block">
                                 <h4 class="card-title">About</h4>
                                 <div id="hr"></div>
-                                <div class="text-center">
-                                    <p>{{ userprofile.about|linebreaks }}</p>
+                                <div class="text-center" style="word-wrap: break-word">
+                                    {{ userprofile.about|linebreaks }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card card-block">
+                                <h4 class="card-title">Social Links</h4>
+                                <div id="hr"></div>
+                                <div id="icons" class="flex-column">
+                                    {% for link in userprofile.user.sociallink_set.all %}
+                                        <div style="word-wrap: break-word"><i class="fa {{ link.get_fai }}"></i>
+                                            <span>{{ link.link|urlizetrunc:40 }}</span>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

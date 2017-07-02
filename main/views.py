@@ -25,7 +25,8 @@ class SocietyView(DetailView):
         raw = self.object.club_set.filter(published=True)
         clubs = raw.filter(ctype='C')
         teams = raw.filter(ctype='T')
-        events = Event.objects.filter(club__society=self.object).filter(date__gte=timezone.now())[:5]
+        events = Event.objects.filter(club__society=self.object).filter(published=True).filter(
+            date__gte=timezone.now())[:5]
         news = News.objects.filter(club__society=self.object).order_by('date')[:5]
         context['society_link_list'] = societies
         context['club_list'] = clubs

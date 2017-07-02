@@ -5,6 +5,7 @@
 
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/contact_card.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/news_event.css' %}"/>
     {% if society.cover %}
         <style>
             @media (max-width: 415px) {
@@ -37,18 +38,6 @@
             }
         </style>
         <style>
-            table#events th i {
-                padding: 3%;
-            }
-
-            table#events td a {
-                margin: 0;
-            }
-
-            .event-modal {
-                padding: 5%;
-            }
-
             .cream-back {
                 background: #F5F5F5
             }
@@ -99,43 +88,40 @@
         </div>
     {% endif %}
 
-    <div class="container">
+    <div class="container pt-2 pb-2">
         <div class="row">
             <div class="col-md-4">
-                <div class="divider-new">
-                    <h3 class="h3-responsive">News</h3>
-                </div>
-                <ul>
-                    {% if not news_list %}
-                        <li>No news to display.</li>
-                    {% endif %}
-                    {% for news in news_list %}
-                        <li>{{ news.title }}, {{ news.date|naturalday }}</li>
-                    {% endfor %}
-                </ul>
+                {% include 'main/mixins/news_list_module.html' with news_list=news_list %}
             </div>
             <div class="col-md-8">
 
             </div>
         </div>
     </div>
+    {% include 'main/mixins/news_modal_mixin.html' with news_list=news_list %}
     <div class="container-fluid">
         <div class="row">
             <div class="gallery"></div>
         </div>
     </div>
-    <div class="container mt-3 section team-section">
-        <div class="divider-new">
-            <h3 class="h3-responsive">Key Persons</h3>
-        </div>
-        <div class="row text-center">
-            <div class="col-lg-4 col-md-6 mb-r">
+    <div class="container pt-2 section team-section">
+        <div class="row flex-center">
+            <div class="col-sm-10">
+                <!--Card Primary-->
+                <div class="card primary-color text-center z-depth-2 mt-2 mb-2">
+                    <div class="card-block">
+                        <h3 class="h3-responsive white-text mb-0">Key People</h3>
+                    </div>
+                </div>
+                <!--/.Card Primary-->
+            </div>
+            <div class="col-lg-4 col-md-6 pt-md-2 mb-r">
                 {% include 'main/mixins/user_card_mixin.html' with userprofile=society.secretary designation='Student Secretary' %}
             </div>
-            <div class="col-lg-4 col-md-6 mb-r">
+            <div class="col-lg-4 col-md-6 pt-md-2 mb-r">
                 {% include 'main/mixins/user_card_mixin.html' with userprofile=society.joint_secretary designation='Student Joint Secretary' %}
             </div>
-            <div class="col-lg-4 col-md-6 mb-r">
+            <div class="col-lg-4 col-md-6 pt-md-2 mb-r">
                 {% include 'main/mixins/user_card_mixin.html' with userprofile=society.mentor designation='Mentor' %}
             </div>
         </div>

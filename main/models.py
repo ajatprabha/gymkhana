@@ -106,7 +106,6 @@ class SocialLink(models.Model):
         ('YT', 'YouTube'),
         ('EM', 'Email'),
     )
-
     FA_CHOICES = (
         ('fa fa-facebook', 'Facebook'),
         ('fa fa-twitter', 'Twitter'),
@@ -116,7 +115,6 @@ class SocialLink(models.Model):
         ('fa fa-youtube', 'YouTube'),
         ('fa fa-envelope-o', 'Email'),
     )
-
     IC_CHOICES = (
         ('fb-ic', 'Facebook'),
         ('tw-ic', 'Twitter'),
@@ -126,12 +124,11 @@ class SocialLink(models.Model):
         ('yt-ic', 'YouTube'),
         ('email-ic', 'Email'),
     )
-
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     social_media = models.CharField(max_length=2, choices=SM_CHOICES)
-    link = models.URLField
+    link = models.URLField()
     icon_class = models.CharField(max_length=50, choices=IC_CHOICES)
     fa_icon = models.CharField(max_length=50, choices=FA_CHOICES)
 
     def __str__(self):
-        return self.club.name + ' - ' + self.social_media
+        return self.club.name + ' - ' + self.get_social_media_display()

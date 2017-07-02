@@ -138,7 +138,7 @@ LOGIN_URL = '/login/'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Calcutta'
 
 USE_I18N = True
 
@@ -173,7 +173,7 @@ CKEDITOR_CONFIGS = {
             # {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
             {'name': 'basicstyles',
              'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
-            { 'name': 'formulae', 'items': [ 'Mathjax' ] },
+            {'name': 'formulae', 'items': ['Mathjax']},
             {'name': 'insert',
              'items': ['Image', 'Table', 'HorizontalRule', 'Smiley', ]},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},

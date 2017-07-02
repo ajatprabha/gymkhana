@@ -17,7 +17,7 @@
         }
 
         .card-up {
-            background: url('{% include 'oauth/mixins/user_cover_src_mixin.html' with userprofile=userprofile %}');
+            background: url('{% include 'oauth/mixins/user_cover_src_mixin.html' with userprofile=userprofile %}') center;
             background-size: cover;
         }
     </style>
@@ -194,7 +194,7 @@
                             <div class="md-form">
                                 <textarea type="text" name="{{ form.about.name }}" id="{{ form.about.id_for_label }}"
                                           class="md-textarea"
-                                          length="512">{{ form.about.value }}</textarea>
+                                          length="160">{{ form.about.value }}</textarea>
                                 {{ form.about.label_tag }}
                             </div>
                             <div class="text-center">

@@ -37,3 +37,8 @@
     height: 170px;
     overflow: hidden;
 }
+
+.section .back ul.inline-ul{
+    overflow: hidden;
+    height: 2.2rem;
+}

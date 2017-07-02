@@ -18,10 +18,8 @@
             </div>
         </div>
         <!--/.Front Side-->
-
         <!--Back Side-->
         <div class="face back">
-
             <!--Content-->
             <h4>About me</h4>
             <hr>
@@ -33,14 +31,14 @@
             <hr>
             <!--Social Icons-->
             <ul class="inline-ul">
-                <li><a class="icons-sm fb-ic"><i class="fa fa-facebook"></i></a></li>
-                <li><a class="icons-sm tw-ic"><i class="fa fa-twitter"></i></a></li>
-                <li><a class="icons-sm gplus-ic"><i class="fa fa-google-plus"></i></a></li>
-                <li><a class="icons-sm li-ic"><i class="fa fa-linkedin"></i></a></li>
+
+                    <li><a class="icons-sm email-ic" href="mailto:{{ userprofile.user.email }}"><i class="fa fa-envelope-o"></i></a></li>
+                {% for link in userprofile.user.sociallink_set.all|slice:":4" %}
+                    <li><a class="icons-sm {{ link.get_sm_ic }}" target="_blank" href="{{ link.link }}"><i class="{{ link.get_fai }}"></i></a></li>
+                {% endfor %}
             </ul>
             <!--Triggering button-->
             <a class="rotate-btn" data-card="card-{{ userprofile.id }}"><i class="fa fa-undo"></i> Back</a>
-
         </div>
         <!--/.Back Side-->
     </div>

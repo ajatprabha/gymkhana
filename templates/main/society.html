@@ -4,7 +4,7 @@
 {% block skin %}{{ society.skin }}{% endblock %}
 
 {% block customstyles %}
-    <link rel="stylesheet" href="{% static 'css/contact_card.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/contact_card.css' %}"/>
     {% if society.cover %}
         <style>
             @media (max-width: 415px) {
@@ -76,7 +76,7 @@
             <div class="col-md-4">
                 <div class="d-flex justify-content-center mb-2">
                     <div><i class="fa fa-lightbulb-o fa-2x mr-2"></i></div>
-                    <div><h3 class="h3-responsive">Event{{ event_list|pluralize }}</h3></div>
+                    <div><h3 class="h3-responsive">Upcoming Event{{ event_list|pluralize }}</h3></div>
                 </div>
                 {% if not event_list %}
                     <h4 class="h4-responsive text-center">No events to display</h4>
@@ -161,20 +161,17 @@
         </div>
     {% endif %}
     {% if team_list %}
-        <div class="col-md-12">
-            <div class="divider-new">
-                <h3 class="h3-responsive">Teams</h3>
-            </div>
-            <ul>
-                {% for team in team_list %}
-                    <li>{{ team.name }}</li>
-                {% endfor %}
-            </ul>
+        <div class="cream-back pt-2 mt-3 pb-3">
+            {% include 'main/mixins/club_list_mixin.html' with club_list=team_list clubtitle='Teams' %}
         </div>
     {% endif %}
     {% if not club_list and not team_list %}
-        <div class="col-md-12">
-            <h4 class="h4-responsive">No clubs or teams are associated with this society.</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 flex-center">
+                    <h4 class="h4-responsive mt-3 mb-2">No clubs or teams are associated with this society.</h4>
+                </div>
+            </div>
         </div>
     {% endif %}
 

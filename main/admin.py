@@ -10,7 +10,7 @@ class SocietyAdmin(admin.ModelAdmin):
 
 class ClubAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
-    list_display = ('__str__', 'society', 'ctype', 'published',)
+    list_display = ('__str__', 'society', 'ctype', 'published')
     list_filter = ('published', 'ctype')
 
 # iterable list

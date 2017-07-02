@@ -21,3 +21,9 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+
+
+class SocialLinkAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'user', 'link')
+
+admin.site.register(SocialLink, SocialLinkAdmin)

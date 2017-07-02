@@ -1,6 +1,6 @@
 from django.utils import timezone
 from django.views.generic import TemplateView, DetailView
-from .models import Society, Club
+from .models import Society, Club, Senate
 from events.models import Event
 from news.models import News
 
@@ -33,6 +33,17 @@ class SocietyView(DetailView):
         context['team_list'] = teams
         context['event_list'] = events
         context['news_list'] = news
+        return context
+
+
+class SenateView(DetailView):
+    template_name = 'main/senate.html'
+    model = Senate
+
+    def get_context_data(self, **kwargs):
+        context = super(SenateView, self).get_context_data(**kwargs)
+        societies = Society.objects.filter(is_active=True)
+        context['society_link_list'] = societies
         return context
 
 

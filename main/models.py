@@ -134,6 +134,12 @@ class Senate(models.Model):
     is_active = models.BooleanField(default=False)
     year = models.CharField(max_length=4, choices=YEAR_CHOICES, validators=[valid_year])
 
+    class Meta:
+        ordering = ["-id"]
+
+    def get_absolute_url(self):
+        return reverse('main:senate-detail', kwargs={'slug': self.slug})
+
     def __str__(self):
         return self.name + ' - ' + self.year
 

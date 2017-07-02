@@ -1,5 +1,15 @@
 from django.contrib import admin
-from .models import Society, Club, SocialLink
+from .models import Society, Club, SocialLink, Senate, SenateMembership
+
+
+class MembershipInline(admin.StackedInline):
+    model = SenateMembership
+    can_delete = True
+    verbose_name_plural = 'Members'
+
+
+class SenateAdmin(admin.ModelAdmin):
+    inlines = (MembershipInline,)
 
 
 class SocietyAdmin(admin.ModelAdmin):
@@ -15,9 +25,10 @@ class ClubAdmin(admin.ModelAdmin):
 
 # iterable list
 main_models = [
-    SocialLink
+    SocialLink,
 ]
 
 admin.site.register(Society, SocietyAdmin)
 admin.site.register(Club, ClubAdmin)
+admin.site.register(Senate, SenateAdmin)
 admin.site.register(main_models)

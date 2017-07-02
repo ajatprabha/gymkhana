@@ -104,25 +104,27 @@
             <div class="gallery"></div>
         </div>
     </div>
-    <div class="container pt-2 section team-section">
-        <div class="row flex-center">
-            <div class="col-sm-10">
-                <!--Card Primary-->
-                <div class="card primary-color text-center z-depth-2 mt-2 mb-2">
-                    <div class="card-block">
-                        <h3 class="h3-responsive white-text mb-0">Key People</h3>
+    <div class="cream-back">
+        <div class="container pt-2 section team-section">
+            <div class="row flex-center">
+                <div class="col-sm-10">
+                    <!--Card Primary-->
+                    <div class="card primary-color text-center z-depth-2 mt-2 mb-2">
+                        <div class="card-block">
+                            <h3 class="h3-responsive white-text mb-0">Key People</h3>
+                        </div>
                     </div>
+                    <!--/.Card Primary-->
                 </div>
-                <!--/.Card Primary-->
-            </div>
-            <div class="col-lg-4 col-md-6 pt-md-2 mb-r">
-                {% include 'main/mixins/user_card_mixin.html' with userprofile=society.secretary designation='Student Secretary' %}
-            </div>
-            <div class="col-lg-4 col-md-6 pt-md-2 mb-r">
-                {% include 'main/mixins/user_card_mixin.html' with userprofile=society.joint_secretary designation='Student Joint Secretary' %}
-            </div>
-            <div class="col-lg-4 col-md-6 pt-md-2 mb-r">
-                {% include 'main/mixins/user_card_mixin.html' with userprofile=society.mentor designation='Mentor' %}
+                <div class="col-lg-4 col-md-6 pt-md-2 mb-r">
+                    {% include 'main/mixins/user_card_mixin.html' with userprofile=society.secretary designation='Student Secretary' %}
+                </div>
+                <div class="col-lg-4 col-md-6 pt-md-2 mb-r">
+                    {% include 'main/mixins/user_card_mixin.html' with userprofile=society.joint_secretary designation='Student Joint Secretary' %}
+                </div>
+                <div class="col-lg-4 col-md-6 pt-md-2 mb-r">
+                    {% include 'main/mixins/user_card_mixin.html' with userprofile=society.mentor designation='Mentor' %}
+                </div>
             </div>
         </div>
     </div>

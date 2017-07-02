@@ -12,17 +12,23 @@ for r in range(2008, (datetime.datetime.now().year + 2)):
     YEAR_CHOICES.append((str(r), r))
 
 SKIN_CHOICES = (
-        ('white-skin', 'White'),
-        ('black-skin', 'Black'),
-        ('cyan-skin', 'Cyan'),
-        ('mdb-skin', 'MDB'),
-        ('deep-purple-skin', 'Deep Purple'),
-        ('navy-blue-skin', 'Navy Blue'),
-        ('pink-skin', 'Pink'),
-        ('indigo-skin', 'Indigo'),
-        ('light-blue-skin', 'Light Blue'),
-        ('grey-skin', 'Grey'),
-    )
+    ('white-skin', 'White'),
+    ('black-skin', 'Black'),
+    ('cyan-skin', 'Cyan'),
+    ('mdb-skin', 'MDB'),
+    ('deep-purple-skin', 'Deep Purple'),
+    ('navy-blue-skin', 'Navy Blue'),
+    ('pink-skin', 'Pink'),
+    ('indigo-skin', 'Indigo'),
+    ('light-blue-skin', 'Light Blue'),
+    ('grey-skin', 'Grey'),
+)
+
+
+class FacultyAdvisor(models.Model):
+    name = models.CharField(max_length=128)
+    avatar = VersatileImageField(upload_to='avatar')
+
 
 class Society(models.Model):
     # Validators
@@ -37,6 +43,9 @@ class Society(models.Model):
     secretary = models.ForeignKey(UserProfile, related_name='secy')
     joint_secretary = models.ForeignKey(UserProfile, related_name='joint_secy')
     mentor = models.ForeignKey(UserProfile, related_name='smentor')
+    faculty_advisor = models.ForeignKey(FacultyAdvisor, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    custom_html = models.TextField(blank=True, null=True, default=None,
+                                   help_text="Add custom HTML to view on society page.")
     slug = models.SlugField(unique=True, help_text="This will be used as URL. /society/slug")
     is_active = models.BooleanField(default=False)
     year = models.CharField(max_length=4, choices=YEAR_CHOICES, validators=[valid_year])
@@ -72,9 +81,12 @@ class Club(models.Model):
     vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one', blank=True, null=True, default=None)
     vice_captain_two = models.ForeignKey(UserProfile, related_name='vice_cap_two', blank=True, null=True, default=None)
     mentor = models.ForeignKey(UserProfile, related_name='cmentor', blank=True, null=True, default=None)
+    core_members = models.ManyToManyField(UserProfile)
     gallery = models.ForeignKey(Gallery, blank=True, null=True, on_delete=models.SET_NULL,
                                 help_text="Select a gallery to link to this club.")
-    custom_html = models.TextField(blank=True, null=True, help_text="Add custom HTML to view on club page.")
+    resources_link = models.URLField(blank=True, null=True, default=None)
+    custom_html = models.TextField(blank=True, null=True, default=None,
+                                   help_text="Add custom HTML to view on club page.")
     slug = models.SlugField(unique=True, help_text="This will be used as URL. /club/slug")
     published = models.BooleanField(default=False)
 
@@ -94,6 +106,56 @@ class Club(models.Model):
 
     def __str__(self):
         return self.name + " - " + str(self.year)
+
+
+class Festival(models.Model):
+    name = models.CharField(max_length=32)
+    photo = VersatileImageField(upload_to='festival')
+    about = models.TextField(max_length=2048)
+    link = models.URLField(blank=True, null=True, default=None)
+
+
+class Senate(models.Model):
+    # Validators
+    valid_year = RegexValidator(r'^[0-9]{4}$', message='Not a valid year!')
+    # Model
+    name = models.CharField(max_length=128)
+    description = RichTextUploadingField(blank=True)
+    cover = VersatileImageField('Cover', upload_to='society_%Y', blank=True, null=True,
+                                help_text="Upload high quality picture")
+    skin = models.CharField(max_length=32, choices=SKIN_CHOICES, blank=True, default='mdb-skin',
+                            help_text="Choose a skin while displaying senate page.")
+    members = models.ManyToManyField(UserProfile, through='SenateMembership', through_fields=('senate', 'userprofile'))
+    coordinator_student = models.ForeignKey(FacultyAdvisor, blank=True, null=True, default=None,
+                                            on_delete=models.SET_NULL)
+    custom_html = models.TextField(blank=True, null=True, default=None,
+                                   help_text="Add custom HTML to view on society page.")
+    slug = models.SlugField(unique=True, help_text="This will be used as URL. /senate/slug")
+    is_active = models.BooleanField(default=False)
+    year = models.CharField(max_length=4, choices=YEAR_CHOICES, validators=[valid_year])
+
+    def __str__(self):
+        return self.name + ' - ' + self.year
+
+
+class SenateMembership(models.Model):
+    ROLE_CHOICES = (
+        ('SECY', 'Secretary'),
+        ('SER', 'Student Elected Representative'),
+    )
+    P_YEAR_CHOICES = (
+        ('1', 'First Year'),
+        ('2', 'Second Year'),
+        ('3', 'Third Year'),
+        ('4', 'Fourth Year'),
+    )
+    senate = models.ForeignKey(Senate, on_delete=models.CASCADE)
+    userprofile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    role = models.CharField(max_length=5, choices=ROLE_CHOICES)
+    year = models.CharField(max_length=1, choices=P_YEAR_CHOICES)
+
+    def __str__(self):
+        return self.userprofile.user.get_full_name()
 
 
 class SocialLink(models.Model):

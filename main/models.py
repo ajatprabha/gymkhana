@@ -108,6 +108,22 @@ class Club(models.Model):
         return self.name + " - " + str(self.year)
 
 
+class Activity(models.Model):
+    name = models.CharField(max_length=64)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    description = RichTextUploadingField()
+    gallery = models.ForeignKey(Gallery)
+
+    class Meta:
+        verbose_name_plural = 'Activities'
+
+    def get_absolute_url(self):
+        return reverse('main:activity-gallery', kwargs={'pk': self.pk})
+
+    def __str__(self):
+        return self.name + ' - ' + self.club.name
+
+
 class Festival(models.Model):
     FEST_CHOICES = (
         ('IGNS', 'Ignus'),
@@ -122,9 +138,6 @@ class Festival(models.Model):
 
     def __str__(self):
         return self.get_name_display()
-
-    def get_logo(self):
-        pass
 
 
 class Senate(models.Model):

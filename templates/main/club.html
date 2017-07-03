@@ -1,5 +1,107 @@
 {% extends 'main/base.html' %}
 
 {% block main %}
-    <div class="container mt-5">{{ event_list|pprint }}</div>
+    <div class="streak streak-lg streak-photo society-photo view hm-black-light">
+        <div class="mask flex-center">
+            <div class="flex-center text-white">
+                <ul>
+                    <li><h1 class="h1-responsive wow fadeIn"><b>{{ club.name }}</b></h1></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-2">
+        <div class="row card card-info"
+             style="margin-top: -180px; width: 80%; margin-right: auto; margin-left: auto; padding: 5%">
+            <div class="col-md-12">
+                <h2 class="h2-responsive mb-2">About</h2>
+                <div id="description">{% lorem %}</div>
+            </div>
+        </div>
+        <div class="container mt-2">
+            <div class="col-md-5">
+                {% include 'main/mixins/event_list_module.html' with event_list=event_list %}
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3 section team-section">
+        <div class="row text-center">
+            <div class="col-lg-3 col-md-6 mb-r">
+                <div class="avatar">
+                    <img src="{{ club.captain.avatar.thumbnail.200x200 }}" class="rounded-circle">
+                </div>
+                <h4>{{ club.captain.user.get_full_name }}</h4>
+                <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
+                        href="https://api.whatsapp.com/send?phone=91{{ club.captain.phone }}">+91-{{ club.captain.phone }}</a>
+                </h5>
+                <h5>Captain</h5>
+                <p>{{ club.captain.about }}</p>
+                <a class="icons-sm email-ic" href="mailto:{{ club.captain.user.email }}"><i
+                        class="fa fa-envelope-o"></i> </a>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-r">
+                <div class="avatar">
+                    <img src="{{ club.vice_captain_one.avatar.thumbnail.200x200 }}" class="rounded-circle">
+                </div>
+                <h4>{{ club.vice_captain_one.user.get_full_name }}</h4>
+                <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
+                        href="https://api.whatsapp.com/send?phone=91{{ club.vice_captain_one.phone }}">+91-{{ club.vice_captain_one.phone }}</a>
+                </h5>
+                <h5>Vice Captain</h5>
+                <p>{{ club.vice_captain_one.about }}</p>
+                <a class="icons-sm email-ic" href="mailto:{{ club.vice_captain_one.user.email }}"><i
+                        class="fa fa-envelope-o"></i> </a>
+                <a class="icons-sm fb-ic" target="_blank" href="https://www.facebook.com/iAmAjat"><i
+                            class="fa fa-facebook"> </i></a>
+                    <a class="icons-sm li-ic" target="_blank" href="https://in.linkedin.com/in/ajat-prabha-87675b128"><i
+                            class="fa fa-linkedin"></i></a>
+                    <a class="icons-sm ins-ic" target="_blank" href="https://www.instagram.com/ajatprabha/"><i
+                            class="fa fa-instagram"> </i></a>
+                    <a class="icons-sm git-ic" target="_blank" href="https://github.com/ajatprabha"><i
+                            class="fa fa-github"></i></a>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-r">
+                <div class="avatar">
+                    <img src="{{ club.vice_captain_two.avatar.thumbnail.200x200 }}" class="rounded-circle">
+                </div>
+                <h4>{{ club.vice_captain_two.user.get_full_name }}</h4>
+                <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
+                        href="https://api.whatsapp.com/send?phone=91{{ club.vice_captain_two.phone }}">+91-{{ club.vice_captain_two.phone }}</a>
+                </h5>
+                <h5>Vice Captain</h5>
+                <p>{{ club.vice_captain_two.about }}</p>
+                <a class="icons-sm email-ic" href="mailto:{{ club.vice_captain_two.user.email }}"><i
+                        class="fa fa-envelope-o"></i> </a>
+                <a class="icons-sm fb-ic" target="_blank" href="https://www.facebook.com/iAmAjat"><i
+                            class="fa fa-facebook"> </i></a>
+                    <a class="icons-sm li-ic" target="_blank" href="https://in.linkedin.com/in/ajat-prabha-87675b128"><i
+                            class="fa fa-linkedin"></i></a>
+                    <a class="icons-sm ins-ic" target="_blank" href="https://www.instagram.com/ajatprabha/"><i
+                            class="fa fa-instagram"> </i></a>
+                    <a class="icons-sm git-ic" target="_blank" href="https://github.com/ajatprabha"><i
+                            class="fa fa-github"></i></a>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-r">
+                <div class="avatar">
+                    <img src="{{ club.mentor.avatar.thumbnail.200x200 }}" class="rounded-circle">
+                </div>
+                <h4>{{ club.mentor.user.get_full_name }}</h4>
+                <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
+                        href="https://api.whatsapp.com/send?phone=91{{ club.mentor.phone }}">+91-{{ club.mentor.phone }}</a>
+                </h5>
+                <h5>Mentor</h5>
+                <p>{{ club.mentor.about }}</p>
+                <a class="icons-sm email-ic" href="mailto:{{ club.mentor.user.email }}"><i
+                        class="fa fa-envelope-o"></i> </a>
+                <a class="icons-sm fb-ic" target="_blank" href="https://www.facebook.com/iAmAjat"><i
+                            class="fa fa-facebook"> </i></a>
+                    <a class="icons-sm li-ic" target="_blank" href="https://in.linkedin.com/in/ajat-prabha-87675b128"><i
+                            class="fa fa-linkedin"></i></a>
+                    <a class="icons-sm ins-ic" target="_blank" href="https://www.instagram.com/ajatprabha/"><i
+                            class="fa fa-instagram"> </i></a>
+                    <a class="icons-sm git-ic" target="_blank" href="https://github.com/ajatprabha"><i
+                            class="fa fa-github"></i></a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

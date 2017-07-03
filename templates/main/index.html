@@ -1,6 +1,7 @@
 {% extends 'main/base.html' %}
 {% load staticfiles %}
 {% block customstyles %}
+    <link rel="stylesheet" href="{% static 'css/mdblanding.css' %}">
     <link rel="stylesheet" href="{% static 'css/snavtrans.css' %}">
 {% endblock %}
 {% block skin %}{% endblock %}
@@ -222,76 +223,77 @@
         </section>
     </div>
 
-    <!--festivals-->
-    <section id="info" class="section mt-4 hm-black-strong"
-             style="background-image: url('{% static 'assets/others/background2.svg' %}'); background-position: center; background-repeat: no-repeat; background-size: cover !important;">
-        <div class="mask flex-center">
-            <div class="container mb-5 mt-4">
-                <!--Section heading-->
-                <h1 class="section-heading wow fadeIn" data-wow-delay="0.2s"
-                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">Festivals</h1>
-                <!--First row-->
-                <div class="row wow fadeIn" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeIn;">
-                    <!--First column-->
-                    <div class="col-md-12">
-                        <div class="mb-2 pr-md-5 pl-md-5">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs tabs-{{ festival_list.count }} primary-color" role="tablist">
+        <!--festivals-->
+        <section id="info" class="section mt-4 hm-black-strong"
+                 style="background-image: url('{% static 'assets/others/background2.svg' %}'); background-position: center; background-repeat: no-repeat; background-size: cover !important;">
+            <div class="mask flex-center">
+                <div class="container mb-5 mt-4">
+                    <!--Section heading-->
+                    <h1 class="section-heading wow fadeIn" data-wow-delay="0.2s"
+                        style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">Festivals</h1>
+                    <!--First row-->
+                    <div class="row wow fadeIn" data-wow-delay="0.4s"
+                         style="visibility: visible; animation-delay: 0.4s; animation-name: fadeIn;">
+                        <!--First column-->
+                        <div class="col-md-12">
+                            <div class="mb-2 pr-md-5 pl-md-5">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs md-pills pills-primary flex-center" role="tablist">
+                                    {% for festival in festival_list %}
+                                        <li class="nav-item waves-effect waves-light p-0 m-2">
+                                            <a class="nav-link{% if forloop.counter == 1 %} active{% endif %}"
+                                               data-toggle="tab" href="#panel-{{ forloop.counter }}"
+                                               role="tab">{{ festival.get_name_display }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <!--Tab panels-->
+                            <div class="tab-content">
                                 {% for festival in festival_list %}
-                                <li class="nav-item">
-                                    <a class="nav-link{% if forloop.counter == 1 %} active{% endif %}" data-toggle="tab" href="#panel-{{ forloop.counter }}" role="tab">{{ festival.get_name_display }}</a>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <!--Tab panels-->
-                        <div class="tab-content">
-                            {% for festival in festival_list %}
-                                <!--Panel {{ forloop.counter }}-->
-                                <div class="tab-pane fade{% if forloop.counter == 1 %} active show{% endif %}"
-                                     id="panel-{{ forloop.counter }}" role="tabpanel" aria-expanded="false">
-                                    <br>
-                                    <div class="row">
-                                        <!--First column-->
-                                        <div class="col-lg-5 col-md-12">
-                                            <!--Featured image-->
-                                            <div class="view overlay hm-white-slight z-depth-2 mb-2">
-                                                <img src="{{ festival.photo.crop.708x472 }}">
+                                    <!--Panel {{ forloop.counter }}-->
+                                    <div class="tab-pane fade{% if forloop.counter == 1 %} active show{% endif %}"
+                                         id="panel-{{ forloop.counter }}" role="tabpanel" aria-expanded="false">
+                                        <br>
+                                        <div class="row">
+                                            <!--First column-->
+                                            <div class="col-lg-5 col-md-12">
+                                                <!--Featured image-->
+                                                <div class="view overlay hm-white-slight z-depth-2 mb-2">
+                                                    <img src="{{ festival.photo.crop.708x472 }}">
+                                                </div>
+                                                {% if festival.link %}<a href="{{ festival.link }}" target="_blank"
+                                                                         class="btn btn-secondary mb-1"><i
+                                                        class="fa fa-external-link"></i></a>{% endif %}
                                             </div>
-                                            {% if festival.link %}<a href="{{ festival.link }}" target="_blank" class="btn btn-secondary mb-1"><i
-                                                    class="fa fa-external-link"></i></a>{% endif %}
+                                            <!--/First column-->
+                                            <!--Second column-->
+                                            <div class="col-lg-6 offset-lg-1 col-md-12 text-center text-md-left">
+                                                <!--Description-->
+                                                <p style="color: #d7d7d7; text-align: justify !important;">{{ festival.about|linebreaks }}</p>
+                                            </div>
+                                            <!--/Second column-->
                                         </div>
-                                        <!--/First column-->
-                                        <!--Second column-->
-                                        <div class="col-lg-6 offset-lg-1 col-md-12 text-center text-md-left">
-                                            <!--Description-->
-                                            <p style="color: #d7d7d7; text-align: justify !important;">{{ festival.about|linebreaks }}</p>
-                                        </div>
-                                        <!--/Second column-->
                                     </div>
-                                </div>
-                                <!--/.Panel {{ forloop.counter }}-->
-                            {% endfor %}
+                                    <!--/.Panel {{ forloop.counter }}-->
+                                {% endfor %}
+                            </div>
+                            <!--/Tab panels-->
                         </div>
-                        <!--/Tab panels-->
+                        <!--/First column-->
                     </div>
-                    <!--/First column-->
+                    <!--/First row-->
                 </div>
-                <!--/First row-->
             </div>
-        </div>
-    </section>
-
-
-    <!--societies-->
-    <section id="societies" class="section mt-5">
-        <div class="container">
+        </section>
+<div class="container">
+        <!--societies-->
+        <section id="societies" class="section mt-5">
             <!--Secion heading-->
             <h1 class="section-heading wow fadeIn" data-wow-delay="0.2s"
                 style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">Societies</h1>
             <div class="row flex-center">
                 {% for society in society_link_list %}
-
                     <!--columns-->
                     <div class="col-lg-6 col-md-6 mb-r wow fadeIn" data-wow-delay="0s" style="visibility: visible;">
                         <!--Collection card-->
@@ -312,344 +314,122 @@
                     <!--/column-->
                 {% endfor %}
             </div>
-        </div>
-    </section>
-
-    <!--streak-->
-    <div class="streak streak-lg streak-photo"
-         style="background-image:url('http://mdbootstrap.com/img/Photos/Horizontal/Things/full%20page/img%20(6).jpg')">
-        <div class="flex-center white-text pattern-1">
-            <ul>
-                <li><h2 class="h2-responsive wow fadeIn"><i class="fa fa-quote-left" aria-hidden="true"></i> The
-                    people who are crazy enough to think they can change the world are the ones who do. <i
-                            class="fa fa-quote-right" aria-hidden="true"></i></h2></li>
-                <li><h5 class="text-xs-center font-italic wow fadeIn" data-wow-delay="0.2s">~ Steve Jobs</h5></li>
-
-            </ul>
-        </div>
-    </div>
-
-    <!--testimonials-->
-    <div class="container">
-
-        <section id="testimonials" class="section">
-
-            <!--Section heading-->
-            <h1 class="section-heading mt-4 wow fadeIn" data-wow-delay="0.2s"
-                style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">Current Squad:</h1>
-
-            <div class="row wow fadeIn" data-wow-delay="0.3s"
-                 style="visibility: visible; animation-delay: 0.3s; animation-name: fadeIn;">
-
-                <!--Carousel Wrapper-->
-                <div id="multi-item-example"
-                     class="carousel testimonial-carousel slide carousel-multi-item wow fadeIn" data-ride="carousel"
-                     style="visibility: visible; animation-name: fadeIn;">
-
-                    <!--Controls-->
-                    <div class="controls-top">
-                        <a class="btn-floating btn-blue-2 btn-small btn-info waves-effect waves-light"
-                           href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
-                        <a class="btn-floating btn-blue-2 btn-small btn-info waves-effect waves-light"
-                           href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
-                    </div>
-                    <!--/.Controls-->
-
-                    <!--Indicators-->
-                    <ol class="carousel-indicators">
-                        <li data-target="#multi-item-example" data-slide-to="0" class="info-color active"></li>
-                        <li data-target="#multi-item-example" data-slide-to="1" class="info-color"></li>
-                        <li data-target="#multi-item-example" data-slide-to="2" class="info-color"></li>
-                    </ol>
-                    <!--/.Indicators-->
-
-                    <!--Slides-->
-                    <div class="carousel-inner" role="listbox">
-
-                        <!--First slide-->
-                        <div class="carousel-item active">
-                            <!--First column-->
-                            <div class="col-md-4">
-
-                                <div class="testimonial">
-                                    <!--Avatar-->
-                                    <div class="avatar">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2820%29.jpg"
-                                             class="rounded-circle img-fluid">
-                                    </div>
-                                    <!--Content-->
-                                    <h4>Anna Deynah</h4>
-                                    <p><i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab.
-                                    </p>
-                                </div>
-
-                            </div>
-                            <!--/First column-->
-
-                            <!--Second column-->
-                            <div class="col-md-4 hidden-sm-down">
-                                <div class="testimonial">
-                                    <!--Avatar-->
-                                    <div class="avatar">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%289%29.jpg"
-                                             class="rounded-circle img-fluid">
-                                    </div>
-                                    <!--Content-->
-                                    <h4>John Doe</h4>
-                                    <p><i class="fa fa-quote-left"></i> Ut enim ad minima veniam, quis nostrum
-                                        exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid.</p>
-                                </div>
-                            </div>
-                            <!--/Second column-->
-
-                            <!--Third column-->
-                            <div class="col-md-4 hidden-sm-down">
-                                <div class="testimonial">
-                                    <!--Avatar-->
-                                    <div class="avatar">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2818%29.jpg"
-                                             class="rounded-circle img-fluid">
-                                    </div>
-                                    <!--Content-->
-                                    <h4>Abbey Clark</h4>
-                                    <p><i class="fa fa-quote-left"></i> Quis autem vel eum iure reprehenderit qui in
-                                        ea voluptate velit esse quam nihil molestiae consequatur, vel illum.</p>
-                                </div>
-                            </div>
-                            <!--/Third column-->
-
-                        </div>
-                        <!--/.First slide-->
-
-                        <!--Second slide-->
-                        <div class="carousel-item">
-                            <!--First column-->
-                            <div class="col-md-4">
-
-                                <div class="testimonial">
-                                    <!--Avatar-->
-                                    <div class="avatar">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2819%29.jpg"
-                                             class="rounded-circle img-fluid">
-                                    </div>
-                                    <!--Content-->
-                                    <h4>Blake Dabney</h4>
-                                    <p><i class="fa fa-quote-left"></i> Ut enim ad minima veniam, quis nostrum
-                                        exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid.</p>
-                                </div>
-
-                            </div>
-                            <!--/First column-->
-
-                            <!--Second column-->
-                            <div class="col-md-4 hidden-sm-down">
-                                <div class="testimonial">
-                                    <!--Avatar-->
-                                    <div class="avatar">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2817%29.jpg"
-                                             class="rounded-circle img-fluid">
-                                    </div>
-                                    <!--Content-->
-                                    <h4>Andrea Clay</h4>
-                                    <p><i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab.
-                                    </p>
-                                </div>
-                            </div>
-                            <!--/Second column-->
-
-                            <!--Third column-->
-                            <div class="col-md-4 hidden-sm-down">
-                                <div class="testimonial">
-                                    <!--Avatar-->
-                                    <div class="avatar">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2816%29.jpg"
-                                             class="rounded-circle img-fluid">
-                                    </div>
-                                    <!--Content-->
-                                    <h4>Cami Gosse</h4>
-                                    <p><i class="fa fa-quote-left"></i> At vero eos et accusamus et iusto odio
-                                        dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
-                                        corrupti.</p>
-                                </div>
-                            </div>
-                            <!--/Third column-->
-
-                        </div>
-                        <!--/.Second slide-->
-
-                        <!--Third slide-->
-                        <div class="carousel-item">
-                            <!--First column-->
-                            <div class="col-md-4">
-
-                                <div class="testimonial">
-                                    <!--Avatar-->
-                                    <div class="avatar">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2815%29.jpg"
-                                             class="rounded-circle img-fluid">
-                                    </div>
-                                    <!--Content-->
-                                    <h4>Bobby Haley</h4>
-                                    <p><i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab.
-                                    </p>
-                                </div>
-
-                            </div>
-                            <!--/First column-->
-
-                            <!--Second column-->
-                            <div class="col-md-4 hidden-sm-down">
-                                <div class="testimonial">
-                                    <!--Avatar-->
-                                    <div class="avatar">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%285%29.jpg"
-                                             class="rounded-circle img-fluid">
-                                    </div>
-                                    <!--Content-->
-                                    <h4>Elisa Janson</h4>
-                                    <p><i class="fa fa-quote-left"></i> At vero eos et accusamus et iusto odio
-                                        dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
-                                        corrupti.</p>
-                                </div>
-                            </div>
-                            <!--/Second column-->
-
-                            <!--Third column-->
-                            <div class="col-md-4 hidden-sm-down">
-                                <div class="testimonial">
-                                    <!--Avatar-->
-                                    <div class="avatar">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%289%29.jpg"
-                                             class="rounded-circle img-fluid">
-                                    </div>
-                                    <!--Content-->
-                                    <h4>Robert Jacobs</h4>
-                                    <p><i class="fa fa-quote-left"></i> Ut enim ad minima veniam, quis nostrum
-                                        exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid.</p>
-                                </div>
-                            </div>
-                            <!--/Third column-->
-
-                        </div>
-                        <!--/.Third slide-->
-
-                    </div>
-                    <!--/.Slides-->
-
-                </div>
-                <!--/.Carousel Wrapper-->
-
-            </div>
-
         </section>
 
-    </div>
+        <!--streak-->
+        <div class="streak streak-lg streak-photo"
+             style="background-image:url('http://mdbootstrap.com/img/Photos/Horizontal/Things/full%20page/img%20(6).jpg')">
+            <div class="flex-center white-text pattern-1">
+                <ul>
+                    <li><h2 class="h2-responsive wow fadeIn"><i class="fa fa-quote-left" aria-hidden="true"></i> The
+                        people who are crazy enough to think they can change the world are the ones who do. <i
+                                class="fa fa-quote-right" aria-hidden="true"></i></h2></li>
+                    <li><h5 class="text-xs-center font-italic wow fadeIn" data-wow-delay="0.2s">~ Steve Jobs</h5></li>
 
-    <!--gallery-->
-    <section id="info" class="section mt-2 mb-0 hm-black-light"
-             style="background: url('{% static 'assets/others/background.svg' %}'); background-size: cover;">
-        <div class="mask flex-center">
-            <div class="container mb-5">
-                <!--Section heading-->
-                <h1 class="section-heading wow fadeIn text-white pt-1" data-wow-delay="0.2s"
-                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">
-                    Memories</h1>
-                {% comment %}<!--Section description-->
+                </ul>
+            </div>
+        </div>
+
+        <!--gallery-->
+        <section id="info" class="section mt-2 mb-0 hm-black-light"
+                 style="background: url('{% static 'assets/others/background.svg' %}'); background-size: cover;">
+            <div class="mask flex-center">
+                <div class="container mb-5">
+                    <!--Section heading-->
+                    <h1 class="section-heading wow fadeIn text-white pt-1" data-wow-delay="0.2s"
+                        style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">
+                        Memories</h1>
+                    {% comment %}<!--Section description-->
                 <p class="section-description wow fadeIn" style="color: #d7d7d7" data-wow-delay="0.2s"
                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">{% lorem %}</p>{% endcomment %}
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div id="mdb-lightbox-ui"></div>
+
+                            <div class="mdb-lightbox">
 
 
-                <div class="row">
-                    <div class="col-md-12">
+                                <figure class="col-md-4">
+                                    <a href="{% static 'assets/index_gallery/1.jpg' %}"
+                                       data-size="1600x1067">
+                                        <img src="{% static 'assets/index_gallery/1.jpg' %}"
+                                             class="img-fluid">
+                                    </a>
+                                </figure>
 
-                        <div id="mdb-lightbox-ui"></div>
+                                <figure class="col-md-4">
+                                    <a href="{% static 'assets/index_gallery/2.jpg' %}"
+                                       data-size="1600x1067">
+                                        <img src="{% static 'assets/index_gallery/2.jpg' %}"
+                                             class="img-fluid"/>
+                                    </a>
+                                </figure>
 
-                        <div class="mdb-lightbox">
+                                <figure class="col-md-4">
+                                    <a href="{% static 'assets/index_gallery/3.jpg' %}"
+                                       data-size="1600x1067">
+                                        <img src="{% static 'assets/index_gallery/3.jpg' %}"
+                                             class="img-fluid"/>
+                                    </a>
+                                </figure>
 
+                                <figure class="col-md-4">
+                                    <a href="{% static 'assets/index_gallery/4(1).jpg' %}"
+                                       data-size="1600x1067">
+                                        <img src="{% static 'assets/index_gallery/4(1).jpg' %}"
+                                             class="img-fluid"/>
+                                    </a>
+                                </figure>
 
-                            <figure class="col-md-4">
-                                <a href="{% static 'assets/index_gallery/1.jpg' %}"
-                                   data-size="1600x1067">
-                                    <img src="{% static 'assets/index_gallery/1.jpg' %}"
-                                         class="img-fluid">
-                                </a>
-                            </figure>
+                                <figure class="col-md-4">
+                                    <a href="{% static 'assets/index_gallery/5.jpg' %}"
+                                       data-size="1600x1067">
+                                        <img src="{% static 'assets/index_gallery/5.jpg' %}"
+                                             class="img-fluid"/>
+                                    </a>
+                                </figure>
 
-                            <figure class="col-md-4">
-                                <a href="{% static 'assets/index_gallery/2.jpg' %}"
-                                   data-size="1600x1067">
-                                    <img src="{% static 'assets/index_gallery/2.jpg' %}"
-                                         class="img-fluid"/>
-                                </a>
-                            </figure>
+                                <figure class="col-md-4">
+                                    <a href="{% static 'assets/index_gallery/6.jpg' %}"
+                                       data-size="1600x1067">
+                                        <img src="{% static 'assets/index_gallery/6.jpg' %}"
+                                             class="img-fluid"/>
+                                    </a>
+                                </figure>
 
-                            <figure class="col-md-4">
-                                <a href="{% static 'assets/index_gallery/3.jpg' %}"
-                                   data-size="1600x1067">
-                                    <img src="{% static 'assets/index_gallery/3.jpg' %}"
-                                         class="img-fluid"/>
-                                </a>
-                            </figure>
+                                <figure class="col-md-4">
+                                    <a href="{% static 'assets/index_gallery/7.jpg' %}"
+                                       data-size="1600x1067">
+                                        <img src="{% static 'assets/index_gallery/7.jpg' %}"
+                                             class="img-fluid"/>
+                                    </a>
+                                </figure>
 
-                            <figure class="col-md-4">
-                                <a href="{% static 'assets/index_gallery/4(1).jpg' %}"
-                                   data-size="1600x1067">
-                                    <img src="{% static 'assets/index_gallery/4(1).jpg' %}"
-                                         class="img-fluid"/>
-                                </a>
-                            </figure>
+                                <figure class="col-md-4">
+                                    <a href="{% static 'assets/index_gallery/8.jpg' %}"
+                                       data-size="1600x1067">
+                                        <img src="{% static 'assets/index_gallery/8.jpg' %}"
+                                             class="img-fluid"/>
+                                    </a>
+                                </figure>
 
-                            <figure class="col-md-4">
-                                <a href="{% static 'assets/index_gallery/5.jpg' %}"
-                                   data-size="1600x1067">
-                                    <img src="{% static 'assets/index_gallery/5.jpg' %}"
-                                         class="img-fluid"/>
-                                </a>
-                            </figure>
+                                <figure class="col-md-4">
+                                    <a href="{% static 'assets/index_gallery/9.jpg' %}"
+                                       data-size="1600x1067">
+                                        <img src="{% static 'assets/index_gallery/9.jpg' %}"
+                                             class="img-fluid"/>
+                                    </a>
+                                </figure>
 
-                            <figure class="col-md-4">
-                                <a href="{% static 'assets/index_gallery/6.jpg' %}"
-                                   data-size="1600x1067">
-                                    <img src="{% static 'assets/index_gallery/6.jpg' %}"
-                                         class="img-fluid"/>
-                                </a>
-                            </figure>
-
-                            <figure class="col-md-4">
-                                <a href="{% static 'assets/index_gallery/7.jpg' %}"
-                                   data-size="1600x1067">
-                                    <img src="{% static 'assets/index_gallery/7.jpg' %}"
-                                         class="img-fluid"/>
-                                </a>
-                            </figure>
-
-                            <figure class="col-md-4">
-                                <a href="{% static 'assets/index_gallery/8.jpg' %}"
-                                   data-size="1600x1067">
-                                    <img src="{% static 'assets/index_gallery/8.jpg' %}"
-                                         class="img-fluid"/>
-                                </a>
-                            </figure>
-
-                            <figure class="col-md-4">
-                                <a href="{% static 'assets/index_gallery/9.jpg' %}"
-                                   data-size="1600x1067">
-                                    <img src="{% static 'assets/index_gallery/9.jpg' %}"
-                                         class="img-fluid"/>
-                                </a>
-                            </figure>
+                            </div>
 
                         </div>
-
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
+        </section>
+    </div>
 {% endblock %}
 
 {% block customscripts %}

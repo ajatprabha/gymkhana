@@ -12,7 +12,7 @@ class HomeView(TemplateView):
         context = super(HomeView, self).get_context_data(**kwargs)
         festivals = Festival.objects.all()[:4]
         societies = Society.objects.filter(is_active=True)
-        senate = Senate.objects.filter(is_active=True).order_by('year').first()
+        senate = Senate.objects.filter(is_active=True).order_by('-year').first()
         context['festival_list'] = festivals
         context['society_link_list'] = societies
         context['senate'] = senate

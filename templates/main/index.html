@@ -223,70 +223,70 @@
         </section>
     </div>
 
-        <!--festivals-->
-        <section id="info" class="section mt-4 hm-black-strong"
-                 style="background-image: url('{% static 'assets/others/background2.svg' %}'); background-position: center; background-repeat: no-repeat; background-size: cover !important;">
-            <div class="mask flex-center">
-                <div class="container mb-5 mt-4">
-                    <!--Section heading-->
-                    <h1 class="section-heading wow fadeIn" data-wow-delay="0.2s"
-                        style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">Festivals</h1>
-                    <!--First row-->
-                    <div class="row wow fadeIn" data-wow-delay="0.4s"
-                         style="visibility: visible; animation-delay: 0.4s; animation-name: fadeIn;">
-                        <!--First column-->
-                        <div class="col-md-12">
-                            <div class="mb-2 pr-md-5 pl-md-5">
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs md-pills pills-primary flex-center" role="tablist">
-                                    {% for festival in festival_list %}
-                                        <li class="nav-item waves-effect waves-light p-0 m-2">
-                                            <a class="nav-link{% if forloop.counter == 1 %} active{% endif %}"
-                                               data-toggle="tab" href="#panel-{{ forloop.counter }}"
-                                               role="tab">{{ festival.get_name_display }}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            <!--Tab panels-->
-                            <div class="tab-content">
+    <!--festivals-->
+    <section id="info" class="section mt-4 hm-black-strong"
+             style="background-image: url('{% static 'assets/others/background2.svg' %}'); background-position: center; background-repeat: no-repeat; background-size: cover !important;">
+        <div class="mask flex-center">
+            <div class="container mb-5 mt-4">
+                <!--Section heading-->
+                <h1 class="section-heading wow fadeIn" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">Festivals</h1>
+                <!--First row-->
+                <div class="row wow fadeIn" data-wow-delay="0.4s"
+                     style="visibility: visible; animation-delay: 0.4s; animation-name: fadeIn;">
+                    <!--First column-->
+                    <div class="col-md-12">
+                        <div class="mb-2 pr-md-5 pl-md-5">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs md-pills pills-primary flex-center" role="tablist">
                                 {% for festival in festival_list %}
-                                    <!--Panel {{ forloop.counter }}-->
-                                    <div class="tab-pane fade{% if forloop.counter == 1 %} active show{% endif %}"
-                                         id="panel-{{ forloop.counter }}" role="tabpanel" aria-expanded="false">
-                                        <br>
-                                        <div class="row">
-                                            <!--First column-->
-                                            <div class="col-lg-5 col-md-12">
-                                                <!--Featured image-->
-                                                <div class="view overlay hm-white-slight z-depth-2 mb-2">
-                                                    <img src="{{ festival.photo.crop.708x472 }}">
-                                                </div>
-                                                {% if festival.link %}<a href="{{ festival.link }}" target="_blank"
-                                                                         class="btn btn-secondary mb-1"><i
-                                                        class="fa fa-external-link"></i></a>{% endif %}
-                                            </div>
-                                            <!--/First column-->
-                                            <!--Second column-->
-                                            <div class="col-lg-6 offset-lg-1 col-md-12 text-center text-md-left">
-                                                <!--Description-->
-                                                <p style="color: #d7d7d7; text-align: justify !important;">{{ festival.about|linebreaks }}</p>
-                                            </div>
-                                            <!--/Second column-->
-                                        </div>
-                                    </div>
-                                    <!--/.Panel {{ forloop.counter }}-->
+                                    <li class="nav-item waves-effect waves-light p-0 m-2">
+                                        <a class="nav-link{% if forloop.counter == 1 %} active{% endif %}"
+                                           data-toggle="tab" href="#panel-{{ forloop.counter }}"
+                                           role="tab">{{ festival.get_name_display }}</a>
+                                    </li>
                                 {% endfor %}
-                            </div>
-                            <!--/Tab panels-->
+                            </ul>
                         </div>
-                        <!--/First column-->
+                        <!--Tab panels-->
+                        <div class="tab-content">
+                            {% for festival in festival_list %}
+                                <!--Panel {{ forloop.counter }}-->
+                                <div class="tab-pane fade{% if forloop.counter == 1 %} active show{% endif %}"
+                                     id="panel-{{ forloop.counter }}" role="tabpanel" aria-expanded="false">
+                                    <br>
+                                    <div class="row">
+                                        <!--First column-->
+                                        <div class="col-lg-5 col-md-12">
+                                            <!--Featured image-->
+                                            <div class="view overlay hm-white-slight z-depth-2 mb-2">
+                                                <img src="{{ festival.photo.crop.708x472 }}">
+                                            </div>
+                                            {% if festival.link %}<a href="{{ festival.link }}" target="_blank"
+                                                                     class="btn btn-secondary mb-1"><i
+                                                    class="fa fa-external-link pr-0"></i></a>{% endif %}
+                                        </div>
+                                        <!--/First column-->
+                                        <!--Second column-->
+                                        <div class="col-lg-6 offset-lg-1 col-md-12 text-center text-md-left">
+                                            <!--Description-->
+                                            <p style="color: #d7d7d7; text-align: justify !important;">{{ festival.about|linebreaks }}</p>
+                                        </div>
+                                        <!--/Second column-->
+                                    </div>
+                                </div>
+                                <!--/.Panel {{ forloop.counter }}-->
+                            {% endfor %}
+                        </div>
+                        <!--/Tab panels-->
                     </div>
-                    <!--/First row-->
+                    <!--/First column-->
                 </div>
+                <!--/First row-->
             </div>
-        </section>
-<div class="container">
+        </div>
+    </section>
+    <div class="container">
         <!--societies-->
         <section id="societies" class="section mt-5">
             <!--Secion heading-->
@@ -315,23 +315,23 @@
                 {% endfor %}
             </div>
         </section>
+    </div>
+    <!--streak-->
+    <div class="streak streak-lg streak-photo"
+         style="background-image:url('http://mdbootstrap.com/img/Photos/Horizontal/Things/full%20page/img%20(6).jpg')">
+        <div class="flex-center white-text pattern-1">
+            <ul>
+                <li><h2 class="h2-responsive wow fadeIn"><i class="fa fa-quote-left" aria-hidden="true"></i> The
+                    people who are crazy enough to think they can change the world are the ones who do. <i
+                            class="fa fa-quote-right" aria-hidden="true"></i></h2></li>
+                <li><h5 class="text-xs-center font-italic wow fadeIn" data-wow-delay="0.2s">~ Steve Jobs</h5></li>
 
-        <!--streak-->
-        <div class="streak streak-lg streak-photo"
-             style="background-image:url('http://mdbootstrap.com/img/Photos/Horizontal/Things/full%20page/img%20(6).jpg')">
-            <div class="flex-center white-text pattern-1">
-                <ul>
-                    <li><h2 class="h2-responsive wow fadeIn"><i class="fa fa-quote-left" aria-hidden="true"></i> The
-                        people who are crazy enough to think they can change the world are the ones who do. <i
-                                class="fa fa-quote-right" aria-hidden="true"></i></h2></li>
-                    <li><h5 class="text-xs-center font-italic wow fadeIn" data-wow-delay="0.2s">~ Steve Jobs</h5></li>
-
-                </ul>
-            </div>
+            </ul>
         </div>
+    </div>
 
         <!--gallery-->
-        <section id="info" class="section mt-2 mb-0 hm-black-light"
+        <section id="info" class="section mt-0 mb-0 hm-black-light"
                  style="background: url('{% static 'assets/others/background.svg' %}'); background-size: cover;">
             <div class="mask flex-center">
                 <div class="container mb-5">
@@ -429,7 +429,6 @@
                 </div>
             </div>
         </section>
-    </div>
 {% endblock %}
 
 {% block customscripts %}

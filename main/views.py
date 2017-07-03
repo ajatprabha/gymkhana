@@ -1,6 +1,6 @@
 from django.utils import timezone
 from django.views.generic import TemplateView, DetailView
-from .models import Society, Club, Senate
+from .models import Society, Club, Senate, Festival
 from events.models import Event
 from news.models import News
 
@@ -10,8 +10,10 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        society = Society.objects.filter(is_active=True)
-        context['society_link_list'] = society
+        societies = Society.objects.filter(is_active=True)
+        festivals = Festival.objects.all()[:4]
+        context['society_link_list'] = societies
+        context['festival_list'] = festivals
         return context
 
 
@@ -54,5 +56,7 @@ class ClubView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ClubView, self).get_context_data(**kwargs)
         society = Society.objects.filter(is_active=True)
+        events = Event.objects.filter(club=self.object).filter(published=True)[:5]
         context['society_link_list'] = society
+        context['event_list'] = events
         return context

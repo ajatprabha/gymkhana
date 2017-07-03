@@ -16,7 +16,7 @@ class UserProfile(models.Model):
         ('PhD', 'PhD')
     )
     YEAR_CHOICES = (
-        ('0', 'Alumni'),
+        # ('0', 'Alumni'),
         ('1', 'First Year'),
         ('2', 'Second Year'),
         ('3', 'Third Year'),

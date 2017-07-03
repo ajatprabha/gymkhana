@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Society, Club, SocialLink, Senate, SenateMembership
+from .models import Society, Club, SocialLink, Senate, SenateMembership, Festival
 
 
 class MembershipInline(admin.StackedInline):
@@ -26,6 +26,7 @@ class ClubAdmin(admin.ModelAdmin):
 # iterable list
 main_models = [
     SocialLink,
+    Festival
 ]
 
 admin.site.register(Society, SocietyAdmin)

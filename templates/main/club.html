@@ -1,1 +1,5 @@
 {% extends 'main/base.html' %}
+
+{% block main %}
+    <div class="container mt-5">{{ event_list|pprint }}</div>
+{% endblock %}

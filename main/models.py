@@ -109,10 +109,22 @@ class Club(models.Model):
 
 
 class Festival(models.Model):
-    name = models.CharField(max_length=32)
+    FEST_CHOICES = (
+        ('IGNS', 'Ignus'),
+        ('VRCHS', 'Varchas'),
+        ('SPNDN', 'Spandan'),
+        ('NMBL', 'Nimble'),
+    )
+    name = models.CharField(max_length=5, choices=FEST_CHOICES)
     photo = VersatileImageField(upload_to='festival')
     about = models.TextField(max_length=2048)
     link = models.URLField(blank=True, null=True, default=None)
+
+    def __str__(self):
+        return self.get_name_display()
+
+    def get_logo(self):
+        pass
 
 
 class Senate(models.Model):

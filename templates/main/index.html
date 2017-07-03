@@ -31,8 +31,10 @@
                         <div class="dropdown-menu dropdown-dark" aria-labelledby="navbarDropdownMenuLink">
                             {% for society in society_link_list %}
                                 <a class="dropdown-item waves-effect waves-light "
-                                   href="{% url 'main:soc-detail' society.slug %}">{{ society.name }}</a>
+                                   href="{{ society.get_absolute_url }}">{{ society.name }}</a>
                             {% endfor %}
+                                <a class="dropdown-item waves-effect waves-light "
+                                   href="{{ senate.get_absolute_url }}">{{ senate.name }}</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item waves-effect waves-light" target="_blank"
                                href="http://www.iitjecell.in/">E-Cell</a>
@@ -270,7 +272,7 @@
                                         <!--Second column-->
                                         <div class="col-lg-6 offset-lg-1 col-md-12 text-center text-md-left">
                                             <!--Description-->
-                                            <p style="color: #d7d7d7; text-align: justify !important;">{{ festival.about|linebreaks }}</p>
+                                            <p style="color: #d7d7d7">{{ festival.about|linebreaks }}</p>
                                         </div>
                                         <!--/Second column-->
                                     </div>
@@ -313,6 +315,24 @@
                     </div>
                     <!--/column-->
                 {% endfor %}
+            <!--columns-->
+                    <div class="col-lg-6 col-md-6 mb-r wow fadeIn" data-wow-delay="0s" style="visibility: visible;">
+                        <!--Collection card-->
+                        <div class="card collection-card z-depth-1-half">
+                            <!--Card image-->
+                            <div class="view  hm-zoom">
+                                <img src="{{ senate.cover.crop.720x440 }}" class="img-responsive" alt="">
+                                <div class="stripe light">
+                                    <a href="{{ senate.get_absolute_url }}">
+                                        <p>{{ senate.name }}<i class="fa fa-chevron-right"></i></p>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--/.Card image-->
+                        </div>
+                        <!--/.Collection card-->
+                    </div>
+                    <!--/column-->
             </div>
         </section>
     </div>

@@ -251,5 +251,8 @@ class Contact(models.Model):
     message = models.TextField(max_length=2048)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-timestamp']
+
     def get_absolute_url(self):
         return reverse('main:contact')

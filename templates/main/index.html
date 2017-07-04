@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{% static 'css/mdblanding.css' %}">
     <link rel="stylesheet" href="{% static 'css/snavtrans.css' %}">
     <style>
-        {% for item in carousel.public %}
+        {% for item in carousel.public|slice:":10" %}
             @media (max-width: 540px) {
                 .carousel-item:nth-child({{ forloop.counter }}) {
                     background: url("{{ item.get_carousel_sm_url }}") no-repeat center;
@@ -92,7 +92,7 @@
          data-interval="false">
         <!--Indicators-->
         <ol class="carousel-indicators">
-            {% for item in carousel.public %}
+            {% for item in carousel.public|slice:":10" %}
                 <li data-target="#carousel-home" data-slide-to="{{ forloop.counter0 }}"{% if forloop.counter0 == 0 %}
                     class="active"{% endif %}></li>
             {% endfor %}
@@ -100,7 +100,7 @@
         <!--/.Indicators-->
         <!--Slides-->
         <div class="carousel-inner" role="listbox">
-            {% for photo in carousel.public %}
+            {% for photo in carousel.public|slice:":10" %}
             <!-- Item {{ forloop.counter }} -->
                 <div class="carousel-item view{% if forloop.counter == 1 %} active{% endif %}">
                     <div class="mask hm-black-light">

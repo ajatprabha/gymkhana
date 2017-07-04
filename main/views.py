@@ -76,7 +76,7 @@ class ActivityView(DetailView):
 
 
 class ContactView(CreateView):
-    template_name = 'forum/test.html'
+    template_name = 'main/contact.html'
     form_class = ContactForm
 
     def get_context_data(self, **kwargs):
@@ -88,3 +88,9 @@ class ContactView(CreateView):
 class ContactListView(ListView):
     template_name = 'main/contact_list.html'
     model = Contact
+    paginate_by = 2
+
+    def get_context_data(self, **kwargs):
+        context = super(ContactListView, self).get_context_data(**kwargs)
+        context['range'] = range(context["paginator"].num_pages)
+        return context

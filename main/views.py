@@ -1,6 +1,8 @@
 from django.utils import timezone
-from django.views.generic import TemplateView, DetailView
-from .models import Society, Club, Senate, Festival, Activity
+from django.views.generic import TemplateView, DetailView, ListView, CreateView
+from .models import Society, Club, Senate, Festival, Activity, Contact
+from .forms import ContactForm
+from photologue.models import Gallery
 from events.models import Event
 from news.models import News
 
@@ -13,9 +15,11 @@ class HomeView(TemplateView):
         festivals = Festival.objects.all()[:4]
         societies = Society.objects.filter(is_active=True)
         senate = Senate.objects.filter(is_active=True).order_by('-year').first()
+        gallery = Gallery.objects.filter(title='Home Page Gallery').filter(is_public=True).first()
         context['festival_list'] = festivals
         context['society_link_list'] = societies
         context['senate'] = senate
+        context['gallery'] = gallery
         return context
 
 
@@ -67,3 +71,18 @@ class ClubView(DetailView):
 class ActivityView(DetailView):
     template_name = 'main/activity.html'
     model = Activity
+
+
+class ContactView(CreateView):
+    template_name = 'forum/test.html'
+    form_class = ContactForm
+
+    def get_context_data(self, **kwargs):
+        context = super(ContactView, self).get_context_data(**kwargs)
+        context['society_link_list'] = Society.objects.filter(is_active=True)
+        return context
+
+
+class ContactListView(ListView):
+    template_name = 'main/contact_list.html'
+    model = Contact

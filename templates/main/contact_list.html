@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block main %}
+    <div class="container mt-5">
+  <h3 class="title">All Contacts</h3>
+  <div class="collection">
+    {% for contact in contact_list %}
+        <a class="collection-item" href="#">{{contact.name}}</a>
+    {% endfor %}
+  </div>
+    </div>
+{% endblock %}
+
+{% block customscripts %}
+
+{% endblock %}

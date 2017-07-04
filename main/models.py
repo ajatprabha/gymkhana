@@ -193,35 +193,63 @@ class SocialLink(models.Model):
     SM_CHOICES = (
         ('FB', 'Facebook'),
         ('TW', 'Twitter'),
+        ('LI', 'LinkedIn'),
         ('GP', 'Google Plus'),
         ('IG', 'Instagram'),
         ('GH', 'GitHub'),
         ('YT', 'YouTube'),
-        ('EM', 'Email'),
     )
     FA_CHOICES = (
-        ('fa fa-facebook', 'Facebook'),
-        ('fa fa-twitter', 'Twitter'),
-        ('fa fa-google-plus', 'Google Plus'),
-        ('fa fa-instagram', 'Instagram'),
-        ('fa fa-github', 'GitHub'),
-        ('fa fa-youtube', 'YouTube'),
-        ('fa fa-envelope-o', 'Email'),
+        ('fa fa-facebook', 'FB'),
+        ('fa fa-twitter', 'TW'),
+        ('fa fa-linkedin', 'LI'),
+        ('fa fa-google-plus', 'GP'),
+        ('fa fa-instagram', 'IG'),
+        ('fa fa-github', 'GH'),
+        ('fa fa-youtube', 'YT'),
     )
     IC_CHOICES = (
-        ('fb-ic', 'Facebook'),
-        ('tw-ic', 'Twitter'),
-        ('gplus-ic', 'Google Plus'),
-        ('ins-ic', 'Instagram'),
-        ('git-ic', 'GitHub'),
-        ('yt-ic', 'YouTube'),
-        ('email-ic', 'Email'),
+        ('fb-ic', 'FB'),
+        ('tw-ic', 'TW'),
+        ('li-ic', 'LI'),
+        ('gplus-ic', 'GP'),
+        ('ins-ic', 'IG'),
+        ('git-ic', 'GH'),
+        ('yt-ic', 'YT'),
     )
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     social_media = models.CharField(max_length=2, choices=SM_CHOICES)
     link = models.URLField()
-    icon_class = models.CharField(max_length=50, choices=IC_CHOICES)
-    fa_icon = models.CharField(max_length=50, choices=FA_CHOICES)
+
+    class Meta:
+        ordering = ['social_media']
 
     def __str__(self):
         return self.club.name + ' - ' + self.get_social_media_display()
+
+    def get_fai(self):
+        for key, value in self.FA_CHOICES:
+            if value == self.social_media:
+                return key
+        return 'fa fa-link'
+
+    def get_sm_ic(self):
+        for key, value in self.IC_CHOICES:
+            if value == self.social_media:
+                return key
+        return ''
+
+
+class Contact(models.Model):
+    # Validators
+    contact = RegexValidator(r'^[0-9]{10}$', message='Not a valid number!')
+    # Database_model
+    name = models.CharField(max_length=64)
+    email = models.EmailField()
+    phone = models.CharField(max_length=10, validators=[contact])
+    subject = models.CharField(max_length=128)
+    message = models.TextField(max_length=2048)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('main:contact')

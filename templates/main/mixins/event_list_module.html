@@ -1,12 +1,12 @@
 {% load humanize %}
-<div class="d-flex justify-content-center mb-2">
+<div class="d-flex justify-content-center mb-2 wow fadeIn" data-wow-delay="0.2s" style="visibility: visible;">
     <div><i class="fa fa-lightbulb-o fa-2x mr-2"></i></div>
     <div><h3 class="h3-responsive">Upcoming Event{{ event_list|pluralize }}</h3></div>
 </div>
 {% if not event_list %}
     <h4 class="h4-responsive text-center">No events to display</h4>
 {% else %}
-    <div class="list-group">
+    <div class="list-group wow fadeIn" data-wow-delay="0.3s" style="visibility: visible;">
         <table class="table mb-0" id="events">
             <thead>
             <tr class="primary-color">

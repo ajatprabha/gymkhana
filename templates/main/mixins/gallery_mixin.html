@@ -2,9 +2,9 @@
     <div class="mdb-lightbox">
     {% for photo in gallery.public %}
         <figure class="col-md-4">
-            <a href="{{ photo.get_display_url }}"
+            <a href="{{ photo.get_lightbox_url }}"
                data-size="{{ size|default:'1275x850' }}">
-                <img src="{{ photo.get_display_url }}"
+                <img src="{{ photo.get_lightbox_url }}"
                      class="img-fluid">
             </a>
         </figure>

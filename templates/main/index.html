@@ -3,6 +3,28 @@
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/mdblanding.css' %}">
     <link rel="stylesheet" href="{% static 'css/snavtrans.css' %}">
+    <style>
+        {% for item in carousel.public %}
+            @media (max-width: 540px) {
+                .carousel-item:nth-child({{ forloop.counter }}) {
+                    background: url("{{ item.get_carousel_sm_url }}") no-repeat center;
+                    background-size: cover;
+                }
+            }
+            @media (min-width: 541px) and (max-width: 1000px) {
+                .carousel-item:nth-child({{ forloop.counter }}) {
+                    background: url("{{ item.get_carousel_md_url }}") no-repeat center;
+                    background-size: cover;
+                }
+            }
+            @media (min-width: 1001px) {
+                .carousel-item:nth-child({{ forloop.counter }}) {
+                    background: url("{{ item.get_carousel_lg_url }}") no-repeat center;
+                    background-size: cover;
+                }
+            }
+        {% endfor %}
+    </style>
 {% endblock %}
 {% block skin %}{% endblock %}
 {% block navbar %}
@@ -66,108 +88,42 @@
 
 {% block fullpagecontent %}
     <!--Carousel Wrapper-->
-    <div id="carousel-example-3" class="carousel slide carousel-fade white-text" data-ride="carousel"
+    <div id="carousel-home" class="carousel slide carousel-fade white-text" data-ride="carousel"
          data-interval="false">
         <!--Indicators-->
         <ol class="carousel-indicators">
-            <li data-target="#carousel-example-3" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-3" data-slide-to="1"></li>
-            <li data-target="#carousel-example-3" data-slide-to="2"></li>
+            {% for item in carousel.public %}
+                <li data-target="#carousel-home" data-slide-to="{{ forloop.counter0 }}"{% if forloop.counter0 == 0 %}
+                    class="active"{% endif %}></li>
+            {% endfor %}
         </ol>
         <!--/.Indicators-->
         <!--Slides-->
         <div class="carousel-inner" role="listbox">
-
-
-            <!-- First slide -->
-            <div class="carousel-item active view hm-black-strong"
-                 style="background-image: url('/media/crousal/3.jpg'); background-repeat: no-repeat; background-size: cover;">
-
-                <!-- Caption -->
-                <div class="full-bg-img flex-center white-text">
-                    <ul class="col-md-12">
-
-                        <li>
-                            <h1 class="h1-responsive flex-item wow fadeInDown">Students' Gymkhana</h1>
-                        <li>
-                            <h4 class="flex-item wow fadeInUp">IIT Jodhpur</h4>
-                        </li>
-                        <!--
+            {% for photo in carousel.public %}
+            <!-- Item {{ forloop.counter }} -->
+                <div class="carousel-item view{% if forloop.counter == 1 %} active{% endif %}">
+                    <div class="mask hm-black-light">
+                        <div class="full-bg-img"></div>
+                    </div>
+                    <div class="carousel-caption">
+                        <ul class="animated fadeInUp">
                             <li>
-                                <a target="_blank" href="http://mdbootstrap.com/getting-started/" class="btn btn-primary btn-lg flex-item" rel="nofollow">Sign up!</a>
+                                <h4 class="flex-item wow fadeInUp">{{ photo.caption|linebreaks }}</h4>
                             </li>
-                            <li>
-                                <a target="_blank" href="http://mdbootstrap.com/material-design-for-bootstrap/" class="btn btn-default btn-lg flex-item" rel="nofollow">Learn more</a>
-                            </li>
-                            -->
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
-                <!-- /.Caption -->
-
-            </div>
-            <!-- /.First slide -->
-
-
-            <!-- Second slide -->
-            <div class="carousel-item view hm-black-light"
-                 style="background-image: url('/media/crousal/2.jpg'); background-repeat: no-repeat; background-size: cover;">
-
-                <!-- Caption -->
-                <div class="full-bg-img flex-center white-text">
-                    <ul class="animated fadeInUp col-md-12">
-                        <!--
-                        <li>
-                            <h1 class="h1-responsive">Lots of tutorials at your disposal</h1>
-                        </li>
-                        <li>
-                            <p>And all of them are FREE!</p>
-                        </li>
-                        <li>
-                            <a target="_blank" href="http://mdbootstrap.com/bootstrap-tutorial/" class="btn btn-primary btn-lg" rel="nofollow">Start learning</a>
-                        </li>
-                        -->
-                    </ul>
-                </div>
-                <!-- /.Caption -->
-
-            </div>
-            <!-- /.Second slide -->
-
-
-            <!-- Third slide -->
-            <div class="carousel-item view hm-black-light"
-                 style="background-image: url('/media/crousal/1.jpg'); background-repeat: no-repeat; background-size: cover;">
-
-                <!-- Caption -->
-                <div class="full-bg-img flex-center white-text">
-                    <ul class="animated fadeInUp col-md-12">
-                        <!--
-                         <li>
-                             <h1 class="h1-responsive">Visit our support forum</h1></li>
-                         <li>
-                             <p>Our community can help you with any question</p>
-                         </li>
-                         <li>
-                             <a target="_blank" href="http://mdbootstrap.com/forums/forum/support/" class="btn btn-default btn-lg" rel="nofollow">Support forum</a>
-                         </li>
-                         -->
-                    </ul>
-                </div>
-                <!-- /.Caption -->
-
-            </div>
-            <!-- /.Third slide -->
-
+            <!-- Item {{ forloop.counter }} -->
+            {% endfor %}
         </div>
         <!--/.Slides-->
-
-
         <!--Controls-->
-        <a class="carousel-control-prev" href="#carousel-example-3" role="button" data-slide="prev">
+        <a class="carousel-control-prev" href="#carousel-home" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#carousel-example-3" role="button" data-slide="next">
+        <a class="carousel-control-next" href="#carousel-home" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
@@ -205,17 +161,16 @@
                 <div class="col-lg-6 offset-lg-1 col-md-12 wow fadeIn" data-wow-delay="0.4s"
                      style="visibility: visible; animation-delay: 0.4s; animation-name: fadeIn;">
                     <!--Description-->
-                    <p>Students' Gymkhana, IIT Jodhpur is the governing body that looks after all student activities.</p>
-                        <blockquote class="blockquote">IIT Jodhpur - A place where you can find a plethora of opportunities and a place where you can
-                        pursue your passion.</blockquote>
-                    <p>{{ gallery }}</p>
-
+                    <p>Students' Gymkhana, IIT Jodhpur is the governing body that looks after all student
+                        activities.</p>
+                    <blockquote class="blockquote">IIT Jodhpur - A place where you can find a plethora of opportunities
+                        and a place where you can
+                        pursue your passion.
+                    </blockquote>
                 </div>
                 <!--/Second column-->
-
             </div>
             <!--/First row-->
-
         </section>
     </div>
 
@@ -346,25 +301,25 @@
     </div>
 
     {% if gallery %}
-    <div id="mdb-lightbox-ui"></div>
-    <!--gallery-->
-    <section id="info" class="section mt-0 mb-0 hm-black-light"
-             style="background: url('{% static 'assets/others/background.svg' %}'); background-size: cover;">
-        <div class="mask flex-center">
-            <div class="container mb-5">
-                <!--Section heading-->
-                <h1 class="section-heading wow fadeIn text-white pt-1" data-wow-delay="0.2s"
-                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">
-                    Memories</h1>
-                <!--Section description-->
-                <p class="section-description wow fadeIn" style="color: #d7d7d7" data-wow-delay="0.2s"
-                   style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">{{ gallery.description }}</p>
-                <div class="row">
-                    {% include 'main/mixins/gallery_mixin.html' with gallery=gallery %}
+        <div id="mdb-lightbox-ui"></div>
+        <!--gallery-->
+        <section id="info" class="section mt-0 mb-0 hm-black-light"
+                 style="background: url('{% static 'assets/others/background.svg' %}'); background-size: cover;">
+            <div class="mask flex-center">
+                <div class="container mb-5">
+                    <!--Section heading-->
+                    <h1 class="section-heading wow fadeIn text-white pt-1" data-wow-delay="0.2s"
+                        style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">
+                        Memories</h1>
+                    <!--Section description-->
+                    <div class="section-description wow fadeIn" style="color: #d7d7d7" data-wow-delay="0.2s"
+                         style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">{{ gallery.description|safe }}</div>
+                    <div class="row">
+                        {% include 'main/mixins/gallery_mixin.html' with gallery=gallery %}
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     {% endif %}
 {% endblock %}
 

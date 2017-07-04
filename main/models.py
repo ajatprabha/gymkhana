@@ -81,7 +81,7 @@ class Club(models.Model):
     vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one', blank=True, null=True, default=None)
     vice_captain_two = models.ForeignKey(UserProfile, related_name='vice_cap_two', blank=True, null=True, default=None)
     mentor = models.ForeignKey(UserProfile, related_name='cmentor', blank=True, null=True, default=None)
-    core_members = models.ManyToManyField(UserProfile, blank=True, null=True)
+    core_members = models.ManyToManyField(UserProfile, blank=True)
     gallery = models.ForeignKey(Gallery, blank=True, null=True, on_delete=models.SET_NULL,
                                 help_text="Select a gallery to link to this club.")
     resources_link = models.URLField(blank=True, null=True, default=None)

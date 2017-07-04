@@ -12,10 +12,12 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
+        carousel = Gallery.objects.filter(title='HomePageCarousel').filter(is_public=True).first()
         festivals = Festival.objects.all()[:4]
         societies = Society.objects.filter(is_active=True)
         senate = Senate.objects.filter(is_active=True).order_by('-year').first()
         gallery = Gallery.objects.filter(title='Home Page Gallery').filter(is_public=True).first()
+        context['carousel'] = carousel
         context['festival_list'] = festivals
         context['society_link_list'] = societies
         context['senate'] = senate

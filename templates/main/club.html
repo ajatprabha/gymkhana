@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="{% static 'css/club_style.css' %}">
     <link rel="stylesheet" href="{% static 'css/news_event.css' %}"/>
 {% endblock %}
-
 {% block main %}
     <div class="streak streak-lg streak-photo society-photo view hm-black-light">
         <div class="mask flex-center">
@@ -16,8 +15,8 @@
             </div>
         </div>
     </div>
-    <div class="streak-edge-header card primary-color z-depth-1-half">
-        <div class="col-md-12 white-text">
+    <div class="streak-edge-header card z-depth-1-half">
+        <div class="col-md-12">
             <h2 class="h2-responsive mb-2">About</h2>
             <div id="description">{{ club.description|safe }}</div>
         </div>

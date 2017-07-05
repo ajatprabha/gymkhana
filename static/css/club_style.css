@@ -115,10 +115,10 @@
 
 @media (max-width: 543px) {
     .streak-edge-header {
-        border-top: none;
+        border-top: none !important;
         margin-top: 0;
         width: 100%;
         padding: 5%;
-        box-shadow: none;
+        box-shadow: none !important;
     }
 }

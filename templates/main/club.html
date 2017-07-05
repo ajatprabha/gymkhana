@@ -1,4 +1,10 @@
 {% extends 'main/base.html' %}
+{% load staticfiles %}
+{% block skin %}{{ club.skin }}{% endblock %}
+{% block customstyles %}
+    <link rel="stylesheet" href="{% static 'css/club_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/news_event.css' %}"/>
+{% endblock %}
 
 {% block main %}
     <div class="streak streak-lg streak-photo society-photo view hm-black-light">
@@ -10,98 +16,116 @@
             </div>
         </div>
     </div>
-    <div class="container mt-2">
-        <div class="row card card-info"
-             style="margin-top: -180px; width: 80%; margin-right: auto; margin-left: auto; padding: 5%">
-            <div class="col-md-12">
-                <h2 class="h2-responsive mb-2">About</h2>
-                <div id="description">{% lorem %}</div>
-            </div>
+    <div class="streak-edge-header card primary-color z-depth-1-half">
+        <div class="col-md-12 white-text">
+            <h2 class="h2-responsive mb-2">About</h2>
+            <div id="description">{{ club.description|safe }}</div>
         </div>
-        <div class="container mt-2">
-            <div class="col-md-5">
+    </div>
+    <div class="container mt-2">
+        <div class="row mb-2">
+            <div class="col-md-4 mt-2">
                 {% include 'main/mixins/event_list_module.html' with event_list=event_list %}
             </div>
-        </div>
-    </div>
-    <div class="container mt-3 section team-section">
-        <div class="row text-center">
-            <div class="col-lg-3 col-md-6 mb-r">
-                <div class="avatar">
-                    <img src="{{ club.captain.avatar.thumbnail.200x200 }}" class="rounded-circle">
+            <div class="col-md-8 mt-1">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs tabs-2 primary-color" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">Activities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#panel2" role="tab">News</a>
+                    </li>
+                </ul>
+                <!-- Tab panels -->
+                <div class="tab-content card-block">
+                    <div class="tab-pane fade in show active" id="panel1" role="tabpanel">
+                        <br>
+                        {% include 'main/mixins/activity_list_module.html' with activity_list=activity_list %}
+                    </div>
+                    <div class="tab-pane fade" id="panel2" role="tabpanel">
+                        <br>
+                        {% include 'main/mixins/news_list_club_module.html' with news_list=news_list %}
+                    </div>
                 </div>
-                <h4>{{ club.captain.user.get_full_name }}</h4>
-                <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
-                        href="https://api.whatsapp.com/send?phone=91{{ club.captain.phone }}">+91-{{ club.captain.phone }}</a>
-                </h5>
-                <h5>Captain</h5>
-                <p>{{ club.captain.about }}</p>
-                <a class="icons-sm email-ic" href="mailto:{{ club.captain.user.email }}"><i
-                        class="fa fa-envelope-o"></i> </a>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-r">
-                <div class="avatar">
-                    <img src="{{ club.vice_captain_one.avatar.thumbnail.200x200 }}" class="rounded-circle">
-                </div>
-                <h4>{{ club.vice_captain_one.user.get_full_name }}</h4>
-                <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
-                        href="https://api.whatsapp.com/send?phone=91{{ club.vice_captain_one.phone }}">+91-{{ club.vice_captain_one.phone }}</a>
-                </h5>
-                <h5>Vice Captain</h5>
-                <p>{{ club.vice_captain_one.about }}</p>
-                <a class="icons-sm email-ic" href="mailto:{{ club.vice_captain_one.user.email }}"><i
-                        class="fa fa-envelope-o"></i> </a>
-                <a class="icons-sm fb-ic" target="_blank" href="https://www.facebook.com/iAmAjat"><i
-                            class="fa fa-facebook"> </i></a>
-                    <a class="icons-sm li-ic" target="_blank" href="https://in.linkedin.com/in/ajat-prabha-87675b128"><i
-                            class="fa fa-linkedin"></i></a>
-                    <a class="icons-sm ins-ic" target="_blank" href="https://www.instagram.com/ajatprabha/"><i
-                            class="fa fa-instagram"> </i></a>
-                    <a class="icons-sm git-ic" target="_blank" href="https://github.com/ajatprabha"><i
-                            class="fa fa-github"></i></a>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-r">
-                <div class="avatar">
-                    <img src="{{ club.vice_captain_two.avatar.thumbnail.200x200 }}" class="rounded-circle">
-                </div>
-                <h4>{{ club.vice_captain_two.user.get_full_name }}</h4>
-                <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
-                        href="https://api.whatsapp.com/send?phone=91{{ club.vice_captain_two.phone }}">+91-{{ club.vice_captain_two.phone }}</a>
-                </h5>
-                <h5>Vice Captain</h5>
-                <p>{{ club.vice_captain_two.about }}</p>
-                <a class="icons-sm email-ic" href="mailto:{{ club.vice_captain_two.user.email }}"><i
-                        class="fa fa-envelope-o"></i> </a>
-                <a class="icons-sm fb-ic" target="_blank" href="https://www.facebook.com/iAmAjat"><i
-                            class="fa fa-facebook"> </i></a>
-                    <a class="icons-sm li-ic" target="_blank" href="https://in.linkedin.com/in/ajat-prabha-87675b128"><i
-                            class="fa fa-linkedin"></i></a>
-                    <a class="icons-sm ins-ic" target="_blank" href="https://www.instagram.com/ajatprabha/"><i
-                            class="fa fa-instagram"> </i></a>
-                    <a class="icons-sm git-ic" target="_blank" href="https://github.com/ajatprabha"><i
-                            class="fa fa-github"></i></a>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-r">
-                <div class="avatar">
-                    <img src="{{ club.mentor.avatar.thumbnail.200x200 }}" class="rounded-circle">
-                </div>
-                <h4>{{ club.mentor.user.get_full_name }}</h4>
-                <h5><i class="icons-sm-i fa fa-whatsapp green-text"></i><a
-                        href="https://api.whatsapp.com/send?phone=91{{ club.mentor.phone }}">+91-{{ club.mentor.phone }}</a>
-                </h5>
-                <h5>Mentor</h5>
-                <p>{{ club.mentor.about }}</p>
-                <a class="icons-sm email-ic" href="mailto:{{ club.mentor.user.email }}"><i
-                        class="fa fa-envelope-o"></i> </a>
-                <a class="icons-sm fb-ic" target="_blank" href="https://www.facebook.com/iAmAjat"><i
-                            class="fa fa-facebook"> </i></a>
-                    <a class="icons-sm li-ic" target="_blank" href="https://in.linkedin.com/in/ajat-prabha-87675b128"><i
-                            class="fa fa-linkedin"></i></a>
-                    <a class="icons-sm ins-ic" target="_blank" href="https://www.instagram.com/ajatprabha/"><i
-                            class="fa fa-instagram"> </i></a>
-                    <a class="icons-sm git-ic" target="_blank" href="https://github.com/ajatprabha"><i
-                            class="fa fa-github"></i></a>
             </div>
         </div>
     </div>
+    {% include 'main/mixins/event_modal_mixin.html' with event_list=event_list %}
+    {% include 'main/mixins/news_modal_mixin.html' with news_list=news_list %}
+    <div class="container mt-1">
+        <div class="row flex-center">
+            <div class="col-sm-10">
+                <!--Card Primary-->
+                <div class="card primary-color text-center z-depth-2 mt-2 mb-2">
+                    <div class="card-block">
+                        <h3 class="h3-responsive white-text mb-0">Key People</h3>
+                    </div>
+                </div>
+                <!--/.Card Primary-->
+            </div>
+        </div>
+    </div>
+    <div class="container section team-section">
+        <div class="row flex-center">
+            {% include 'main/mixins/club_user_round_card_mixin.html' with userprofile=club.captain designation='Captain' %}
+            {% include 'main/mixins/club_user_round_card_mixin.html' with userprofile=club.vice_captain_one designation='Vice Captain' %}
+            {% include 'main/mixins/club_user_round_card_mixin.html' with userprofile=club.vice_captain_two designation='Vice Captain' %}
+            {% include 'main/mixins/club_user_round_card_mixin.html' with userprofile=club.mentor designation='Mentor' %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row flex-center">
+            <div class="col-sm-10">
+                <!--Card Primary-->
+                <div class="card primary-color text-center z-depth-2 mt-2 mb-2">
+                    <div class="card-block">
+                        <h3 class="h3-responsive white-text mb-0">Gallery</h3>
+                    </div>
+                </div>
+                <!--/.Card Primary-->
+            </div>
+        </div>
+    </div>
+    <div id="mdb-lightbox-ui"></div>
+    <div class="container-fluid">
+        <div class="row mt-1 mb-2">
+            {% include 'main/mixins/club_gallery_mixin.html' with gallery=club.gallery %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row flex-center">
+            <div class="col-sm-10">
+                <!--Card Primary-->
+                <div class="card primary-color text-center z-depth-2 mt-2 mb-2">
+                    <div class="card-block">
+                        <h3 class="h3-responsive white-text mb-0">Core Members</h3>
+                    </div>
+                </div>
+                <!--/.Card Primary-->
+            </div>
+        </div>
+    </div>
+    <!--Section: Team v.3-->
+    <section class="container-fluid section team-section">
+        <!--First row-->
+        <div class="row mt-3 center-on-small-only">
+            {% for member in member_list %}
+                {% include 'main/mixins/club_member_card_mixin.html' with userprofile=member %}
+            {% endfor %}
+        </div>
+        <!--/Second row-->
+    </section>
+    <!--/Section: Team v.3-->
+
+{% endblock %}
+
+{% block customscripts %}
+    <script>
+        new WOW().init();
+        // MDB Lightbox Init
+        $(function () {
+            $("#mdb-lightbox-ui").load("/static/mdb-addons/mdb-lightbox-ui.html");
+        });
+    </script>
 {% endblock %}

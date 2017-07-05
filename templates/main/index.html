@@ -4,6 +4,24 @@
     <link rel="stylesheet" href="{% static 'css/mdblanding.css' %}">
     <link rel="stylesheet" href="{% static 'css/snavtrans.css' %}">
     <style>
+        html,
+        body,
+        .view {
+            height: 100%;
+        }
+
+        /* Carousel*/
+
+        .carousel,
+        .carousel-item,
+        .active {
+            height: 100%;
+        }
+
+        .carousel-inner {
+            height: 100%;
+        }
+
         {% for item in carousel.public|slice:":10" %}
             @media (max-width: 540px) {
                 .carousel-item:nth-child({{ forloop.counter }}) {
@@ -101,20 +119,24 @@
         <!--Slides-->
         <div class="carousel-inner" role="listbox">
             {% for photo in carousel.public|slice:":10" %}
-            <!-- Item {{ forloop.counter }} -->
+                <!-- Item {{ forloop.counter }} -->
                 <div class="carousel-item view{% if forloop.counter == 1 %} active{% endif %}">
                     <div class="mask hm-black-light">
                         <div class="full-bg-img"></div>
                     </div>
-                    <div class="carousel-caption">
+                    <div class="carousel-caption{% if forloop.counter == 1 %} flex-center{% endif %}">
                         <ul class="animated fadeInUp">
                             <li>
-                                <h4 class="flex-item wow fadeInUp">{{ photo.caption|linebreaks }}</h4>
+                                {% if forloop.counter == 1 %}
+                                    <h3 class="h3-responsive flex-item wow fadeInUp">{{ photo.caption|linebreaks }}</h3>
+                                {% else %}
+                                    <h4 class="h4-responsive flex-item wow fadeInUp">{{ photo.caption|linebreaks }}</h4>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>
                 </div>
-            <!-- Item {{ forloop.counter }} -->
+                <!-- Item {{ forloop.counter }} -->
             {% endfor %}
         </div>
         <!--/.Slides-->
@@ -138,16 +160,15 @@
         <section id="about" class="section pt-3">
 
             <!--Secion heading-->
-            <h1 class="section-heading wow fadeIn" data-wow-delay="0.2s"
-                style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">About
-                <small>Students' Gymkhana</small>
-            </h1>
+            <h3 class="h3-responsive section-heading wow fadeIn" data-wow-delay="0.2s"
+                style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">About Students' Gymkhana
+            </h3>
 
             <!--First row-->
             <div class="row">
 
                 <!--First column-->
-                <div class="col-lg-5 col-md-12 mb-3 wow fadeIn" data-wow-delay="0.4s"
+                <div class="col-lg-5 col-md-12 mb-3 wow fadeIn flex-center" data-wow-delay="0.4s"
                      style="visibility: visible; animation-delay: 0.4s; animation-name: fadeIn;">
 
                     <!--Image-->

@@ -65,8 +65,10 @@ class ClubView(DetailView):
         context = super(ClubView, self).get_context_data(**kwargs)
         society = Society.objects.filter(is_active=True)
         events = Event.objects.filter(club=self.object).filter(published=True).filter(date__gte=timezone.now())[:5]
+        members = self.object.core_members.all()
         context['society_link_list'] = society
         context['event_list'] = events
+        context['member_list'] = members
         return context
 
 

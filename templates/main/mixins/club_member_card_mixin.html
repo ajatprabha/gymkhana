@@ -1,0 +1,17 @@
+<div class="col-lg-4 col-md-6 mb-r">
+    <div class="col-md-6 float-left">
+        <div class="avatar">
+            <img src="{{ userprofile.avatar.thumbnail.200x200 }}">
+        </div>
+    </div>
+    <div class="col-md-6 float-right">
+        <h4>{{ userprofile.user.get_full_name }}</h4>
+        <p>{{ userprofile.about|linebreaks }}</p>
+        <a class="icons-sm email-ic" href="mailto:{{ userprofile.user.email }}"><i
+                class="fa fa-envelope-o"></i> </a>
+    {% for link in userprofile.user.sociallink_set.all|slice:":4" %}
+        <a class="icons-sm {{ link.get_sm_ic }}" target="_blank" href="{{ link.link }}"><i
+                class="{{ link.get_fai }}"></i></a>
+    {% endfor %}
+    </div>
+</div>

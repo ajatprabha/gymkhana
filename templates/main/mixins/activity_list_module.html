@@ -1,0 +1,27 @@
+{% load humanize %}
+{% if not activity_list %}
+    <h4 class="h4-responsive text-center">No activities to display</h4>
+{% else %}
+    <div class="doc-title">
+        <table class="table mb-0" id="events">
+            <thead>
+            <tr>
+                <th class="col-md-2"></th>
+                <th class="text-left col-md-10">Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for activity in activity_list %}
+                <tr class="list-group-item-action">
+                    <td class="text-center col-md-2"><a data-toggle="modal"
+                                               data-target="#event-{{ forloop.counter }}"><i
+                            class="fa fa-chevron-right"></i></a></td>
+                    <td class="text-left col-md-10"><a data-toggle="modal"
+                           data-target="#event-{{ forloop.counter }}">{{ activity.name|truncatechars:26 }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}

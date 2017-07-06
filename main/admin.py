@@ -20,6 +20,7 @@ class SocietyAdmin(admin.ModelAdmin):
 
 class ClubAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
+    search_fields = ['name', 'society__name']
     list_display = ('__str__', 'society', 'ctype', 'published')
     list_filter = ('published', 'ctype')
 

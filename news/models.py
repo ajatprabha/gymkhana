@@ -16,7 +16,7 @@ class News(models.Model):
     date = models.DateField(editable=True)
 
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
         verbose_name_plural = 'news'
 
     def __str__(self):

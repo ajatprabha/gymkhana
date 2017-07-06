@@ -1,9 +1,10 @@
 {% extends 'main/base.html' %}
 {% load staticfiles %}
-{% block title %}{{ senate.name }} - IIT Jodhpur{% endblock %}
+{% block title %}{{ senate.name }} | Students' Gymkhana - IIT Jodhpur{% endblock %}
 {% block skin %}{{ senate.skin }}{% endblock %}
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/contact_card.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/club_style.css' %}">
     {% if senate.cover %}
         <style>
             @media (max-width: 415px) {
@@ -35,12 +36,12 @@
                 }
             }
         </style>
+    {% endif %}
         <style>
             .cream-back {
                 background: #F5F5F5
             }
         </style>
-    {% endif %}
 {% endblock %}
 {% block main %}
     <div class="streak streak-lg streak-photo senate-photo view hm-black-light">
@@ -52,15 +53,10 @@
             </div>
         </div>
     </div>
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-md-8">
-                <h2 class="h2-responsive mb-2">About</h2>
-                <div id="description">{{ senate.description|safe }}
-                </div>
-            </div>
-            <div class="col-md-4">
-            </div>
+    <div class="streak-edge-header card z-depth-1-half mb-2">
+        <div class="col-md-12">
+            <h2 class="h2-responsive mb-2">About</h2>
+            <div id="description">{{ senate.description|safe }}</div>
         </div>
     </div>
     <div class="container-fluid">

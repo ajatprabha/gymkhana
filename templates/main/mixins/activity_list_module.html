@@ -1,27 +1,28 @@
 {% load humanize %}
-{% if not activity_list %}
+{% if activity_list %}
     <h4 class="h4-responsive text-center">No activities to display</h4>
 {% else %}
-    <div class="doc-title">
-        <table class="table mb-0" id="events">
-            <thead>
-            <tr>
-                <th class="col-md-2"></th>
-                <th class="text-left col-md-10">Name</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for activity in activity_list %}
-                <tr class="list-group-item-action">
-                    <td class="text-center col-md-2"><a data-toggle="modal"
-                                               data-target="#event-{{ forloop.counter }}"><i
-                            class="fa fa-chevron-right"></i></a></td>
-                    <td class="text-left col-md-10"><a data-toggle="modal"
-                           data-target="#event-{{ forloop.counter }}">{{ activity.name|truncatechars:26 }}</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <!--Accordion wrapper-->
+    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+        {% for activity in 'xxxxx' %}
+            <div class="card">
+                <div class="card-header" role="tab" id="heading{{ forloop.counter }}">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                       href="#collapse{{ forloop.counter }}"
+                       aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                        <h5 class="mb-0">
+                            Collapsible Group Item #{{ forloop.counter }} <i class="fa fa-angle-down rotate-icon"></i>
+                        </h5>
+                    </a>
+                </div>
+                <div id="collapse{{ forloop.counter }}" class="collapse" role="tabpanel"
+                     aria-labelledby="heading{{ forloop.counter }}">
+                    <div class="card-block">
+                        {% lorem %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
+    <!--/.Accordion wrapper-->
 {% endif %}

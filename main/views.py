@@ -13,11 +13,15 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         carousel = Gallery.objects.filter(title='HomePageCarousel').filter(is_public=True).first()
+        events = Event.objects.filter(club=None)[:5]
+        news = News.objects.filter(club=None)[:5]
         festivals = Festival.objects.all()[:4]
         societies = Society.objects.filter(is_active=True)
         senate = Senate.objects.filter(is_active=True).order_by('-year').first()
         gallery = Gallery.objects.filter(title='Home Page Gallery').filter(is_public=True).first()
         context['carousel'] = carousel
+        context['event_list'] = events
+        context['news_list'] = news
         context['festival_list'] = festivals
         context['society_link_list'] = societies
         context['senate'] = senate
@@ -37,7 +41,7 @@ class SocietyView(DetailView):
         teams = raw.filter(ctype='T')
         events = Event.objects.filter(club__society=self.object).filter(published=True).filter(
             date__gte=timezone.now())[:5]
-        news = News.objects.filter(club__society=self.object).order_by('date')[:5]
+        news = News.objects.filter(club__society=self.object)[:5]
         context['society_link_list'] = societies
         context['club_list'] = clubs
         context['team_list'] = teams
@@ -65,9 +69,11 @@ class ClubView(DetailView):
         context = super(ClubView, self).get_context_data(**kwargs)
         society = Society.objects.filter(is_active=True)
         events = Event.objects.filter(club=self.object).filter(published=True).filter(date__gte=timezone.now())[:5]
+        news = News.objects.filter(club=self.object)[:5]
         members = self.object.core_members.all()
         context['society_link_list'] = society
         context['event_list'] = events
+        context['news_list'] = news
         context['member_list'] = members
         return context
 

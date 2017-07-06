@@ -19,7 +19,7 @@
                         <!--Card image-->
                         <div class="view hm-zoom">
                             <img src="
-                                    {% if club.cover %}{{ club.cover.crop.420x280 }}{% else %}{% static 'assets/others/club-default.jpg' %}{% endif %}"
+                                    {% if club.cover %}{{ club.cover.crop.540x360 }}{% else %}{% static 'assets/others/club-default.jpg' %}{% endif %}"
                                  class="img-responsive" alt="">
                             <div class="stripe light">
                                 <a href="{{ club.get_absolute_url }}">

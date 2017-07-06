@@ -44,6 +44,8 @@ class Society(models.Model):
     joint_secretary = models.ForeignKey(UserProfile, related_name='joint_secy')
     mentor = models.ForeignKey(UserProfile, related_name='smentor')
     faculty_advisor = models.ForeignKey(FacultyAdvisor, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+    gallery = models.ForeignKey(Gallery, blank=True, null=True, on_delete=models.SET_NULL,
+                                help_text="Select a carousel gallery to link to this society.")
     custom_html = models.TextField(blank=True, null=True, default=None,
                                    help_text="Add custom HTML to view on society page.")
     slug = models.SlugField(unique=True, help_text="This will be used as URL. /society/slug")
@@ -112,7 +114,9 @@ class Activity(models.Model):
     name = models.CharField(max_length=64)
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     description = RichTextUploadingField()
-    gallery = models.ForeignKey(Gallery)
+    custom_html = models.TextField(blank=True, null=True, default=None)
+    gallery = models.ForeignKey(Gallery, blank=True, null=True, on_delete=models.SET_NULL,
+                                help_text="Select a gallery to link to this activity.")
 
     class Meta:
         verbose_name_plural = 'Activities'

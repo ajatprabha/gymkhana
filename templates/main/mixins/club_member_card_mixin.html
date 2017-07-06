@@ -9,7 +9,7 @@
         <p>{{ userprofile.about|linebreaks }}</p>
         <a class="icons-sm email-ic" href="mailto:{{ userprofile.user.email }}"><i
                 class="fa fa-envelope-o"></i> </a>
-    {% for link in userprofile.user.sociallink_set.all|slice:":4" %}
+    {% for link in userprofile.user.sociallink_set.all|slice:":5" %}
         <a class="icons-sm {{ link.get_sm_ic }}" target="_blank" href="{{ link.link }}"><i
                 class="{{ link.get_fai }}"></i></a>
     {% endfor %}

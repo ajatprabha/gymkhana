@@ -3,10 +3,10 @@
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/mdblanding.css' %}">
     <link rel="stylesheet" href="{% static 'css/snavtrans.css' %}">
+    <link rel="stylesheet" href="{% static 'css/news_event.css' %}"/>
     <style>
         html,
-        body,
-        .view {
+        body {
             height: 100%;
         }
 
@@ -158,26 +158,20 @@
     <div class="container">
         <!--about us-->
         <section id="about" class="section pt-3">
-
             <!--Secion heading-->
             <h3 class="h3-responsive section-heading wow fadeIn" data-wow-delay="0.2s"
                 style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">About Students' Gymkhana
             </h3>
-
             <!--First row-->
             <div class="row">
-
                 <!--First column-->
                 <div class="col-lg-5 col-md-12 mb-3 wow fadeIn flex-center" data-wow-delay="0.4s"
                      style="visibility: visible; animation-delay: 0.4s; animation-name: fadeIn;">
-
                     <!--Image-->
                     <img src="{% static 'assets/others/home_image.jpg' %}"
                          class="img-fluid" alt="about_image">
-
                 </div>
                 <!--/First column-->
-
                 <!--Second column-->
                 <div class="col-lg-6 offset-lg-1 col-md-12 wow fadeIn" data-wow-delay="0.4s"
                      style="visibility: visible; animation-delay: 0.4s; animation-name: fadeIn;">
@@ -194,11 +188,43 @@
             <!--/First row-->
         </section>
     </div>
-
+    {% if event_list and news_list %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    {% include 'main/mixins/news_list_module.html' with news_list=news_list %}
+                </div>
+                <div class="col-md-6">
+                    {% include 'main/mixins/event_list_module.html' with event_list=event_list %}
+                </div>
+            </div>
+        </div>
+        {% include 'main/mixins/event_modal_mixin.html' with event_list=event_list %}
+        {% include 'main/mixins/news_modal_mixin.html' with news_list=news_list %}
+    {% elif news_list and not event_list %}
+        <div class="container">
+            <div class="row flex-center">
+                <div class="col-md-6">
+                    {% include 'main/mixins/news_list_module.html' with news_list=news_list %}
+                </div>
+            </div>
+        </div>
+        {% include 'main/mixins/news_modal_mixin.html' with news_list=news_list %}
+    {% elif event_list and not news_list %}
+        <div class="container">
+            <div class="row flex-center">
+                <div class="col-md-6">
+                    {% include 'main/mixins/event_list_module.html' with event_list=event_list %}
+                </div>
+            </div>
+        </div>
+        {% include 'main/mixins/event_modal_mixin.html' with event_list=event_list %}
+    {% else %}
+    {% endif %}
     <!--festivals-->
     <section id="info" class="section mt-4 hm-black-strong"
              style="background-image: url('{% static 'assets/others/background2.svg' %}'); background-position: center; background-repeat: no-repeat; background-size: cover !important;">
-        <div class="mask flex-center">
+        <div class="mask flex-center white-text">
             <div class="container mb-5 mt-4">
                 <!--Section heading-->
                 <h1 class="section-heading wow fadeIn" data-wow-delay="0.2s"
@@ -351,6 +377,15 @@
         // MDB Lightbox Init
         $(function () {
             $("#mdb-lightbox-ui").load("/static/mdb-addons/mdb-lightbox-ui.html");
+        });
+
+        $(document).ready(function () {
+            $('#carousel-home').hammer().on('swipeleft', function () {
+                $(this).carousel('next');
+            })
+            $('#carousel-home').hammer().on('swiperight', function () {
+                $(this).carousel('prev');
+            })
         });
     </script>
     <script src="https://maps.google.com/maps/api/js?key=AIzaSyCXb3hJowu7LDan1OS1T2oDnBakLRdIXl0&callback=init_map"></script>

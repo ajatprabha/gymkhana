@@ -1,4 +1,5 @@
 .streak-edge-header {
+    border-top: 0.65rem solid #33b5e5;
     margin-top: -7rem;
     width: 65%;
     margin-right: auto;
@@ -18,8 +19,12 @@
     border-top: 0.65rem solid #4fada7;
 }
 
-.deep-pruple-skin .streak-edge-header {
+.deep-purple-skin .streak-edge-header {
     border-top: 0.65rem solid #d0637c;
+}
+
+.mdb-skin .streak-edge-header {
+    border-top: 0.65rem solid #33b5e5;
 }
 
 .navy-blue-skin .streak-edge-header {
@@ -30,7 +35,7 @@
     border-top: 0.65rem solid #bd5d70;
 }
 
-.indogo-skin .streak-edge-header {
+.indigo-skin .streak-edge-header {
     border-top: 0.65rem solid #7f82c5;
 }
 
@@ -40,12 +45,6 @@
 
 .grey-skin .streak-edge-header {
     border-top: 0.65rem solid #ad495c;
-}
-
-@media (min-width: 1350px) {
-    .streak-edge-header {
-        padding: 3%;
-    }
 }
 
 .white-skin .blockquote {
@@ -60,8 +59,12 @@
     border-left: 0.25rem solid #4fada7;
 }
 
-.deep-pruple-skin .blockquote {
+.deep-purple-skin .blockquote {
     border-left: 0.25rem solid #d0637c;
+}
+
+.mdb-skin .blockquote {
+    border-left: 0.25rem solid #33b5e5;
 }
 
 .navy-blue-skin .blockquote {
@@ -72,7 +75,7 @@
     border-left: 0.25rem solid #bd5d70;
 }
 
-.indogo-skin .blockquote {
+.indigo-skin .blockquote {
     border-left: 0.25rem solid #7f82c5;
 }
 
@@ -82,6 +85,12 @@
 
 .grey-skin .blockquote {
     border-left: 0.25rem solid #ad495c;
+}
+
+@media (min-width: 1350px) {
+    .streak-edge-header {
+        padding: 3%;
+    }
 }
 
 @media (min-width: 1350px) {

@@ -1,8 +1,7 @@
 {% extends 'main/base.html' %}
 {% load staticfiles humanize %}
-{% block title %}{{ society.name }} - IIT Jodhpur{% endblock %}
+{% block title %}{{ society.name }} | Students' Gymkhana - IIT Jodhpur{% endblock %}
 {% block skin %}{{ society.skin }}{% endblock %}
-
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/contact_card.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/news_event.css' %}"/>
@@ -37,12 +36,12 @@
                 }
             }
         </style>
-        <style>
-            .cream-back {
-                background: #F5F5F5
-            }
-        </style>
     {% endif %}
+    <style>
+        .cream-back {
+            background: #F5F5F5
+        }
+    </style>
 {% endblock %}
 
 {% block main %}
@@ -87,23 +86,27 @@
             </div>
         </div>
     {% endif %}
-
-    <div class="container pt-2 pb-2">
-        <div class="row">
-            <div class="col-md-4">
-                {% include 'main/mixins/news_list_module.html' with news_list=news_list %}
-            </div>
-            <div class="col-md-8">
-
+    {% if society.gallery %}
+        <div class="container pt-2 pb-2">
+            <div class="row">
+                <div class="col-md-4">
+                    {% include 'main/mixins/news_list_module.html' with news_list=news_list %}
+                </div>
+                <div class="col-md-8 pt-2">
+                    {% include 'main/mixins/carousel_gallery.html' with gallery=society.gallery %}
+                </div>
             </div>
         </div>
-    </div>
+    {% else %}
+        <div class="container pt-2 pb-2">
+            <div class="row flex-center">
+                <div class="col-md-6">
+                    {% include 'main/mixins/news_list_module.html' with news_list=news_list %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
     {% include 'main/mixins/news_modal_mixin.html' with news_list=news_list %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="gallery"></div>
-        </div>
-    </div>
     <div class="cream-back">
         <div class="container pt-2 section team-section">
             <div class="row flex-center">
@@ -128,13 +131,21 @@
             </div>
         </div>
     </div>
-{% if society.custom_html %}
-    {{ society.custom_html|safe }}
-{% endif %}
+    {% if society.custom_html %}
+        {{ society.custom_html|safe }}
+    {% endif %}
 {% endblock %}
 
 {% block customscripts %}
     <script>
         new WOW().init();
+        $(document).ready(function () {
+            $('#carousel-gallery').hammer().on('swipeleft', function () {
+                $(this).carousel('next');
+            })
+            $('#carousel-gallery').hammer().on('swiperight', function () {
+                $(this).carousel('prev');
+            })
+        });
     </script>
 {% endblock %}

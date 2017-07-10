@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <div class="card-wrapper">
     <div id="card-{{ userprofile.id }}" class="card-rotating effect__click">
         <!--Front Side-->
@@ -9,7 +10,7 @@
             </div>
             <!--Avatar-->
             <div class="avatar"><a href="{% url 'oauth:detail' userprofile.id %}"><img
-                    src="{{ userprofile.avatar.thumbnail.200x200 }}" class="rounded-circle img-responsive">
+                    src="{% if userprofile.avatar %}{{ userprofile.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}" class="rounded-circle img-responsive">
             </div>
             <!--Content-->
             <div class="card-block">

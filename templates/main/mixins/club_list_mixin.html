@@ -18,8 +18,7 @@
                     <div class="card collection-card z-depth-1-half mt-1 mb-1">
                         <!--Card image-->
                         <div class="view hm-zoom">
-                            <img src="
-                                    {% if club.cover %}{{ club.cover.crop.540x360 }}{% else %}{% static 'assets/others/club-default.jpg' %}{% endif %}"
+                            <img src="{% if club.cover %}{{ club.cover.crop.540x360 }}{% else %}{% static 'assets/others/club-default.jpg' %}{% endif %}"
                                  class="img-responsive" alt="">
                             <div class="stripe light">
                                 <a href="{{ club.get_absolute_url }}">

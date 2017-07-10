@@ -43,7 +43,7 @@
                     <!--Image column-->
                     <div class="col-sm-2 col-12 text-center">
                         <img class="img-fluid rounded-circle z-depth-1-half"
-                             src="{{ request.user.userprofile.avatar.thumbnail.100x100 }}">
+                             src="{{ request.user.userprofile.avatar.crop.100x100 }}">
                     </div>
                     <!--/.Image column-->
                     <!--Content column-->
@@ -79,7 +79,7 @@
                     <!--Image column-->
                     <div class="col-sm-2 col-12 align-content-center">
                         <img class="img-fluid rounded-circle z-depth-1-half"
-                             src="{{ answer.author.avatar.thumbnail.100x100 }}">
+                             src="{% if answer.author.avatar %}{{ answer.author.avatar.crop.100x100 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
                     </div>
                     <!--/.Image column-->
                     <!--Content column-->

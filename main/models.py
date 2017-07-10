@@ -115,8 +115,6 @@ class Activity(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     description = RichTextUploadingField()
     custom_html = models.TextField(blank=True, null=True, default=None)
-    gallery = models.ForeignKey(Gallery, blank=True, null=True, on_delete=models.SET_NULL,
-                                help_text="Select a gallery to link to this activity.")
 
     class Meta:
         verbose_name_plural = 'Activities'

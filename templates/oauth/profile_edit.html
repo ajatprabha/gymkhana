@@ -2,7 +2,6 @@
 {% load staticfiles %}
 {% block title %}Edit Profile: {{ userprofile.user.get_full_name }}{% endblock %}
 {% block customstyles %}
-    <link rel="stylesheet" href="{% static 'css/cropper.min.css' %}">
     <style>
         .card-wrapper {
             height: 20rem;
@@ -38,7 +37,7 @@
                                 </div>
                                 <!--Avatar-->
                                 <div class="avatar"><img
-                                        src="{{ userprofile.avatar.thumbnail.150x150 }}"
+                                        src="{% if userprofile.avatar %}{{ userprofile.avatar.crop.150x150 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
                                         class="rounded-circle img-responsive">
                                 </div>
                                 <!--Content-->
@@ -234,7 +233,6 @@
                 return elem.tag;
             }).join(",");
             $('#{{ form.skills.id_for_label }}').val($skills);
-            confirm('Are you sure?');
             this.submit();
         });
     </script>

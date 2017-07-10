@@ -52,14 +52,8 @@
     </div>
 {% endblock %}
 
-{% block scripts %}
-    <!-- SCRIPTS -->
-    <!-- JQuery -->
+{% block customscripts %}
     {{ form.media }}
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="{% static 'js/compiled.min.js' %}"></script>
     <script>
         $(document).ready(function () {
             $('.mdb-select').material_select();

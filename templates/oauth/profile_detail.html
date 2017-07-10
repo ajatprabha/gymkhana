@@ -3,7 +3,6 @@
 {% block title %}Profile: {{ userprofile.user.get_full_name }}{% endblock %}
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/profile_detail.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/croppie.css' %}"/>
     <style>
         .fixed-action-btn-fix {
             position: fixed;
@@ -50,7 +49,7 @@
                                     </div>
                                     <!--Avatar-->
                                     <div class="avatar"><img
-                                            src="{{ userprofile.avatar.thumbnail.150x150 }}"
+                                            src="{% if userprofile.avatar %}{{ userprofile.avatar.crop.150x150 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
                                             class="rounded-circle img-responsive">
                                     </div>
                                     <!--Content-->
@@ -114,12 +113,16 @@
                                 <h4 class="card-title">Skills</h4>
                                 <div id="hr"></div>
                                 <div class="flex-column">
-                                    <h4 class="d-flex flex-wrap">
-                                        {% for skill in userprofile.skills_as_list %}
-                                            <span class="chip"><a
-                                                    href="{% url 'konnekt:search' %}?skills={{ skill|urlencode }}">{{ skill }}</a></span>
-                                        {% endfor %}
-                                    </h4>
+                                    {% if not userprofile.skills_as_list %}
+                                        <small>Not yet added!</small>
+                                    {% else %}
+                                        <h4 class="d-flex flex-wrap">
+                                            {% for skill in userprofile.skills_as_list %}
+                                                <span class="chip"><a
+                                                        href="{% url 'konnekt:search' %}?skills={{ skill|urlencode }}">{{ skill }}</a></span>
+                                            {% endfor %}
+                                        </h4>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -127,9 +130,13 @@
                             <div class="card card-block">
                                 <h4 class="card-title">About</h4>
                                 <div id="hr"></div>
-                                <div class="text-center" style="word-wrap: break-word">
-                                    {{ userprofile.about|linebreaks }}
-                                </div>
+                                {% if not userprofile.about %}
+                                    <small>Not yet added!</small>
+                                {% else %}
+                                    <div class="text-center" style="word-wrap: break-word">
+                                        {{ userprofile.about|linebreaks }}
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -137,11 +144,15 @@
                                 <h4 class="card-title">Social Links</h4>
                                 <div id="hr"></div>
                                 <div id="icons" class="flex-column">
-                                    {% for link in userprofile.user.sociallink_set.all %}
-                                        <div style="word-wrap: break-word"><i class="fa {{ link.get_fai }}"></i>
-                                            <span>{{ link.link|urlizetrunc:40 }}</span>
-                                        </div>
-                                    {% endfor %}
+                                    {% if not userprofile.user.sociallink_set.all %}
+                                        <small>Not yet added!</small>
+                                    {% else %}
+                                        {% for link in userprofile.user.sociallink_set.all %}
+                                            <div style="word-wrap: break-word"><i class="fa {{ link.get_fai }}"></i>
+                                                <span>{{ link.link|urlizetrunc:40 }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -154,7 +165,6 @@
 
 {% block customscripts %}
     <script src="{% static 'js/rellax.min.js' %}"></script>
-    <script src="{% static 'js/croppie.js' %}"></script>
     <script>
         var rellax = new Rellax('.rellax');
     </script>

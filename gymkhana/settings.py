@@ -25,6 +25,8 @@ SECRET_KEY = 'q$o5mx19x9(9_^rzqf@o@s^t%t!ghix7($f9ymy49_^ryzq9x9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+HTML_MINIFY = True
+
 ALLOWED_HOSTS = ['127.0.0.1']
 
 
@@ -64,6 +66,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
 SITE_ID = 1
@@ -95,7 +99,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "collectstatic")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 WSGI_APPLICATION = 'gymkhana.wsgi.application'
 
@@ -158,7 +162,6 @@ MEDIA_URL = '/media/'
 HITCOUNT_KEEP_HIT_ACTIVE = {'minutes': 1}
 
 # CKEditor
-CKEDITOR_JQUERY_URL = '/static/js/jquery-3.1.1.min.js'
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_IMAGE_BACKEND = 'pillow'

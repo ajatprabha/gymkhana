@@ -1,4 +1,5 @@
 {% extends 'forum/base.html' %}
+{% load staticfiles %}
 {% block title %}{{ request.GET.skills }} - Konnekt{% endblock %}
 {% block navtitle %}Konnekt - results for {{ request.GET.skills }}{% endblock %}
 {% block main %}
@@ -20,7 +21,7 @@
             {% for user in userprofile_list %}
                 <div class="media mb-1">
                     <a class="media-left waves-light" href="{% url 'oauth:detail' user.id %}">
-                        <img class="rounded-circle" src="{{ user.avatar.thumbnail.100x100 }}"
+                        <img class="rounded-circle" src="{% if user.avatar %}{{ user.avatar.crop.100x100 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
                              alt="Generic placeholder image">
                     </a>
                     <div class="media-body ml-3">

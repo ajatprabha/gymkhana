@@ -1,25 +1,29 @@
-{% load humanize %}
-{% if activity_list %}
+{% if not activity_list %}
     <h4 class="h4-responsive text-center">No activities to display</h4>
 {% else %}
     <!--Accordion wrapper-->
     <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
-        {% for activity in 'xxxxx' %}
+        {% for activity in activity_list %}
             <div class="card">
                 <div class="card-header" role="tab" id="heading{{ forloop.counter }}">
                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
                        href="#collapse{{ forloop.counter }}"
                        aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
                         <h5 class="mb-0">
-                            Collapsible Group Item #{{ forloop.counter }} <i class="fa fa-angle-down rotate-icon"></i>
+                            {{ activity.name }} <i class="fa fa-angle-down rotate-icon"></i>
                         </h5>
                     </a>
                 </div>
                 <div id="collapse{{ forloop.counter }}" class="collapse" role="tabpanel"
                      aria-labelledby="heading{{ forloop.counter }}">
-                    <div class="card-block">
-                        {% lorem %}
+                    <div id="description" class="card-block">
+                        {{ activity.description|safe }}
                     </div>
+                    {% if activity.custom_html %}
+                        <div>
+                            {{ activity.custom_html }}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import HomeView, SocietyView, ClubView, SenateView, ActivityView, ContactListView, ContactView
+from .views import HomeView, SocietyView, ClubView, SenateView, ContactListView, ContactView
 
 app_name = 'main'
 
@@ -10,5 +10,4 @@ urlpatterns = [
     url(r'^society/(?P<slug>[\w-]+)', SocietyView.as_view(), name='soc-detail'),
     url(r'^senate/(?P<slug>[\w-]+)', SenateView.as_view(), name='senate-detail'),
     url(r'^club/(?P<slug>[\w-]+)', ClubView.as_view(), name='club-detail'),
-    url(r'^activity-club/(?P<pk>\d+)', ActivityView.as_view(), name='activity-gallery'),
 ]

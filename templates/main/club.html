@@ -171,5 +171,14 @@
         $(function () {
             $("#mdb-lightbox-ui").load("/static/mdb-addons/mdb-lightbox-ui.html");
         });
+
+        $(document).ready(function () {
+            $('#carousel-gallery').hammer().on('swipeleft', function () {
+                $(this).carousel('next');
+            })
+            $('#carousel-gallery').hammer().on('swiperight', function () {
+                $(this).carousel('prev');
+            })
+        });
     </script>
 {% endblock %}

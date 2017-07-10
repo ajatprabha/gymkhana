@@ -41,12 +41,13 @@ class UserProfile(models.Model):
     prog = models.CharField(max_length=5, choices=PROG_CHOICES, verbose_name='programme', default='BT')
     year = models.CharField(max_length=1, choices=YEAR_CHOICES, default='1')
     phone = models.CharField(max_length=10, validators=[contact])
-    avatar = VersatileImageField(upload_to='avatar')
+    avatar = VersatileImageField(upload_to='avatar', blank=True, null=True)
     cover = VersatileImageField(upload_to='cover', blank=True, null=True)
     hometown = models.CharField(max_length=128)
     branch = models.CharField(max_length=5, choices=BRANCH_CHOICES)
-    skills = models.TextField(help_text="Enter your skills, separated by comma.", max_length=1024)
-    about = models.TextField(max_length=160, verbose_name='about you')
+    skills = models.TextField(help_text="Enter your skills, separated by comma.", max_length=1024, blank=True,
+                              null=True)
+    about = models.TextField(max_length=160, verbose_name='about you', blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse('oauth:detail', kwargs={'pk': self.pk})
@@ -56,6 +57,8 @@ class UserProfile(models.Model):
 
     @property
     def skills_as_list(self):
+        if self.skills == '':
+            return ''
         return self.skills.split(',')
 
 

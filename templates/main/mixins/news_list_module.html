@@ -1,12 +1,12 @@
 {% load humanize %}
-<div class="d-flex justify-content-center mb-2">
+<div class="d-flex justify-content-center mb-2 wow fadeIn" data-wow-delay="0.2s" style="visibility: visible;">
     <div><i class="fa fa-newspaper-o fa-2x mr-2"></i></div>
     <div><h3 class="h3-responsive">News</h3></div>
 </div>
 {% if not news_list %}
     <h4 class="h4-responsive text-center">No news to display</h4>
 {% else %}
-    <div class="list-group">
+    <div class="list-group wow fadeIn" data-wow-delay="0.3s" style="visibility: visible;">
         <table class="table mb-0" id="news">
             <thead>
             <tr class="primary-color">

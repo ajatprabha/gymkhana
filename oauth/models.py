@@ -1,8 +1,28 @@
 from django.db import models
+from django.db.models import Q
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from versatileimagefield.fields import VersatileImageField
+
+
+class KonnektQueryset(models.query.QuerySet):
+    def search(self, query):
+        if query:
+            return self.filter(Q(skills__icontains=query)|
+                               Q(user__first_name__icontains=query)|
+                               Q(user__last_name__icontains=query)
+                               ).distinct()
+        else:
+            return self
+
+
+class UserProfileManager(models.Manager):
+    def get_queryset(self):
+        return KonnektQueryset(self.model, using=self._db)
+
+    def search(self, query):
+        return self.get_queryset().search(query)
 
 
 class UserProfile(models.Model):
@@ -51,6 +71,8 @@ class UserProfile(models.Model):
 
     def get_absolute_url(self):
         return reverse('oauth:detail', kwargs={'pk': self.pk})
+
+    objects = UserProfileManager()
 
     def __str__(self):
         return self.roll + " (" + self.user.get_full_name() + ")"

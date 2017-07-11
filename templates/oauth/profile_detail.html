@@ -119,7 +119,7 @@
                                         <h4 class="d-flex flex-wrap">
                                             {% for skill in userprofile.skills_as_list %}
                                                 <span class="chip"><a
-                                                        href="{% url 'konnekt:search' %}?skills={{ skill|urlencode }}">{{ skill }}</a></span>
+                                                        href="{% url 'konnekt:search' %}?q={{ skill|urlencode }}">{{ skill }}</a></span>
                                             {% endfor %}
                                         </h4>
                                     {% endif %}

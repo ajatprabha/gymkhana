@@ -25,9 +25,9 @@
 {% block main %}
     <div class="mb-5">
         <div class="container-fluid">
-            <div class="row text-center">
+            <div class="row text-center flex-center">
                 <!--First column-->
-                <div class="col-12">
+                <div class="col-8">
                     <!--Rotating card-->
                     <div class="card-wrapper">
                         <div id="card-1">
@@ -37,7 +37,11 @@
                                 </div>
                                 <!--Avatar-->
                                 <div class="avatar"><img
-                                        src="{% if userprofile.avatar %}{{ userprofile.avatar.crop.150x150 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
+                                        src="
+
+
+
+                                                {% if userprofile.avatar %}{{ userprofile.avatar.crop.150x150 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
                                         class="rounded-circle img-responsive">
                                 </div>
                                 <!--Content-->
@@ -69,63 +73,24 @@
                             {% endfor %}
                             <br>
                         {% endif %}
-                        {% if form.phone.errors %}
-                            <ul>
-                                {% for error in form.phone.errors %}
-                                    <li class="red-text"><strong>{{ error|escape }}</strong></li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                        {% if form.avatar.errors %}
-                            <ul>
-                                {% for error in form.avatar.errors %}
-                                    <li class="red-text"><strong>{{ error|escape }}</strong></li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                        {% if form.cover.errors %}
-                            <ul>
-                                {% for error in form.cover.errors %}
-                                    <li class="red-text"><strong>{{ error|escape }}</strong></li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                        {% if form.hometown.errors %}
-                            <ul>
-                                {% for error in form.hometown.errors %}
-                                    <li class="red-text"><strong>{{ error|escape }}</strong></li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                        {% if form.year.errors %}
-                            <ul>
-                                {% for error in form.year.errors %}
-                                    <li class="red-text"><strong>{{ error|escape }}</strong></li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                        {% if form.skills.errors %}
-                            <ul>
-                                {% for error in form.skills.errors %}
-                                    <li class="red-text"><strong>{{ error|escape }}</strong></li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                        {% if form.about.errors %}
-                            <ul>
-                                {% for error in form.about.errors %}
-                                    <li class="red-text"><strong>{{ error|escape }}</strong></li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <!--Body-->
+                            {% if form.phone.errors %}
+                                {% for error in form.phone.errors %}
+                                    <p class="red-text mb-1"><strong>{{ error|escape }}</strong></p>
+                                {% endfor %}
+                            {% endif %}
                             <div class="md-form form-sm">
                                 <i class="fa fa-phone prefix"></i>
                                 {{ form.phone }}
                                 <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
                             </div>
+                            {% if form.avatar.errors %}
+                                {% for error in form.avatar.errors %}
+                                    <p class="red-text mb-1"><strong>{{ error|escape }}</strong></p>
+                                {% endfor %}
+                            {% endif %}
                             <div class="md-form mb-3">
                                 <div class="file-field">
                                     <div class="btn btn-primary btn-sm">
@@ -142,8 +107,18 @@
                                         {% endif %}
                                     </div>
                                     <span>{{ form.avatar.label }}</span>
+                                    {% if userprofile.avatar %}
+                                        <input type="checkbox" name="avatar-clear" id="avatar-clear_id"/>
+                                        <label for="avatar-clear_id" style="float: right">Delete</label><br/>
+                                    {% endif %}
                                 </div>
+                                <span class="red-text" id="avatar_error"></span>
                             </div>
+                            {% if form.cover.errors %}
+                                {% for error in form.cover.errors %}
+                                    <p class="red-text mb-1"><strong>{{ error|escape }}</strong></p>
+                                {% endfor %}
+                            {% endif %}
                             <div class="md-form mb-3">
                                 <div class="file-field">
                                     <div class="btn btn-primary btn-sm">
@@ -165,12 +140,23 @@
                                         <label for="cover-clear_id" style="float: right">Delete</label><br/>
                                     {% endif %}
                                 </div>
+                                <span class="red-text" id="cover_error"></span>
                             </div>
+                            {% if form.hometown.errors %}
+                                {% for error in form.hometown.errors %}
+                                    <p class="red-text mb-1"><strong>{{ error|escape }}</strong></p>
+                                {% endfor %}
+                            {% endif %}
                             <div class="md-form form-sm">
                                 <i class="fa fa-map-marker text-primary prefix"></i>
                                 {{ form.hometown }}
                                 <label for="{{ form.hometown.id_for_label }}">{{ form.hometown.label }}</label>
                             </div>
+                            {% if form.year.errors %}
+                                {% for error in form.year.errors %}
+                                    <p class="red-text mb-1"><strong>{{ error|escape }}</strong></p>
+                                {% endfor %}
+                            {% endif %}
                             <div class="md-form form-sm">
                                 <i class="fa fa-calendar-o text-primary prefix"></i>
                                 <div class="ml-5">
@@ -183,6 +169,11 @@
                                     <label class="ml-5" for="{{ form.year.id_for_label }}">{{ form.year.label }}</label>
                                 </div>
                             </div>
+                            {% if form.skills.errors %}
+                                {% for error in form.skills.errors %}
+                                    <p class="red-text mb-1"><strong>{{ error|escape }}</strong></p>
+                                {% endfor %}
+                            {% endif %}
                             <div class="md-form">
                                 <div class="chips chips-placeholder"></div>
                                 <p>
@@ -190,6 +181,11 @@
                                 </p>
                                 <input type="hidden" name="{{ form.skills.name }}" id="{{ form.skills.id_for_label }}"/>
                             </div>
+                            {% if form.about.errors %}
+                                {% for error in form.about.errors %}
+                                    <p class="red-text mb-1"><strong>{{ error|escape }}</strong></p>
+                                {% endfor %}
+                            {% endif %}
                             <div class="md-form">
                                 <textarea type="text" name="{{ form.about.name }}" id="{{ form.about.id_for_label }}"
                                           class="md-textarea"
@@ -221,13 +217,29 @@
             secondaryPlaceholder: '+Skills',
             data: [
                 {% for skill in userprofile.skills_as_list %}
-                    {
-                        tag: '{{ skill }}',
-                    },{% endfor %}],
+                    {tag: '{{ skill }}'},{% endfor %}],
         });
 
         $("form").submit(function (e) {
             e.preventDefault();
+            $("#avatar_error").html("");
+            $("#cover_error").html("");
+            var error = false;
+            if ($('#{{ form.avatar.id_for_label }}')[0].files[0]) {
+                var avatar_size = $('#{{ form.avatar.id_for_label }}')[0].files[0].size;
+                if (avatar_size > 1048576) {
+                    $("#avatar_error").html("File size is greater than 1MB");
+                    error = true;
+                }
+            }
+            if ($('#{{ form.cover.id_for_label }}')[0].files[0]) {
+                var cover_size = $('#{{ form.cover.id_for_label }}')[0].files[0].size;
+                if (cover_size > 2097152) {
+                    $("#cover_error").html("File size is greater than 2MB");
+                    error = true;
+                }
+            }
+            if (error) return;
             var $input = $('.chips-placeholder').material_chip('data');
             var $skills = $input.map(function (elem) {
                 return elem.tag;

@@ -14,8 +14,16 @@
         }
 
         .card-up {
-            background: url('{% include 'oauth/mixins/user_cover_src_mixin.html' with userprofile=userprofile %}');
+            background: url('{% include 'oauth/mixins/user_cover_src_mixin.html' with userprofile=userprofile %}') center;
             background-size: cover;
+        }
+
+        .d-flex.justify-content-between.align-middle {
+            margin: 0 !important;
+        }
+
+        .align-middle div#edit i {
+            font-size: 1.4rem;
         }
     </style>
 {% endblock %}
@@ -141,15 +149,29 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card card-block">
-                                <h4 class="card-title">Social Links</h4>
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="card-title">Social Links</h4>
+                                    {% if not social_media_count == userprofile.user.sociallink_set.all.count %}
+                                    <a href="{% url 'oauth:link-add' %}" data-toggle="tooltip" data-placement="left"
+                                       title="Add Social Link"><i class="fa fa-plus text-primary"></i></a>
+                                    {% endif %}
+                                </div>
                                 <div id="hr"></div>
                                 <div id="icons" class="flex-column">
                                     {% if not userprofile.user.sociallink_set.all %}
                                         <small>Not yet added!</small>
                                     {% else %}
                                         {% for link in userprofile.user.sociallink_set.all %}
-                                            <div style="word-wrap: break-word"><i class="fa {{ link.get_fai }}"></i>
-                                                <span>{{ link.link|urlizetrunc:40 }}</span>
+                                            <div class="d-flex justify-content-between align-middle">
+                                                <div style="word-wrap: break-word"><i class="fa {{ link.get_fai }}"></i>
+                                                    <span>{{ link.link|urlizetrunc:36 }}</span>
+                                                </div>
+                                                <div id="edit" class="align-middle">
+                                                    <a href="{% url 'oauth:link-edit' request.user.username link.social_media %}"
+                                                       data-toggle="tooltip" data-placement="left"
+                                                       title="Edit {{ link.get_social_media_display }} Link"><i
+                                                        class="fa fa-pencil"></i></a>
+                                                </div>
                                             </div>
                                         {% endfor %}
                                     {% endif %}

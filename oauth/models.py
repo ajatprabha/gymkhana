@@ -9,8 +9,8 @@ from versatileimagefield.fields import VersatileImageField
 class KonnektQueryset(models.query.QuerySet):
     def search(self, query):
         if query:
-            return self.filter(Q(skills__icontains=query)|
-                               Q(user__first_name__icontains=query)|
+            return self.filter(Q(skills__icontains=query) |
+                               Q(user__first_name__icontains=query) |
                                Q(user__last_name__icontains=query)
                                ).distinct()
         else:
@@ -118,6 +118,9 @@ class SocialLink(models.Model):
 
     class Meta:
         ordering = ['social_media']
+
+    def get_absolute_url(self):
+        return self.user.userprofile.get_absolute_url()
 
     def __str__(self):
         return self.user.get_full_name() + ' - ' + self.get_social_media_display()

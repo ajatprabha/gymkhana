@@ -6,36 +6,36 @@
     <link rel="stylesheet" href="{% static 'css/club_style.css' %}">
     <link rel="stylesheet" href="{% static 'css/news_event.css' %}"/>
     {% if club.cover %}
-    <style>
-        @media (max-width: 415px) {
-            .society-photo {
-                height: 20rem !important;
-                background: url("{{ club.cover.crop.450x420 }}") no-repeat center !important;
-                background-size: cover !important;
-                -webkit-background-size: cover !important;
+        <style>
+            @media (max-width: 415px) {
+                .society-photo {
+                    height: 20rem !important;
+                    background: url("{{ club.cover.crop.450x420 }}") no-repeat center !important;
+                    background-size: cover !important;
+                    -webkit-background-size: cover !important;
+                }
             }
-        }
 
-        @media (min-width: 416px) and (max-width: 1000px) {
-            .society-photo {
-                height: 23rem !important;
-                background: url("{{ club.cover.crop.1280x900 }}");
-                background-repeat: no-repeat !important;
-                background-size: cover !important;
-                -webkit-background-size: cover !important;
+            @media (min-width: 416px) and (max-width: 1000px) {
+                .society-photo {
+                    height: 23rem !important;
+                    background: url("{{ club.cover.crop.1280x900 }}");
+                    background-repeat: no-repeat !important;
+                    background-size: cover !important;
+                    -webkit-background-size: cover !important;
+                }
             }
-        }
 
-        @media (min-width: 1001px) {
-            .society-photo {
-                height: 28rem !important;
-                background: url("{{ club.cover.crop.1440x750 }}");
-                background-repeat: no-repeat !important;
-                background-size: cover !important;
-                -webkit-background-size: cover !important;
+            @media (min-width: 1001px) {
+                .society-photo {
+                    height: 28rem !important;
+                    background: url("{{ club.cover.crop.1440x750 }}");
+                    background-repeat: no-repeat !important;
+                    background-size: cover !important;
+                    -webkit-background-size: cover !important;
+                }
             }
-        }
-    </style>
+        </style>
     {% endif %}
 {% endblock %}
 {% block main %}
@@ -108,9 +108,15 @@
     <div class="container section team-section">
         <div class="row flex-center">
             {% include 'main/mixins/club_user_round_card_mixin.html' with userprofile=club.captain designation='Captain' %}
-            {% include 'main/mixins/club_user_round_card_mixin.html' with userprofile=club.vice_captain_one designation='Vice Captain' %}
-            {% include 'main/mixins/club_user_round_card_mixin.html' with userprofile=club.vice_captain_two designation='Vice Captain' %}
-            {% include 'main/mixins/club_user_round_card_mixin.html' with userprofile=club.mentor designation='Mentor' %}
+            {% if club.vice_captain_one %}
+                {% include 'main/mixins/club_user_round_card_mixin.html' with userprofile=club.vice_captain_one designation='Vice Captain' %}
+            {% endif %}
+            {% if club.vice_captain_two %}
+                {% include 'main/mixins/club_user_round_card_mixin.html' with userprofile=club.vice_captain_two designation='Vice Captain' %}
+            {% endif %}
+            {% if club.mentor %}
+                {% include 'main/mixins/club_user_round_card_mixin.html' with userprofile=club.mentor designation='Mentor' %}
+            {% endif %}
         </div>
     </div>
     {% if club.gallery %}

@@ -9,10 +9,15 @@ from versatileimagefield.fields import VersatileImageField
 class KonnektQueryset(models.query.QuerySet):
     def search(self, query):
         if query:
-            return self.filter(Q(skills__icontains=query) |
-                               Q(user__first_name__icontains=query) |
-                               Q(user__last_name__icontains=query)
-                               ).distinct()
+            result = self.filter(user__isnull=True)
+            for term in query.split(' '):
+                if len(term) > 3:
+                    result = self.filter(Q(skills__icontains=term) |
+                                         Q(user__first_name__icontains=term) |
+                                         Q(user__last_name__icontains=term)) | result
+                else:
+                    result = self.filter(Q(skills__icontains=term)) | result
+            return result.distinct()
         else:
             return self
 
@@ -81,7 +86,7 @@ class UserProfile(models.Model):
     def skills_as_list(self):
         if self.skills == '':
             return ''
-        return self.skills.split(',')
+        return sorted(self.skills.split(','))
 
 
 class SocialLink(models.Model):

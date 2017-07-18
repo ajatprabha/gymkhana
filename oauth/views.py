@@ -11,6 +11,10 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = UserProfile
     template_name = 'oauth/profile_detail.html'
 
+    def get_object(self, queryset=None):
+        roll = self.kwargs.get('roll')
+        return get_object_or_404(UserProfile, roll=roll)
+
     def get_context_data(self, **kwargs):
         context = super(ProfileDetailView, self).get_context_data(**kwargs)
         context['social_media_count'] = len(SocialLink.SM_CHOICES)
@@ -21,6 +25,10 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
     model = UserProfile
     template_name = 'oauth/profile_edit.html'
     form_class = UserProfileUpdateForm
+
+    def get_object(self, queryset=None):
+        roll = self.kwargs.get('roll')
+        return get_object_or_404(UserProfile, roll=roll)
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated() and request.user.id is not self.get_object().user.id:

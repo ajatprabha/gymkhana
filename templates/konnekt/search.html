@@ -37,7 +37,7 @@
                 {% for user in userprofile_list %}
                     <div class="row flex-center mb-2">
                         <div class="col-lg-2 col-sm-4 col-md-3 media mb-1 flex-center">
-                            <a class="media-left waves-light" href="{% url 'oauth:detail' user.id %}">
+                            <a class="media-left waves-light" href="{{ user.get_absolute_url }}">
                                 <img class="rounded-circle konnekt" src="{% if user.avatar %}{{ user.avatar.crop.100x100 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
                                      alt="Generic placeholder image">
                             </a>

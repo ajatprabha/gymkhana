@@ -2,14 +2,14 @@
 <div class="col-lg-4 col-md-6 mb-r">
     <div class="col-md-6 float-left">
         <div class="avatar">
-            <a href="{% url 'oauth:detail' userprofile.id %}">
+            <a href="{{ userprofile.get_absolute_url }}">
                 <img src="{% if userprofile.avatar %}{{ userprofile.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
             </a>
         </div>
     </div>
     <div class="col-md-6 float-right">
         <h4><a class="black-text"
-               href="{% url 'oauth:detail' userprofile.id %}">{{ userprofile.user.get_full_name }}</a></h4>
+               href="{{ userprofile.get_absolute_url }}">{{ userprofile.user.get_full_name }}</a></h4>
         <p>{{ userprofile.about|linebreaks }}</p>
         <a class="icons-sm email-ic" href="mailto:{{ userprofile.user.email }}"><i
                 class="fa fa-envelope-o"></i> </a>

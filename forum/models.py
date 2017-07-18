@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import pre_save
+from .utils import unique_slug_generator
 from oauth.models import UserProfile
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.urlresolvers import reverse
@@ -15,9 +17,10 @@ class Topic(models.Model, HitCountMixin):
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name="author of topic")
     category = models.CharField(max_length=3, choices=CAT_CHOICES, default='Q')
     title = models.CharField(max_length=256)
-    content = RichTextUploadingField(blank=True)
-    tags = models.CharField(max_length=50)
+    content = RichTextUploadingField()
+    tags = models.CharField(max_length=50, blank=True, null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(unique=True, blank=True)
 
     @property
     def number_of_answers(self):
@@ -27,10 +30,23 @@ class Topic(models.Model, HitCountMixin):
         ordering = ["-created_at"]
 
     def get_absolute_url(self):
-        return reverse('forum:detail', kwargs={'pk': self.pk})
+        return reverse('forum:detail', kwargs={'slug': self.slug})
+
+    def tags_as_list(self):
+        if self.tags == '' or not self.tags:
+            return ''
+        return sorted(self.tags.split(','))
 
     def __str__(self):
         return self.title
+
+
+def topic_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+
+pre_save.connect(topic_pre_save_receiver, sender=Topic)
 
 
 class Answer(models.Model):
@@ -38,6 +54,9 @@ class Answer(models.Model):
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name="author of answer")
     content = RichTextUploadingField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
 
     @property
     def number_of_votes(self):

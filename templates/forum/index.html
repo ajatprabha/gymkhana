@@ -6,160 +6,178 @@
 {% block mdbcss %}
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
 {% block customstyles %}
-    <link rel="stylesheet" href="{% static 'css/forumindex.css' %}">{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/forumindex.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forum.css' %}">{% endblock %}
 {% block navtitle %}Students' Gymkhana Forum{% endblock %}
 
 {% block main %}
-    <!--Main layout-->
-    <div class="fixed-action-btn-fix">
-        <a class="btn-floating btn-large red" href="{% url 'forum:add_topic' %}" role="button" data-toggle="tooltip"
-           data-placement="left" title="Create New Topic">
-            <i class="fa fa-plus"></i>
-        </a>
-    </div>
-
-    <div class="container-fluid">
-
-        <!-- First row -->
-        <div class="row">
-
-            {% comment %}<!-- First column -->
-                <div class="col-md-3">
-                    <div class="card-body">
-
-                        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#modal-support">
-                            <i class="fa fa-plus left"></i> New Ticket
-                        </button>
-
-                        <div class="mt-2">
-                            <small>Ticket categories:</small>
-
-                            <ul class="striped">
-                                <li><span class="bullet green"></span> Invoices <span class="badge bg-primary float-right">14</span></li>
-                                <li><span class="bullet blue"></span> Advertising <span class="badge bg-primary float-right">1</span></li>
-                                <li><span class="bullet red"></span> Functions <span class="badge bg-primary float-right">3</span></li>
-                                <li><span class="bullet yellow"></span> Website <span class="badge bg-primary float-right">9</span></li>
-                                <li><span class="bullet orange"></span> Clients <span class="badge bg-primary float-right">5</span></li>
-                                <li><span class="bullet deep-purple"></span> Technical Questions <span class="badge bg-primary label-pill float-right">4</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.First column -->{% endcomment %}
-
-            <!-- Second column -->
-            <div class="col-md-12 white z-depth-1 py-1 pt-1">
-
-                <div class="row">
-                    <div class="col-sm-6 col-md-9 py-1 px-1 mb-1">
-                        <h4 class="h4-responsive ml-3">Discussion Topics ({{ topic_list.count }})</h4>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Title</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for topic in topic_list %}
-                                    <tr>
-                                        <td><img src="
-                                                {% if topic.author.avatar %}{{ topic.author.avatar.crop.50x50 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
-                                                 alt="{{ topic.author.user.get_full_name }}"
-                                                 class="avatar-32"> <span
-                                                class="hide-on-small-and-down">{{ topic.author.user.get_full_name }}</span>
-                                        </td>
-                                        <td><a href="{% url 'forum:detail' topic.id %}">{{ topic.title }}</a></td>
-                                        <td>
-                                            <span class="grey-text"><small><i
-                                                    class="fa fa-eye"></i> {{ topic.hit_count.hits }}</small></span>
-                                            {% if topic.author.id == request.user.userprofile.id %}
-                                                <a class="teal-text" data-toggle="tooltip" data-placement="top"
-                                                   title="Edit" href="{% url 'forum:update_topic' topic.id %}"><i
-                                                        class="fa fa-pencil"></i></a>
-                                                <span data-toggle="modal" data-target="#delete-{{ forloop.counter }}">
-                                                    <a class="red-text" data-toggle="tooltip" data-placement="top"
-                                                       title="Remove"><i class="fa fa-times"></i></a>
-
-                                                <div class="modal fade" id="delete-{{ forloop.counter }}" tabindex="-1"
-                                                     role="dialog"
-                                                     aria-labelledby="myModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-sm" role="document">
-                                                            <!--Content-->
-                                                            <div class="modal-content">
-                                                                <!--Header-->
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close"
-                                                                            data-dismiss="modal" aria-label="Close">
-                                                                                                <span aria-hidden="true">&times;</span>
-                                                                                            </button>
-                                                                    <h4 class="modal-title w-100" id="myModalLabel">Delete this topic?</h4>
-                                                                </div>
-                                                                <!--Footer-->
-                                                                <div class="modal-footer">
-                                                                    <form method="post"
-                                                                          action="{% url 'forum:delete_topic' topic.id %}">
-                                                                        {% csrf_token %}
-                                                                    <button type="button"
-                                                                            class="btn btn-light-green btn-sm"
-                                                                            data-dismiss="modal">Close</button>
-                                                                    <button type="submit"
-                                                                            class="btn danger-color btn-sm">Delete</button>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                            <!--/.Content-->
-                                                        </div>
-                                                    </div>
-                                                </span>
-
-                                            {% endif %}
-                                        </td>
-                                        <td><span class="grey-text"><small><i
-                                                class="fa fa-clock-o"></i> {{ topic.created_at|naturaltime }}</small></span>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div>
-                            {% include 'paginator.html' with is_paginated=is_paginated page_obj=page_obj paginator=paginator %}
-                        </div>
-
-                        {% comment %}<!--Dropdown primary-->
-                            <div class="dropdown dropup">
-
-                                <!--Trigger-->
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Selected</button>
-
-                                <!--Menu-->
-                                <div class="dropdown-menu dropdown-primary">
-                                    <a class="dropdown-item" href="#">Remove</a>
-                                    <a class="dropdown-item" href="#">Mark as read</a>
-                                    <a class="dropdown-item" href="#">Archive</a>
+    <div class="fixed-action-btn-fix"><a class="btn-floating btn-large red waves-effect waves-light"
+                                         data-placement="left" data-toggle="tooltip" href="{% url 'forum:add_topic' %}"
+                                         role="button" title="" data-original-title="Create New Topic"><i
+            class="fa fa-plus"></i></a></div>
+    <div class="App-content rellax header mb-3">
+        <div id="content">
+            <div class="IndexPage">
+                <div class="container-fluid">
+                    <div class="Hero WelcomeHero">
+                        <div class="container">
+                            <button class="Hero-close Button Button--icon Button--link hasIcon" type="button"><i
+                                    class="icon fa fa-fw fa-times Button-icon"></i></button>
+                            <div class="containerNarrow"><h2 class="Hero-title">Welcome to the IITJ Student Gymkhana
+                                Discussion Forum</h2>
+                                <div class="Hero-subtitle">Start a new discussion, answer the existing topics and reply
+                                    on
+                                    the answer. For any further query <a
+                                            href="#">read the FAQ</a> before posting.
                                 </div>
                             </div>
-                            <!--/Dropdown primary-->{% endcomment %}
+                        </div>
                     </div>
                 </div>
+                <!--main body-->
+                <div class="container pt-1">
+                    <!--filter-->
+                    <div class="IndexPage-results">
+                        <!--Discussion list-->
+                        <div class="DiscussionList">
+                            <ul class="DiscussionList-discussions">
+                                {% for topic in topic_list %}
+                                    <li>
+                                        <div class="DiscussionListItem"><a
+                                                class="Slidable-underneath Slidable-underneath--left Slidable-underneath--elastic disabled"><i
+                                                class="icon fa fa-fw fa-check "></i></a>
+                                            <div class="DiscussionListItem-content Slidable-content"><a
+                                                    href="{{ topic.author.get_absolute_url }}"
+                                                    class="DiscussionListItem-author"
+                                                    title=""
+                                                    data-original-title="">
+                                                <img class="Avatar"
+                                                     src="
+                                                             {% if topic.author.avatar %}{{ topic.author.avatar.crop.50x50 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"></a>
+                                                <a href="{{ topic.get_absolute_url }}"
+                                                   class="DiscussionListItem-main">
+                                                    <div class="h4-responsive">
+                                                        <div class="row">
+                                                            <div class="col-md-10">
+                                                                <b>
+                                                                    {{ topic.title }}
+                                                                </b>
+                                                            </div>
+                                                            <div class="col-md-2 pull-right">
+                                                                <span style="font-size: small">
+                                                                    <i class="fa fa-comment-o"
+                                                                       aria-hidden="true"></i> {{ topic.answer_set.count }} &nbsp;
+                                                                    <i class="fa fa-eye"></i> {{ topic.hit_count.hits }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
 
+                                                        <span style="font-size: small">
+                                                            <b>{{ topic.author.user.get_full_name }}</b>, {{ topic.author.user.userprofile.get_prog_display }}, {{ topic.author.user.userprofile.get_branch_display }}, {{ topic.author.user.userprofile.get_year_display }}
+                                                        </span>
+                                                    </div>
+
+                                                    <ul class="DiscussionListItem-info">
+                                                        {% if topic.answer_set.first %}
+                                                            <li class="item-terminalPost"><span><i
+                                                                    class="icon fa fa-fw fa-reply "></i> <span
+                                                                    class="username">{{ topic.answer_set.first.author.user.get_full_name }}</span> replied {{ topic.answer_set.first.created_at|naturaltime }}</span>
+                                                            </li>
+                                                            <li class="item-excerpt">
+                                                                <span>{{ topic.answer_set.first.content|safe|truncatechars_html:150 }}</span>
+                                                            </li>
+                                                        {% else %}
+                                                            <li class="item-terminalPost"><span
+                                                                    class="username">No answers yet. Be the first to answer!!!</span>
+                                                            </li>
+                                                        {% endif %}
+                                                    </ul>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <div class="DiscussionList-loadMore">
+                                <button class="Button" type="button" title="Load More"><span class="Button-label">Load More</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- /.Second column -->
-
         </div>
-        <!-- /.First row -->
-
     </div>
-    <!--/Main layout-->
 {% endblock %}
+
+{% comment %}
+{% block sidenavlower %}
+    <div class="App-content">
+        <div id="content">
+            <div class="IndexPage">
+                <div class="container">
+                    <!--filter sidemenu-->
+                    <nav class="IndexPage-nav sideNav">
+                        <ul>
+                            <li class="item-newDiscussion App-primaryControl">
+                                <a href="{% url 'forum:add_topic' %}">
+                                    <button class="Button Button--primary IndexPage-newDiscussion hasIcon">
+                                        <i class="icon fa fa-fw fa-edit Button-icon"></i><span
+                                            class="Button-label">Start a Discussion</span>
+                                    </button>
+                                </a>
+                            </li>
+                            <li class="item-nav">
+                                <div class="ButtonGroup Dropdown dropdown App-titleControl Dropdown--select itemCount15">
+                                    <button class="Dropdown-toggle Button" data-toggle="dropdown"><span
+                                            class="Button-label">All Discussions</span><i
+                                            class="icon fa fa-fw fa-sort Button-caret"></i></button>
+                                    <ul class="Dropdown-menu dropdown-menu ">
+                                        <li class="item-allDiscussions active"><a href="/" active="true"
+                                                                                  class=" hasIcon" type="button"
+                                                                                  title="All Discussions"><i
+                                                class="icon fa fa-fw fa-comments-o Button-icon"></i><span
+                                                class="Button-label">All Discussions</span></a></li>
+                                        <li class="Dropdown-separator"></li>
+                                        <li class="item-tag20"><a class="TagLinkButton hasIcon "
+                                                                  href="#" style=""
+                                                                  title=""><span
+                                                class="icon TagIcon Button-icon"
+                                                style="background-color: rgb(181, 158, 140);"></span>All Questions</a>
+                                        </li>
+                                        <li class="item-tag24"><a class="TagLinkButton hasIcon " href="#"
+                                                                  style=""
+                                                                  title=""><span
+                                                class="icon TagIcon Button-icon"
+                                                style="background-color: rgb(75, 147, 209);"></span>Feedback</a></li>
+                                        <li class="item-tag69"><a class="TagLinkButton hasIcon " href=""
+                                                                  style=""
+                                                                  title=""><span
+                                                class="icon TagIcon Button-icon"
+                                                style="background-color: rgb(147, 84, 202);"></span>Trending</a>
+                                        </li>
+                                        <li class="item-tag48"><a class="TagLinkButton hasIcon "
+                                                                  href="" style=""
+                                                                  title=""><span
+                                                class="icon TagIcon Button-icon"
+                                                style="background-color: rgb(72, 191, 131);"></span>Answered By You</a>
+                                        </li>
+                                        <li class="item-tag4"><a class="TagLinkButton hasIcon " href=""
+                                                                 style=""
+                                                                 title=""><span
+                                                class="icon TagIcon Button-icon"
+                                                style="background-color: rgb(65, 65, 65);"></span>Following</a></li>
+                                        <li class="item-tag57"><a class="TagLinkButton hasIcon " href=""
+                                                                  style=""
+                                                                  title=""><span
+                                                class="icon TagIcon Button-icon"></span>Ignored</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}{% endcomment %}

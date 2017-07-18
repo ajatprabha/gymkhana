@@ -1,5 +1,6 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.shortcuts import get_object_or_404
 from .models import Topic
 from .forms import TopicForm
 from django.core.urlresolvers import reverse_lazy
@@ -29,10 +30,6 @@ class TopicDetailView(LoginRequiredMixin, HitCountDetailView, generic.DetailView
     template_name = 'forum/topic_detail.html'
 
     def get_context_data(self, **kwargs):
-        """
-        This has been overridden to add `answer_list` to the templates context,
-        so you can use {% for answer in answer_list %} etc. within the template
-        """
         context = super(TopicDetailView, self).get_context_data(**kwargs)
         context['answer_list'] = self.object.answer_set.all()
         return context

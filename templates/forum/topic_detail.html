@@ -1,113 +1,300 @@
 {% extends 'forum/base.html' %}
 {% load staticfiles %}
 {% load humanize %}
-{% block title %}{{ topic.title }} - {{ topic.number_of_answers }} Answers{% endblock %}
+{% block title %}{{ topic.title }} - {{ topic.number_of_answers }} answers{% endblock %}
 {% block mdbcss %}
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
 {% block customstyles %}
-    <link rel="stylesheet" href="{% static 'css/topicdetail.css' %}">{% endblock %}
-{% block main %}
-    <div class="row">
-        <!--Topic-->
-        <div class="author-box">
-            <!--Title-->
-            <h3 class="h3-responsive text-center">{{ topic.title }}</h3>
-            <hr>
-            <div class="row">
-                <!--Avatar-->
-                <div class="col-12 col-sm-2">
-                    <img src="/media/{{ topic.author.avatar }}"
-                         class="img-fluid rounded-circle z-depth-2">
-                </div>
-                <!--Author Data-->
-                <div class=" col-12 col-sm-10">
-                    <p>Written by <strong>{{ topic.author.user.get_full_name }}</strong>&emsp;<small><i
-                            class="fa fa-clock-o"></i></small>
-                        {{ topic.created_at|naturaltime }}&emsp;
-                        <small><i class="fa fa-eye"></i></small>
-                        {{ topic.hit_count.hits }}</p>
-                    {{ topic.content|safe|urlize }}
-                    <p class="hidden-md-down">{% lorem random %}</p>
-                </div>
-            </div>
+    <link rel="stylesheet" href="{% static 'css/topicdetail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forum.css' %}">{% endblock %}
+{% block navtitle %}{{ topic.title }} - detail{% endblock %}
+
+
+{% block content %}
+    <!-- header-->
+    <div class="Hero DiscussionHero DiscussionHero--colored primary-color">
+        <div class="header-container flex-center pb-1">
+            <ul class="DiscussionHero-items">
+                <li class="item-title pl-5 pr-5"><h1 class="DiscussionHero-title h1-responsive">{{ topic.title }}</h1>
+                </li>
+                <br>
+                {% for tag in topic.tags_as_list %}
+                    <li class="item-tags"><span class="TagsLabel "><a class="TagLabel colored"><span
+                            class="TagLabel-text">{{ tag }}</span></a></span></li>
+                {% endfor %}
+
+            </ul>
         </div>
-        <!--/.Topic-->
-        {% comment %}<!--Section: Leave a reply (Logged In User)-->
-        <section>
-            <!--Leave a reply form-->
-            <div class="reply-form">
-                <h2 class="section-heading">Answer this topic</h2>
-
-                <!--Third row-->
-                <div class="row">
-                    <!--Image column-->
-                    <div class="col-sm-2 col-12 text-center">
-                        <img class="img-fluid rounded-circle z-depth-1-half"
-                             src="{{ request.user.userprofile.avatar.crop.100x100 }}">
-                    </div>
-                    <!--/.Image column-->
-                    <!--Content column-->
-
-                    <div class="col-sm-8 col-12">
-                        <form method="post">
-                            {% csrf_token %}
-                            <div class="md-form">
-                                {{ form.content }}
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" value="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                    <!--/.Content column-->
-                </div>
-                <!--/.Third row-->
-            </div>
-            <!--/.Leave a reply form-->
-
-        </section>
-        <!--/Section: Leave a reply (Logged In User)-->{% endcomment %}
-        <!--Main wrapper-->
-        <div class="comments-list text-left">
-            <div class="section-heading">
-                <h3><span class="badge blue">{{ topic.number_of_answers }}</span>
-                    answer{{ topic.number_of_answers|pluralize }}</h3>
-            </div>
-            {% for answer in answer_list %}
-                <!--Answer-->
-                <div class="row container">
-                    <!--Image column-->
-                    <div class="col-sm-2 col-12 align-content-center">
-                        <img class="img-fluid rounded-circle z-depth-1-half"
-                             src="{% if answer.author.avatar %}{{ answer.author.avatar.crop.100x100 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
-                    </div>
-                    <!--/.Image column-->
-                    <!--Content column-->
-                    <div class="col-sm-10 col-12">
-                        <h5 class="user-name">{{ answer.author.user.get_full_name }}</h5>
-                        <div class="card-data">
+    </div>
+    <main class="pt-2">
+        <div class="container-fluid">
+            <div class="PostStream-item">
+                <article class="Post undefined CommentPost Post--edited">
+                    <div>
+                        <div class="Post-header mb-1">
                             <ul>
-                                <li class="comment-date"><i
-                                        class="fa fa-clock-o"></i> {{ answer.created_at|naturaltime }}</li>
+                                <li class="item-user">
+                                    <div class="PostUser"><h3><a href="{{ topic.author.get_absolute_url }}"><img
+                                            class="Avatar PostUser-avatar Avatar-Ques"
+                                            src="{% if topic.author.avatar %}{{ topic.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
+                                        <span class="username"><a
+                                                href="{{ topic.author.get_absolute_url }}">{{ topic.author.user.get_full_name }}</a></span></a>
+                                    </h3>
+                                        <ul class="PostUser-badges badges"></ul>
+                                    </div>
+                                </li>
+                                <li class="item-meta">
+                                    <div class="Dropdown PostMeta">{{ topic.created_at }}</div>
+                                </li>
                             </ul>
                         </div>
-                        <p class="comment-text">{{ answer.content|safe }}</p>
+                        <!--topic content-->
+                        <div class="Post-body">{{ topic.content|safe }}</div>
+                        <aside class="Post-actions">
+                            <ul>
+                                <li class="item-reply"><a href="#">
+                                    <button class="Button Button--link" type="button"
+                                            title="Reply">
+                                        <span class="Button-label">Reply</span></button>
+                                </a>
+                                </li>
+                            </ul>
+                        </aside>
                     </div>
-                    <!--/.Content column-->
-                </div>
-                <!--/.Answer-->
-            {% endfor %}
+                </article>
+            </div>
         </div>
-        <!--/.Main wrapper-->
-    </div>
+        <div class="App-content mb-3">
+            <div id="content">
+                <div class="DiscussionPage">
+                    <div class="DiscussionPage-discussion">
+                        <!--right side nav-->
+                        <div class="container">
+                            <nav class="DiscussionPage-nav">
+                                <ul>
+                                    <li class="item-controls">
+                                        <div class="ButtonGroup Dropdown dropdown App-primaryControl Dropdown--split itemCount1">
+                                            <a href="#">
+                                                <button class=" SplitDropdown-button Button Button--primary secondary-color hasIcon"
+                                                        type="button" title="Log In to Reply"><i
+                                                        class="icon fa fa-fw fa-reply Button-icon"></i><span
+                                                        class="Button-label">Reply</span></button>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="item-subscription">
+                                        <div class="Dropdown ButtonGroup SubscriptionMenu">
+                                            <button class="Button SubscriptionMenu-button SubscriptionMenu-button--false hasIcon"
+                                                    title="" type="button"
+                                                    data-original-title="Get an email when there are new posts"><i
+                                                    class="icon fa fa-fw fa-star-o Button-icon"></i><span
+                                                    class="Button-label">Follow</span></button>
+                                            <button class="Dropdown-toggle Button Button--icon SubscriptionMenu-button--false"
+                                                    data-toggle="dropdown" aria-expanded="false"><i
+                                                    class="icon fa fa-fw fa-caret-down Button-icon"></i></button>
+                                            <ul class="Dropdown-menu dropdown-menu Dropdown-menu--right">
+                                                <li>
+                                                    <button class="SubscriptionMenuItem hasIcon"><i
+                                                            class="icon fa fa-fw fa-check Button-icon"></i><span
+                                                            class="SubscriptionMenuItem-label"><i
+                                                            class="icon fa fa-fw fa-star-o Button-icon"></i><strong>Not Following</strong><span
+                                                            class="SubscriptionMenuItem-description">Be notified only when @mentioned.</span></span>
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button class="SubscriptionMenuItem hasIcon"><span
+                                                            class="SubscriptionMenuItem-label"><i
+                                                            class="icon fa fa-fw fa-star Button-icon"></i><strong>Following</strong><span
+                                                            class="SubscriptionMenuItem-description">Be notified of all replies.</span></span>
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button class="SubscriptionMenuItem hasIcon"><span
+                                                            class="SubscriptionMenuItem-label"><i
+                                                            class="icon fa fa-fw fa-eye-slash Button-icon"></i><strong>Ignoring</strong><span
+                                                            class="SubscriptionMenuItem-description">Never be notified. Hide from the discussion list.</span></span>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <!-- main topic-->
+                            <div class="DiscussionPage-stream">
+                                <div class="PostStream">
+                                    <div class="PostStream-item">
+                                        <article class="Post undefined EventPost DiscussionTaggedPost">
+                                            <div><i class="icon fa fa-fw fa-tag EventPost-icon"></i>
+                                                <div class="EventPost-info"><span class="username bold">
+                                                {% if topic.number_of_answers %}
+                                                    Got {{ topic.number_of_answers }} answer{{ topic.number_of_answers|pluralize }}
+                                                {% else %}
+                                                    No answers yet. Be the first to answer!!!
+                                                {% endif %}</span></div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                    <!--answers-->
+                                    {% for answer in answer_list %}
+                                        <div class="PostStream-item">
+                                            <article class="Post undefined CommentPost">
+                                                <div>
+                                                    <div class="Post-header">
+                                                        <ul>
+                                                            <li class="item-user">
+                                                                <div class="PostUser"><h3><a
+                                                                        href="{{ answer.author.get_absolute_url }}"><img
+                                                                        class="Avatar PostUser-avatar"
+                                                                        src="
+                                                                                {% if answer.author.avatar %}{{ answer.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
+                                                                    <span class="username"><a
+                                                                            href="{{ answer.author.get_absolute_url }}"> {{ answer.author.user.get_full_name }}</a></span></a>
+                                                                </h3>
+                                                                    <ul class="PostUser-badges badges"></ul>
+                                                                </div>
+                                                            </li>
+                                                            <li class="item-meta">
+                                                                <div class="Dropdown PostMeta">{{ answer.created_at|naturaltime }}
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div id="description" class="Post-body">{{ answer.content|safe }}</div>
+                                                    <aside class="Post-actions">
+                                                        <ul>
+                                                            <li class="item-reply">
+                                                                <a href="#">
+                                                                    <button class="Button Button--link" type="button"
+                                                                            title="Comment">
+                                                                        <span class="Button-label">Comment</span>
+                                                                    </button>
+                                                                </a>
+                                                            </li>
+                                                            <li class="item-reply">
+                                                                <a href="#">
+                                                                    <button class="Button Button--link" type="button"
+                                                                            title="Upvote">
+                                                                    <span class="Button-label"><i
+                                                                            class="fa fa-thumbs-up"
+                                                                            aria-hidden="true"></i></span></button>
+                                                                </a>
+                                                            </li>
+                                                            <li class="item-reply">
+                                                                <a href="#">
+                                                                    <button class="Button Button--link" type="button"
+                                                                            title="Downvote">
+                                                                    <span class="Button-label"><i
+                                                                            class="fa fa-thumbs-down"
+                                                                            aria-hidden="true"></i></span></button>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </aside>
+                                                </div>
+                                            </article>
+                                            <div class="Post-quoteButtonContainer"></div>
+                                        </div>
+
+                                        <!--replies-->
+                                        {% for reply in answer.reply_list_all %}
+                                            <div class="row">
+                                                <div class="col-md-2"></div>
+                                                <div class="col-md-10">
+                                                    <div class="PostStream-item">
+                                                        <article class="Post undefined CommentPost">
+                                                            <div>
+                                                                <div class="Post-header">
+                                                                    <ul>
+                                                                        <li class="item-user">
+                                                                            <div class="PostUser"><h3><a href="#"><img
+                                                                                    class="Avatar PostUser-avatar"
+                                                                                    src="
+
+
+
+                                                                                            {% if reply.author.avatar %}{{ reply.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
+                                                                                <span class="username"><a
+                                                                                        href="{% url 'oauth:detail' reply.author.user.id %}"> {{ reply.author.user.get_full_name }}</a></span></a>
+                                                                            </h3>
+                                                                                <ul class="PostUser-badges badges"></ul>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li class="item-meta">
+                                                                            <div class="Dropdown PostMeta">{{ reply.created_at|naturaltime }}
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="Post-body">
+                                                                    <a href="{% url 'oauth:detail' reply.author.user.id %}"
+                                                                       class="PostMention">Comment
+                                                                        on {{ answer.author.user.get_full_name }}'s
+                                                                        answer</a>
+                                                                    <br>
+                                                                    <p>{{ reply.content|safe|urlize }}</p></div>
+                                                                <aside class="Post-actions">
+                                                                    <ul>
+                                                                        <li class="item-reply">
+                                                                            <a href="#">
+                                                                                <button class="Button Button--link"
+                                                                                        type="button"
+                                                                                        title="Reply">
+                                                                    <span class="Button-label"><i
+                                                                            class="fa fa-thumbs-up"
+                                                                            aria-hidden="true"></i></span></button>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li class="item-reply">
+                                                                            <a href="#">
+                                                                                <button class="Button Button--link"
+                                                                                        type="button"
+                                                                                        title="Reply">
+                                                                    <span class="Button-label"><i
+                                                                            class="fa fa-thumbs-down"
+                                                                            aria-hidden="true"></i></span></button>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </aside>
+                                                            </div>
+                                                        </article>
+                                                        <div class="Post-quoteButtonContainer"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </div>
+
+                                <!--write new answer div-->
+                                <div class="PostStream-item">
+                                    <article class="Post ReplyPlaceholder">
+                                        <div class="Post-header"><img
+                                                src="
+                                                        {% if request.user.userprofile.avatar %}{{ request.user.userprofile.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
+                                                class="Avatar PostUser-avatar"/> Write a
+                                            Reply...
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}
 
-{% block scripts %}
-    <!-- SCRIPTS -->
-    <!-- JQuery -->
-    <script type="text/javascript" src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="{% static 'js/compiled.min.js' %}"></script>
+{% block footer %}
+    <footer class="page-footer center-on-small-only pt-0">
+        <!--Copyright-->
+        <div class="footer-copyright">
+            <div class="container-fluid">
+                © 2017 Copyright: <a href="{% url 'forum:index' %}"> Students' Gymkhana WebD Team </a>
+            </div>
+        </div>
+        <!--/.Copyright-->
+    </footer>
 {% endblock %}

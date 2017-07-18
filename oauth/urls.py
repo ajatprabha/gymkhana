@@ -4,8 +4,8 @@ from .views import ProfileDetailView, ProfileEditView, SocialLinkCreateView, Soc
 app_name = 'oauth'
 
 urlpatterns = [
-    url(r'^(?P<pk>\d+)/detail$', ProfileDetailView.as_view(), name='detail'),
-    url(r'^(?P<pk>\d+)/edit$', ProfileEditView.as_view(), name='edit'),
+    url(r'^(?P<roll>[\w]+)/detail$', ProfileDetailView.as_view(), name='detail'),
+    url(r'^(?P<roll>[\w]+)/edit$', ProfileEditView.as_view(), name='edit'),
     url(r'^sociallink/add$', SocialLinkCreateView.as_view(), name='link-add'),
     url(r'sociallink/(?P<username>[\w-]+)-(?P<social_media>[\w]{2})$', SocialLinkUpdateView.as_view(),
         name='link-edit'),

@@ -140,7 +140,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="account">
                             <a class="dropdown-item"
-                               href="{% url 'oauth:detail' request.user.userprofile.id %}">Profile</a>
+                               href="{{ request.user.userprofile.get_absolute_url }}">Profile</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                         </div>

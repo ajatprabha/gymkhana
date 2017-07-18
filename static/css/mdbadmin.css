@@ -5204,13 +5204,13 @@ blockquote p {
   padding-top: 6rem !important; }
 
 .pb-1 {
-  padding-top: 1rem !important; }
+  padding-bottom: 1rem !important; }
 
 .pb-2 {
-  padding-top: 2rem !important; }
+  padding-bottom: 2rem !important; }
 
 .pb-3 {
-  padding-top: 3rem !important; }
+  padding-bottom: 3rem !important; }
 
 .pb-4 {
   padding-bottom: 4rem !important; }

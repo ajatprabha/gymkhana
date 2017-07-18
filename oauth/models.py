@@ -71,11 +71,11 @@ class UserProfile(models.Model):
     hometown = models.CharField(max_length=128)
     branch = models.CharField(max_length=5, choices=BRANCH_CHOICES)
     skills = models.TextField(help_text="Enter your skills, separated by comma.", max_length=1024, blank=True,
-                              null=True)
+                              null=True, default=None)
     about = models.TextField(max_length=160, verbose_name='about you', blank=True, null=True)
 
     def get_absolute_url(self):
-        return reverse('oauth:detail', kwargs={'pk': self.pk})
+        return reverse('oauth:detail', kwargs={'roll': self.roll})
 
     objects = UserProfileManager()
 
@@ -84,7 +84,7 @@ class UserProfile(models.Model):
 
     @property
     def skills_as_list(self):
-        if self.skills == '':
+        if self.skills == '' or not self.skills:
             return ''
         return sorted(self.skills.split(','))
 

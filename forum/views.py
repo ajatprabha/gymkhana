@@ -1,6 +1,5 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.shortcuts import get_object_or_404
 from .models import Topic
 from .forms import TopicForm
 from django.core.urlresolvers import reverse_lazy

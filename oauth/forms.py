@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import UserProfile, SocialLink
 
@@ -28,3 +29,20 @@ class SocialLinkForm(forms.ModelForm):
                     taken_choices += [(key, value)]
         super(SocialLinkForm, self).__init__(*args, **kwargs)
         self.fields['social_media'].choices = sorted(set(self.fields['social_media'].choices) ^ set(taken_choices))
+
+
+class EmailVerifyForm(forms.Form):
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    def clean_email(self):
+        data = self.cleaned_data['email']
+        if not data.endswith('@iitj.ac.in'):
+            raise forms.ValidationError('Invalid Email address!')
+        return data
+
+
+class SignUpForm(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2']

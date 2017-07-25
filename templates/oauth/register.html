@@ -1,0 +1,69 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+{% block customstyles %}
+    <style>
+        html, body, main, .view {
+            height: 100%;
+        }
+
+        main {
+            background: url("{% static 'assets/others/reg_back.jpg' %}") no-repeat center;
+            background-size: cover;
+        }
+        .show-form {
+            display: block;
+        }
+    </style>
+{% endblock %}
+{% block navbar %}
+{% endblock %}
+{% block main %}
+    <div class="view hm-black-strong">
+        <div class="mask flex-center">
+            <!--Form without header-->
+            <div class="token">{% csrf_token %}</div>
+            {% if request.method == POST %}
+                <input type="hidden" id="request" value="1"/>
+            {% else %}
+                <input type="hidden" id="request" value="0"/>
+            {% endif %}
+            <div id="reg_container" class="card">
+                <div class="card-block mt-2 pb-0">
+                    <div id="error" class="red-text pb-2"></div>
+                    <form id="verify-form" style="display: none">
+                        <!--Body-->
+                        <div class="md-form">
+                            <i class="fa fa-envelope prefix"></i>
+                            <input type="text" name="email" class="form-control" required id="id_email"/>
+                            <label for="id_email">Email</label>
+                        </div>
+                        <div class="text-center">
+                            <div class="md-form mb-0">
+                                <button class="btn btn-primary" type="submit">Continue</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!--Register Form-->
+                    <form id="reg-form" style="display: none" action="" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button class="btn btn-primary" type="submit">Register</button>
+                    </form>
+                </div>
+                <!--Footer-->
+                <div class="modal-footer">
+                    <div class="options text-right">
+                        <p>Already a member? <a href="{% url 'login' %}">Login</a></p>
+                        <p>Forgot <a href="#">Password?</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Form without header-->
+{% endblock %}
+{% block customscripts %}
+    <script src="{% static 'js/register.js' %}"></script>
+{% endblock %}
+{% block footer %}
+{% endblock %}

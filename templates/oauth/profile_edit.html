@@ -37,11 +37,7 @@
                                 </div>
                                 <!--Avatar-->
                                 <div class="avatar"><img
-                                        src="
-
-
-
-                                                {% if userprofile.avatar %}{{ userprofile.avatar.crop.150x150 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
+                                        src="{% if userprofile.avatar %}{{ userprofile.avatar.crop.150x150 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
                                         class="rounded-circle img-responsive">
                                 </div>
                                 <!--Content-->

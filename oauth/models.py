@@ -3,6 +3,9 @@ from django.db.models import Q
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_text
+from .tokens import account_activation_token
 from versatileimagefield.fields import VersatileImageField
 
 
@@ -23,11 +26,34 @@ class KonnektQueryset(models.query.QuerySet):
 
 
 class UserProfileManager(models.Manager):
-    def get_queryset(self):
+    uidb64 = None
+
+    def get_konnekt_queryset(self):
         return KonnektQueryset(self.model, using=self._db)
 
     def search(self, query):
-        return self.get_queryset().search(query)
+        return self.get_konnekt_queryset().search(query)
+
+    def _get_user_for_activation(self):
+        try:
+            uid = force_text(urlsafe_base64_decode(self.uidb64))
+            return User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            return None
+
+    def activation_link_valid(self, token=None):
+        return account_activation_token.check_token(self._get_user_for_activation(), token)
+
+    def activate_account(self, uidb64=None, token=None):
+        self.uidb64 = uidb64
+        if self.activation_link_valid(token) and not self._get_user_for_activation().userprofile.email_confirmed:
+            user = self._get_user_for_activation()
+            user.userprofile.email_confirmed = True
+            user.userprofile.save()
+        else:
+            user = None
+
+        return user
 
 
 class UserProfile(models.Model):
@@ -60,6 +86,7 @@ class UserProfile(models.Model):
 
     # Database Model
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email_confirmed = models.BooleanField(default=False)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='M')
     roll = models.CharField(max_length=15, unique=True)
     dob = models.DateField()

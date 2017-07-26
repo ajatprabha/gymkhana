@@ -1,15 +1,13 @@
 from django.views.generic import DetailView, UpdateView, CreateView, DeleteView, RedirectView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404, redirect, render
 from .mixins import SocialLinkOwnerMixin
 from .models import UserProfile, SocialLink
 from .forms import UserProfileUpdateForm, SocialLinkForm, SignUpForm
-from django.utils.http import urlsafe_base64_encode
 from django.core.urlresolvers import reverse_lazy
-from django.utils.encoding import force_bytes
-from .tokens import account_activation_token
 
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
@@ -18,7 +16,7 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         roll = self.kwargs.get('roll')
-        return get_object_or_404(UserProfile, roll=roll, email_confirmed=True)
+        return get_object_or_404(UserProfile, roll=roll.upper(), email_confirmed=True)
 
     def get_context_data(self, **kwargs):
         context = super(ProfileDetailView, self).get_context_data(**kwargs)
@@ -33,7 +31,7 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         roll = self.kwargs.get('roll')
-        return get_object_or_404(UserProfile, roll=roll, email_confirmed=True)
+        return get_object_or_404(UserProfile, roll=roll.upper(), email_confirmed=True)
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated() and request.user.id is not self.get_object().user.id:
@@ -88,6 +86,7 @@ class RegisterView(CreateView):
     def form_valid(self, form):
         user = form.save()
         RegisterView.create_profile(user, **form.cleaned_data)
+        messages.success(self.request, 'Hi %s,' % user.get_full_name())
         return super(RegisterView, self).form_valid(form)
 
     @staticmethod
@@ -98,10 +97,10 @@ class RegisterView(CreateView):
                                                  phone=kwargs['phone'], branch=kwargs['branch'])
         userprofile.save()
 
-        # def dispatch(self, request, *args, **kwargs):
-        #     if self.request.user.is_authenticated:
-        #         logout(self.request)
-        #     return super(RegisterView, self).dispatch(request, *args, *kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            logout(self.request)
+        return super(RegisterView, self).dispatch(request, *args, *kwargs)
 
 
 class RegisterSuccessView(TemplateView):
@@ -122,8 +121,5 @@ class AccountActivationView(RedirectView):
 
 
 def get_activation_link(request, roll):
-    userprofile = UserProfile.objects.get(roll=roll)
-    uid = urlsafe_base64_encode(force_bytes(userprofile.user.pk))
-    token = account_activation_token.make_token(userprofile.user)
-    return render(request, 'oauth/account_activation_email.html',
-                  {'uidb64': uid, 'token': token, 'user': userprofile.user})
+    userprofile = UserProfile.objects.get(roll=roll.upper())
+    return render(request, 'oauth/account_activation_email.html', {'user': userprofile.user})

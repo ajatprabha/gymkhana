@@ -7,11 +7,11 @@ app_name = 'oauth'
 urlpatterns = [
     url(r'^register$', RegisterView.as_view(), name='register'),
     url(r'^register-success$', RegisterSuccessView.as_view(), name='register-success'),
-    url(r'^(?P<roll>[\w]+)/get', get_activation_link),
+    url(r'^(?P<roll>[\w]+)/get', get_activation_link, name='get-act-link'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         AccountActivationView.as_view(), name='activate'),
     url(r'^sociallink/add$', SocialLinkCreateView.as_view(), name='link-add'),
-    url(r'^(?P<roll>[\w]+)/detail$', ProfileDetailView.as_view(), name='detail'),
+    url(r'^(?P<roll>[\w]+)$', ProfileDetailView.as_view(), name='detail'),
     url(r'^(?P<roll>[\w]+)/edit$', ProfileEditView.as_view(), name='edit'),
     url(r'sociallink/(?P<username>[\w-]+)-(?P<social_media>[\w]{2})$', SocialLinkUpdateView.as_view(),
         name='link-edit'),

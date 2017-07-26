@@ -1,10 +1,10 @@
 from django.db import models
 from django.db.models import Q
-from django.db.models.signals import post_save
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.utils.http import urlsafe_base64_decode
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.encoding import force_bytes
 from django.utils.encoding import force_text
 from .tokens import account_activation_token
 from versatileimagefield.fields import VersatileImageField
@@ -53,7 +53,6 @@ class UserProfileManager(models.Manager):
             user.userprofile.save()
         else:
             user = None
-
         return user
 
 
@@ -109,6 +108,12 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.roll + " (" + self.user.get_full_name() + ")"
+
+    @property
+    def get_activation_url(self):
+        uidb64 = urlsafe_base64_encode(force_bytes(self.user.pk))
+        token = account_activation_token.make_token(self.user)
+        return reverse('oauth:activate', kwargs={'uidb64': uidb64, 'token': token})
 
     @property
     def skills_as_list(self):

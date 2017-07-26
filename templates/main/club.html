@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 {% load staticfiles %}
-{% block title %}{{ club.name }} | Students' Gymkhana - IIT Jodhpur{% endblock %}
-{% block skin %}{{ club.skin }}{% endblock %}
+{% block title %}{{ club.name }} | {{ block.super }}{% endblock %}
+{% block skin %}{{ club.skin|default:block.super }}{% endblock %}
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/club_style.css' %}">
     <link rel="stylesheet" href="{% static 'css/news_event.css' %}"/>

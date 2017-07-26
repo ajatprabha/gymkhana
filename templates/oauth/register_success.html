@@ -1,10 +1,29 @@
 {% extends 'main/base.html' %}
 {% block title %}Successfully Registered | {{ block.super }}{% endblock %}
 {% block main %}
-    <div style="height: 100vh">
-        <div class="flex-center flex-column text-center">
-            <h1 class="animated fadeIn mb-2">Hi {{ user.get_full_name|default:'New User' }},</h1>
-            <h5 class="animated fadeIn mb-1">You're successfully registered on IITJ Gymkhana Site, please check your email to activate your account.</h5>
+    <div class="container-fluid" style="height: 100vh">
+        <div class="row flex-center flex-column text-center">
+            <div>
+                {% if messages %}
+                    <div class="card card-success text-center z-depth-2 animated fadeIn mb-1">
+                        <div class="card-block">
+                            <ul class="white-text mb-0">
+                                {% for message in messages %}
+                                    <li class="{% if forloop.counter == 1 %}h1-responsive{% endif %}">{{ message }}</li>
+                                {% endfor %}
+                                <li>You're successfully registered on IITJ Gymkhana Site, please check
+                                    your email to activate your account.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                {% else %}
+                    <h1 class="animated fadeIn mb-2">Hi {{ user.get_full_name|default:'Anonymous User' }},</h1>
+                    <h2 class="animated fadeIn mb-1">You should visit registration page first!</h2>
+                    <h5 class="animated fadeIn mb-1"><a href="{% url 'oauth:register' %}" class="btn btn-secondary">Register</a>
+                    </h5>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

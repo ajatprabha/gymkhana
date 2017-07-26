@@ -6,6 +6,7 @@
             background: url("{% static 'assets/others/reg_back.jpg' %}") no-repeat center;
             background-size: cover;
         }
+
         .d-flex .md-form.f-icon {
             width: 3rem;
         }
@@ -64,7 +65,7 @@
                         {% csrf_token %}
                         <div class="md-form">
                             {{ form.username }}
-                            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                            <label for="{{ form.username.id_for_label }}">{{ form.username.label }} *</label>
                         </div>
                         <div class="d-flex">
                             <div class="md-form f-icon">
@@ -74,13 +75,15 @@
                                 <div class="col-md-6">
                                     <div class="md-form">
                                         {{ form.first_name }}
-                                        <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                                        <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}
+                                            *</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="md-form">
                                         {{ form.last_name }}
-                                        <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                                        <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}
+                                            *</label>
                                     </div>
                                 </div>
                             </div>
@@ -88,6 +91,7 @@
                         <div class="md-form">
                             <i class="fa fa-envelope-o prefix"></i>
                             {{ form.email }}
+                            <label for="{{ form.email.id_for_label }}">{{ form.email.label }} *</label>
                         </div>
                         <div class="d-flex mb-sm-4">
                             <div class="md-form f-icon">
@@ -96,14 +100,14 @@
                             <div class="row w-100">
                                 <div class="col-md-6">
                                     <div class="md-form">
-                                    {{ form.password1 }}
-                                    <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                                        {{ form.password1 }}
+                                        <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="md-form">
-                                    {{ form.password2 }}
-                                    <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                                        {{ form.password2 }}
+                                        <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -121,13 +125,13 @@
                             <div class="col-md-4">
                                 <div class="md-form">
                                     {{ form.gender }}
-                                    <label for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
+                                    <label for="{{ form.gender.id_for_label }}">{{ form.gender.label }} *</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="md-form">
                                     {{ form.dob }}
-                                    <label for="{{ form.dob.id_for_label }}">{{ form.dob.label }}</label>
+                                    <label for="{{ form.dob.id_for_label }}">{{ form.dob.label }} *</label>
                                 </div>
                             </div>
                         </div>
@@ -135,13 +139,13 @@
                             <div class="col-md-6">
                                 <div class="md-form">
                                     {{ form.prog }}
-                                    <label for="{{ form.prog.id_for_label }}">{{ form.prog.label }}</label>
+                                    <label for="{{ form.prog.id_for_label }}">{{ form.prog.label }} *</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="md-form">
                                     {{ form.branch }}
-                                    <label for="{{ form.branch.id_for_label }}">{{ form.branch.label }}</label>
+                                    <label for="{{ form.branch.id_for_label }}">{{ form.branch.label }} *</label>
                                 </div>
                             </div>
                         </div>
@@ -155,12 +159,14 @@
                             <div class="col-md-6">
                                 <div class="md-form">
                                     {{ form.roll }}
-                                    <label for="{{ form.roll.id_for_label }}">{{ form.roll.label }}</label>
+                                    <label for="{{ form.roll.id_for_label }}">{{ form.roll.label }} *</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="float-right">
-                            <button class="btn btn-primary" type="submit">Register</button>
+                        <div>
+                            <span class="float-left"><strong>*</strong> <small
+                                    class="red-text">Can't be changed later.</small></span>
+                            <button class="btn btn-primary float-right" type="submit">Register</button>
                         </div>
                     </form>
                 </div>
@@ -169,8 +175,8 @@
         <!-- /.Main Container -->
     </div>
     <!--Errors-->
-        {{ form.non_field_errors }}
-        {{ form.errors }}
+    {{ form.non_field_errors }}
+    {{ form.errors }}
     <!--Errors-->
 
 {% endblock %}

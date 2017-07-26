@@ -10,6 +10,8 @@ $(document).ready(function () {
     if (form_bool === '1') {
         $('div.reg-form').css('display', 'block');
         $('form#reg-form').css('display', 'block');
+        $('form#reg-form').find('#id_username').prop("readonly", true);
+        $('form#reg-form').find('#id_email').prop("readonly", true);
     }
     else if (form_bool === '0') {
         $('div.view').css('display', 'block');
@@ -17,9 +19,9 @@ $(document).ready(function () {
     }
 });
 
-function update_vars (username, email) {
-    $('form#reg-form').find('#id_username').val(username);
-    $('form#reg-form').find('#id_email').val(email);
+function update_vars(username, email) {
+    $('form#reg-form').find('#id_username').val(username).prop("readonly", true);
+    $('form#reg-form').find('#id_email').val(email).prop("readonly", true);
 }
 
 $('#verify-form').submit(function (e) {
@@ -35,5 +37,12 @@ $('#verify-form').submit(function (e) {
     }
     else {
         $('#reg_container').find('div#error').text('Not a Valid Email!');
+    }
+});
+
+$('#reg-form').submit(function (e) {
+    e.preventDefault();
+    if (confirm('Checked your details? * marked fields can\'t be updated later!')) {
+        this.submit();
     }
 });

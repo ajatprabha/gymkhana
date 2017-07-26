@@ -2,27 +2,23 @@
 {% load staticfiles %}
 {% block customstyles %}
     <style>
-        html, body, main, .view {
-            height: 100%;
-        }
-
-        main {
+        .view {
             background: url("{% static 'assets/others/reg_back.jpg' %}") no-repeat center;
             background-size: cover;
         }
-        .show-form {
-            display: block;
+        .d-flex .md-form.f-icon {
+            width: 3rem;
         }
     </style>
 {% endblock %}
 {% block navbar %}
 {% endblock %}
 {% block main %}
-    <div class="view hm-black-strong">
+    <div class="view hm-black-strong" style="height: 100vh; display: none">
         <div class="mask flex-center">
             <!--Form without header-->
             <div class="token">{% csrf_token %}</div>
-            {% if request.method == POST %}
+            {% if request.method == 'POST' %}
                 <input type="hidden" id="request" value="1"/>
             {% else %}
                 <input type="hidden" id="request" value="0"/>
@@ -43,12 +39,6 @@
                             </div>
                         </div>
                     </form>
-                    <!--Register Form-->
-                    <form id="reg-form" style="display: none" action="" method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button class="btn btn-primary" type="submit">Register</button>
-                    </form>
                 </div>
                 <!--Footer-->
                 <div class="modal-footer">
@@ -61,9 +51,139 @@
         </div>
     </div>
     <!--/Form without header-->
+    <div class="reg-form mb-sm-5" style="display: none">
+        <!-- Purple Header -->
+        <div class="edge-header deep-purple"></div>
+
+        <!-- Main Container -->
+        <div class="container free-bird">
+            <div class="row flex-center">
+                <div class="col-md-9 mx-auto card-block white z-depth-1 p-lg-5 p-md-4 p-sm-4">
+                    <!--Register Form-->
+                    <form id="reg-form" style="display: none" action="" method="post">
+                        {% csrf_token %}
+                        <div class="md-form">
+                            {{ form.username }}
+                            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                        </div>
+                        <div class="d-flex">
+                            <div class="md-form f-icon">
+                                <i class="fa fa-user prefix"></i>
+                            </div>
+                            <div class="row w-100">
+                                <div class="col-md-6">
+                                    <div class="md-form">
+                                        {{ form.first_name }}
+                                        <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="md-form">
+                                        {{ form.last_name }}
+                                        <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md-form">
+                            <i class="fa fa-envelope-o prefix"></i>
+                            {{ form.email }}
+                        </div>
+                        <div class="d-flex mb-sm-4">
+                            <div class="md-form f-icon">
+                                <i class="fa fa-key prefix"></i>
+                            </div>
+                            <div class="row w-100">
+                                <div class="col-md-6">
+                                    <div class="md-form">
+                                    {{ form.password1 }}
+                                    <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="md-form">
+                                    {{ form.password2 }}
+                                    <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {% comment %}<div class="col-12">
+                                <small>{{ form.password1.help_text|safe }}</small>
+                            </div>{% endcomment %}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="md-form">
+                                    {{ form.phone }}
+                                    <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="md-form">
+                                    {{ form.gender }}
+                                    <label for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="md-form">
+                                    {{ form.dob }}
+                                    <label for="{{ form.dob.id_for_label }}">{{ form.dob.label }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="md-form">
+                                    {{ form.prog }}
+                                    <label for="{{ form.prog.id_for_label }}">{{ form.prog.label }}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form">
+                                    {{ form.branch }}
+                                    <label for="{{ form.branch.id_for_label }}">{{ form.branch.label }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="md-form">
+                                    {{ form.year }}
+                                    <label for="{{ form.year.id_for_label }}">{{ form.year.label }}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form">
+                                    {{ form.roll }}
+                                    <label for="{{ form.roll.id_for_label }}">{{ form.roll.label }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="float-right">
+                            <button class="btn btn-primary" type="submit">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /.Main Container -->
+    </div>
+    <!--Errors-->
+        {{ form.non_field_errors }}
+        {{ form.errors }}
+    <!--Errors-->
+
 {% endblock %}
 {% block customscripts %}
     <script src="{% static 'js/register.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').pickadate({
+                format: 'yyyy-mm-dd'
+            });
+            $('.mdb-select').material_select();
+        });
+    </script>
 {% endblock %}
 {% block footer %}
 {% endblock %}

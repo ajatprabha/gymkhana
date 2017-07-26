@@ -32,7 +32,7 @@
     <div class="profile-container">
         {% if request.user.id == userprofile.user.id %}
             <div class="fixed-action-btn-fix">
-                <a class="btn-floating btn-large red" href="{% url 'oauth:edit' userprofile.id %}" data-toggle="tooltip"
+                <a class="btn-floating btn-large red" href="{% url 'oauth:edit' userprofile.roll %}" data-toggle="tooltip"
                    data-placement="left" title="Edit Profile">
                     <i class="fa fa-pencil"></i>
                 </a>

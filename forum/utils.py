@@ -15,8 +15,8 @@ def unique_slug_generator(instance, new_slug=None):
     else:
         slug = slugify(instance.title)
 
-    Klass = instance.__class__
-    qs_exists = Klass.objects.filter(slug=slug).exists()
+    klass = instance.__class__
+    qs_exists = klass.objects.filter(slug=slug).exists()
     if qs_exists or slug in PROHIBITED:
         new_slug = "{slug}-{randstr}".format(
             slug=slug,
@@ -24,3 +24,7 @@ def unique_slug_generator(instance, new_slug=None):
         )
         return unique_slug_generator(instance, new_slug=new_slug)
     return slug
+
+
+def send_activation_email(user=None, uidb64=None, token=None):
+    pass

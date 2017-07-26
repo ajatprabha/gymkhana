@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from django.db.models.signals import post_save
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -95,7 +96,7 @@ class UserProfile(models.Model):
     phone = models.CharField(max_length=10, validators=[contact])
     avatar = VersatileImageField(upload_to='avatar', blank=True, null=True)
     cover = VersatileImageField(upload_to='cover', blank=True, null=True)
-    hometown = models.CharField(max_length=128)
+    hometown = models.CharField(max_length=128, blank=True, null=True)
     branch = models.CharField(max_length=5, choices=BRANCH_CHOICES)
     skills = models.TextField(help_text="Enter your skills, separated by comma.", max_length=1024, blank=True,
                               null=True, default=None)

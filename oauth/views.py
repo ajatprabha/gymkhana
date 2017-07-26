@@ -1,4 +1,4 @@
-from django.views.generic import DetailView, UpdateView, CreateView, DeleteView, RedirectView
+from django.views.generic import DetailView, UpdateView, CreateView, DeleteView, RedirectView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import logout
@@ -6,8 +6,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from .mixins import SocialLinkOwnerMixin
 from .models import UserProfile, SocialLink
 from .forms import UserProfileUpdateForm, SocialLinkForm, SignUpForm
-
 from django.utils.http import urlsafe_base64_encode
+from django.core.urlresolvers import reverse_lazy
 from django.utils.encoding import force_bytes
 from .tokens import account_activation_token
 
@@ -82,13 +82,30 @@ class SocialLinkDeleteView(SocialLinkOwnerMixin, DeleteView):
 class RegisterView(CreateView):
     model = UserProfile
     template_name = 'oauth/register.html'
-    success_url = '/'
+    success_url = reverse_lazy('oauth:register-success')
     form_class = SignUpForm
 
-    # def form_valid(self, form):
-    #     self.object = form.save(commit=False)
-    #     self.object.is_active = False
-    #     self.object.save()
+    def form_valid(self, form):
+        user = form.save()
+        RegisterView.create_profile(user, **form.cleaned_data)
+        return super(RegisterView, self).form_valid(form)
+
+    @staticmethod
+    def create_profile(user=None, **kwargs):
+        # Creates a new UserProfile object after successful creation of User object
+        userprofile = UserProfile.objects.create(user=user, gender=kwargs['gender'], roll=kwargs['roll'],
+                                                 dob=kwargs['dob'], prog=kwargs['prog'], year=kwargs['year'],
+                                                 phone=kwargs['phone'], branch=kwargs['branch'])
+        userprofile.save()
+
+        # def dispatch(self, request, *args, **kwargs):
+        #     if self.request.user.is_authenticated:
+        #         logout(self.request)
+        #     return super(RegisterView, self).dispatch(request, *args, *kwargs)
+
+
+class RegisterSuccessView(TemplateView):
+    template_name = 'oauth/register_success.html'
 
 
 class AccountActivationView(RedirectView):

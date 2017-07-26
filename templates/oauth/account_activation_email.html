@@ -1,7 +1,14 @@
-{% autoescape off %}
-Hi {{ user.username }},
-
-Please click on the link below to confirm your registration:
-
-http://students.iitj.ac.in/account/activate/{{ uidb64 }}/{{ token }}
-{% endautoescape %}
+{% extends 'main/base.html' %}
+{% block title %}Activate account for {{ user.username }}{% endblock %}
+{% block main %}
+    <div style="height: 100vh">
+        <div class="flex-center flex-column text-center">
+            <h1 class="animated fadeIn mb-2">Hi {{ user.username }},</h1>
+            <h5 class="animated fadeIn mb-1">Please click on the link below to confirm your registration:</h5>
+            <h5 class="animated fadeIn mb-1 blue-text"><a href="{% url 'oauth:activate' uidb64=uidb64 token=token %}"
+                                                          class="btn btn-lg btn-secondary" role="button">Activate</a>
+            </h5>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}{% endblock %}

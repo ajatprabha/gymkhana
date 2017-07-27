@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from django.db.models.signals import pre_save
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -14,7 +15,7 @@ class KonnektQueryset(models.query.QuerySet):
     def search(self, query):
         if query:
             result = self.filter(user__isnull=True)
-            for term in query.split(' '):
+            for term in query.split():
                 if len(term) > 3:
                     result = self.filter(Q(skills__icontains=term) |
                                          Q(user__first_name__icontains=term) |
@@ -49,11 +50,20 @@ class UserProfileManager(models.Manager):
         self.uidb64 = uidb64
         if self.activation_link_valid(token) and not self._get_user_for_activation().userprofile.email_confirmed:
             user = self._get_user_for_activation()
+            user.is_active = True
+            user.save()
             user.userprofile.email_confirmed = True
             user.userprofile.save()
         else:
             user = None
         return user
+
+
+def set_new_user_inactive(sender, instance, **kwargs):
+    if instance._state.adding is True:
+        instance.is_active = False
+
+pre_save.connect(set_new_user_inactive, sender=User)
 
 
 class UserProfile(models.Model):

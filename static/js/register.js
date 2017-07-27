@@ -1,12 +1,10 @@
 /**
  * Created by Ajat Prabha on 22-07-2017.
  */
-var csrf_token;
 var email;
 var form_bool = $('input#request').val();
 
 $(document).ready(function () {
-    csrf_token = $('.token').find('input').val();
     if (form_bool === '1') {
         $('div.reg-form').css('display', 'block');
         $('form#reg-form').css('display', 'block');

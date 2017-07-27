@@ -97,10 +97,10 @@ class RegisterView(CreateView):
                                                  phone=kwargs['phone'], branch=kwargs['branch'])
         userprofile.save()
 
-    def dispatch(self, request, *args, **kwargs):
-        if self.request.user.is_authenticated:
-            logout(self.request)
-        return super(RegisterView, self).dispatch(request, *args, *kwargs)
+    # def dispatch(self, request, *args, **kwargs):
+    #     if self.request.user.is_authenticated:
+    #         logout(self.request)
+    #     return super(RegisterView, self).dispatch(request, *args, *kwargs)
 
 
 class RegisterSuccessView(TemplateView):

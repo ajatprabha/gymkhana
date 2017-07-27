@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -33,8 +34,8 @@ class SocialLinkForm(forms.ModelForm):
 
 class SignUpForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), required=True)
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), required=True)
     email = forms.EmailField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'email', 'maxlength': '254'}))
     password1 = forms.CharField(
@@ -65,13 +66,31 @@ class SignUpForm(UserCreationForm):
         fields = ['username', 'first_name', 'last_name', 'password1', 'password2', 'email']
 
     def clean_email(self):
-        if User.objects.filter(email__iexact=self.data['email']).exists():
+        if not self.data['email'].endswith('@iitj.ac.in'):
+            raise forms.ValidationError('Not a valid email address')
+        elif User.objects.filter(email__iexact=self.data['email']).exists():
             raise forms.ValidationError('Email address is already registered')
         else:
             return self.data['email']
 
+    def clean_username(self):
+        username_submit = self.data['username']
+        e_username = self.data['email'].split('@')[0]
+        if username_submit != e_username:
+            raise forms.ValidationError("Username doesn't comply with provided email")
+        else:
+            return self.data['username']
+
     def clean_roll(self):
-        if UserProfile.objects.filter(roll__iexact=self.data['roll']).exists():
+        if len(self.data['roll']) < 7:
+            raise forms.ValidationError('Not a valid enrollment number')
+        if UserProfile.objects.filter(roll__iexact=self.data['roll'].upper()).exists():
             raise forms.ValidationError('This enrollment number is already in use')
         else:
             return self.data['roll'].upper()
+
+    def clean_dob(self):
+        dob_date = self.cleaned_data['dob']
+        if dob_date > date.today() - timedelta(days=13 * 365):
+            raise forms.ValidationError("You must be greater than 13 years")
+        return self.cleaned_data['dob']

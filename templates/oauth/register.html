@@ -10,6 +10,14 @@
         .d-flex .md-form.f-icon {
             width: 3rem;
         }
+
+        .password-help ul {
+            text-align: left;
+        }
+
+        .password-help ul li {
+            margin-bottom: 0;
+        }
     </style>
 {% endblock %}
 {% block navbar %}
@@ -18,7 +26,6 @@
     <div class="view hm-black-strong" style="height: 100vh; display: none">
         <div class="mask flex-center">
             <!--Form without header-->
-            <div class="token">{% csrf_token %}</div>
             {% if request.method == 'POST' %}
                 <input type="hidden" id="request" value="1"/>
             {% else %}
@@ -61,8 +68,16 @@
             <div class="row flex-center">
                 <div class="col-md-9 mx-auto card-block white z-depth-1 p-lg-5 p-md-4 p-sm-4">
                     <!--Register Form-->
+                    {{ form.non_field_errors }}
                     <form id="reg-form" style="display: none" action="" method="post">
                         {% csrf_token %}
+                        {% if form.username.errors %}
+                            {% for error in form.username.errors %}
+                                <p class="red-text mb-1">
+                                    <small>{{ error|escape }}</small>
+                                </p>
+                            {% endfor %}
+                        {% endif %}
                         <div class="md-form">
                             {{ form.username }}
                             <label for="{{ form.username.id_for_label }}">{{ form.username.label }} *</label>
@@ -73,6 +88,13 @@
                             </div>
                             <div class="row w-100">
                                 <div class="col-md-6">
+                                    {% if form.first_name.errors %}
+                                        {% for error in form.first_name.errors %}
+                                            <p class="red-text mb-1">
+                                                <small>{{ error|escape }}</small>
+                                            </p>
+                                        {% endfor %}
+                                    {% endif %}
                                     <div class="md-form">
                                         {{ form.first_name }}
                                         <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}
@@ -80,6 +102,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    {% if form.last_name.errors %}
+                                        {% for error in form.last_name.errors %}
+                                            <p class="red-text mb-1">
+                                                <small>{{ error|escape }}</small>
+                                            </p>
+                                        {% endfor %}
+                                    {% endif %}
                                     <div class="md-form">
                                         {{ form.last_name }}
                                         <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}
@@ -88,47 +117,89 @@
                                 </div>
                             </div>
                         </div>
+                        {% if form.email.errors %}
+                            {% for error in form.email.errors %}
+                                <p class="red-text mb-1">
+                                    <small>{{ error|escape }}</small>
+                                </p>
+                            {% endfor %}
+                        {% endif %}
                         <div class="md-form">
                             <i class="fa fa-envelope-o prefix"></i>
                             {{ form.email }}
                             <label for="{{ form.email.id_for_label }}">{{ form.email.label }} *</label>
                         </div>
-                        <div class="d-flex mb-sm-4">
+                        <div class="d-flex">
                             <div class="md-form f-icon">
                                 <i class="fa fa-key prefix"></i>
                             </div>
                             <div class="row w-100">
                                 <div class="col-md-6">
+                                    {% if form.password1.errors %}
+                                        {% for error in form.password1.errors %}
+                                            <p class="red-text mb-1">
+                                                <small>{{ error|escape }}</small>
+                                            </p>
+                                        {% endfor %}
+                                    {% endif %}
                                     <div class="md-form">
                                         {{ form.password1 }}
                                         <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    {% if form.password2.errors %}
+                                        {% for error in form.password2.errors %}
+                                            <p class="red-text mb-1">
+                                                <small>{{ error|escape }}</small>
+                                            </p>
+                                        {% endfor %}
+                                    {% endif %}
                                     <div class="md-form">
                                         {{ form.password2 }}
                                         <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
                                     </div>
                                 </div>
                             </div>
-                            {% comment %}<div class="col-12">
-                                <small>{{ form.password1.help_text|safe }}</small>
-                            </div>{% endcomment %}
+                        </div>
+                        <div class="col-12 mb-sm-4 password-help">
+                            <small>{{ form.password1.help_text|safe }}</small>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
+                                {% if form.phone.errors %}
+                                    {% for error in form.phone.errors %}
+                                        <p class="red-text mb-1">
+                                            <small>{{ error|escape }}</small>
+                                        </p>
+                                    {% endfor %}
+                                {% endif %}
                                 <div class="md-form">
                                     {{ form.phone }}
                                     <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
+                                {% if form.gender.errors %}
+                                    {% for error in form.gender.errors %}
+                                        <p class="red-text mb-1">
+                                            <small>{{ error|escape }}</small>
+                                        </p>
+                                    {% endfor %}
+                                {% endif %}
                                 <div class="md-form">
                                     {{ form.gender }}
                                     <label for="{{ form.gender.id_for_label }}">{{ form.gender.label }} *</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
+                                {% if form.dob.errors %}
+                                    {% for error in form.dob.errors %}
+                                        <p class="red-text mb-1">
+                                            <small>{{ error|escape }}</small>
+                                        </p>
+                                    {% endfor %}
+                                {% endif %}
                                 <div class="md-form">
                                     {{ form.dob }}
                                     <label for="{{ form.dob.id_for_label }}">{{ form.dob.label }} *</label>
@@ -137,12 +208,26 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                                {% if form.prog.errors %}
+                                    {% for error in form.prog.errors %}
+                                        <p class="red-text mb-1">
+                                            <small>{{ error|escape }}</small>
+                                        </p>
+                                    {% endfor %}
+                                {% endif %}
                                 <div class="md-form">
                                     {{ form.prog }}
                                     <label for="{{ form.prog.id_for_label }}">{{ form.prog.label }} *</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                {% if form.branch.errors %}
+                                    {% for error in form.branch.errors %}
+                                        <p class="red-text mb-1">
+                                            <small>{{ error|escape }}</small>
+                                        </p>
+                                    {% endfor %}
+                                {% endif %}
                                 <div class="md-form">
                                     {{ form.branch }}
                                     <label for="{{ form.branch.id_for_label }}">{{ form.branch.label }} *</label>
@@ -151,12 +236,26 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                                {% if form.year.errors %}
+                                    {% for error in form.year.errors %}
+                                        <p class="red-text mb-1">
+                                            <small>{{ error|escape }}</small>
+                                        </p>
+                                    {% endfor %}
+                                {% endif %}
                                 <div class="md-form">
                                     {{ form.year }}
                                     <label for="{{ form.year.id_for_label }}">{{ form.year.label }}</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                {% if form.roll.errors %}
+                                    {% for error in form.roll.errors %}
+                                        <p class="red-text mb-1">
+                                            <small>{{ error|escape }}</small>
+                                        </p>
+                                    {% endfor %}
+                                {% endif %}
                                 <div class="md-form">
                                     {{ form.roll }}
                                     <label for="{{ form.roll.id_for_label }}">{{ form.roll.label }} *</label>
@@ -174,18 +273,16 @@
         </div>
         <!-- /.Main Container -->
     </div>
-    <!--Errors-->
-    {{ form.non_field_errors }}
-    {{ form.errors }}
-    <!--Errors-->
-
 {% endblock %}
 {% block customscripts %}
     <script src="{% static 'js/register.js' %}"></script>
     <script>
         $(document).ready(function () {
             $('.datepicker').pickadate({
-                format: 'yyyy-mm-dd'
+                format: 'yyyy-mm-dd',
+                today: '',
+                clear: 'Clear',
+                close: 'Close'
             });
             $('.mdb-select').material_select();
         });

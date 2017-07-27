@@ -1,6 +1,5 @@
 {% extends 'forum/base.html' %}
 {% load staticfiles %}
-{% load humanize %}
 {% block title %}{{ topic.title }} - {{ topic.number_of_answers }} answers{% endblock %}
 {% block mdbcss %}
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
@@ -22,7 +21,6 @@
                     <li class="item-tags"><span class="TagsLabel "><a class="TagLabel colored"><span
                             class="TagLabel-text">{{ tag }}</span></a></span></li>
                 {% endfor %}
-
             </ul>
         </div>
     </div>
@@ -36,7 +34,8 @@
                                 <li class="item-user">
                                     <div class="PostUser"><h3><a href="{{ topic.author.get_absolute_url }}"><img
                                             class="Avatar PostUser-avatar Avatar-Ques"
-                                            src="{% if topic.author.avatar %}{{ topic.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
+                                            src="
+                                                    {% if topic.author.avatar %}{{ topic.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
                                         <span class="username"><a
                                                 href="{{ topic.author.get_absolute_url }}">{{ topic.author.user.get_full_name }}</a></span></a>
                                     </h3>
@@ -135,149 +134,36 @@
                                             </div>
                                         </article>
                                     </div>
-                                    <!--answers-->
-                                    {% for answer in answer_list %}
-                                        <div class="PostStream-item">
-                                            <article class="Post undefined CommentPost">
-                                                <div>
-                                                    <div class="Post-header">
-                                                        <ul>
-                                                            <li class="item-user">
-                                                                <div class="PostUser"><h3><a
-                                                                        href="{{ answer.author.get_absolute_url }}"><img
-                                                                        class="Avatar PostUser-avatar"
-                                                                        src="
-                                                                                {% if answer.author.avatar %}{{ answer.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
-                                                                    <span class="username"><a
-                                                                            href="{{ answer.author.get_absolute_url }}"> {{ answer.author.user.get_full_name }}</a></span></a>
-                                                                </h3>
-                                                                    <ul class="PostUser-badges badges"></ul>
-                                                                </div>
-                                                            </li>
-                                                            <li class="item-meta">
-                                                                <div class="Dropdown PostMeta">{{ answer.created_at|naturaltime }}
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div id="description" class="Post-body">{{ answer.content|safe }}</div>
-                                                    <aside class="Post-actions">
-                                                        <ul>
-                                                            <li class="item-reply">
-                                                                <a href="#">
-                                                                    <button class="Button Button--link" type="button"
-                                                                            title="Comment">
-                                                                        <span class="Button-label">Comment</span>
-                                                                    </button>
-                                                                </a>
-                                                            </li>
-                                                            <li class="item-reply">
-                                                                <a href="#">
-                                                                    <button class="Button Button--link" type="button"
-                                                                            title="Upvote">
-                                                                    <span class="Button-label"><i
-                                                                            class="fa fa-thumbs-up"
-                                                                            aria-hidden="true"></i></span></button>
-                                                                </a>
-                                                            </li>
-                                                            <li class="item-reply">
-                                                                <a href="#">
-                                                                    <button class="Button Button--link" type="button"
-                                                                            title="Downvote">
-                                                                    <span class="Button-label"><i
-                                                                            class="fa fa-thumbs-down"
-                                                                            aria-hidden="true"></i></span></button>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </aside>
-                                                </div>
-                                            </article>
-                                            <div class="Post-quoteButtonContainer"></div>
-                                        </div>
-
-                                        <!--replies-->
-                                        {% for reply in answer.reply_list_all %}
-                                            <div class="row">
-                                                <div class="col-md-2"></div>
-                                                <div class="col-md-10">
-                                                    <div class="PostStream-item">
-                                                        <article class="Post undefined CommentPost">
-                                                            <div>
-                                                                <div class="Post-header">
-                                                                    <ul>
-                                                                        <li class="item-user">
-                                                                            <div class="PostUser"><h3><a href="#"><img
-                                                                                    class="Avatar PostUser-avatar"
-                                                                                    src="
-
-
-
-                                                                                            {% if reply.author.avatar %}{{ reply.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
-                                                                                <span class="username"><a
-                                                                                        href="{% url 'oauth:detail' reply.author.user.id %}"> {{ reply.author.user.get_full_name }}</a></span></a>
-                                                                            </h3>
-                                                                                <ul class="PostUser-badges badges"></ul>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li class="item-meta">
-                                                                            <div class="Dropdown PostMeta">{{ reply.created_at|naturaltime }}
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="Post-body">
-                                                                    <a href="{% url 'oauth:detail' reply.author.user.id %}"
-                                                                       class="PostMention">Comment
-                                                                        on {{ answer.author.user.get_full_name }}'s
-                                                                        answer</a>
-                                                                    <br>
-                                                                    <p>{{ reply.content|safe|urlize }}</p></div>
-                                                                <aside class="Post-actions">
-                                                                    <ul>
-                                                                        <li class="item-reply">
-                                                                            <a href="#">
-                                                                                <button class="Button Button--link"
-                                                                                        type="button"
-                                                                                        title="Reply">
-                                                                    <span class="Button-label"><i
-                                                                            class="fa fa-thumbs-up"
-                                                                            aria-hidden="true"></i></span></button>
-                                                                            </a>
-                                                                        </li>
-                                                                        <li class="item-reply">
-                                                                            <a href="#">
-                                                                                <button class="Button Button--link"
-                                                                                        type="button"
-                                                                                        title="Reply">
-                                                                    <span class="Button-label"><i
-                                                                            class="fa fa-thumbs-down"
-                                                                            aria-hidden="true"></i></span></button>
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </aside>
-                                                            </div>
-                                                        </article>
-                                                        <div class="Post-quoteButtonContainer"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
-                                    {% endfor %}
                                 </div>
-
                                 <!--write new answer div-->
                                 <div class="PostStream-item">
                                     <article class="Post ReplyPlaceholder">
                                         <div class="Post-header"><img
-                                                src="
-                                                        {% if request.user.userprofile.avatar %}{{ request.user.userprofile.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
-                                                class="Avatar PostUser-avatar"/> Write a
-                                            Reply...
+                                                src="{% if request.user.userprofile.avatar %}{{ request.user.userprofile.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
+                                                class="Avatar PostUser-avatar"/>
+                                            <div>
+                                                {{ form.non_field_errors }}
+                                                {% if form.content.errors %}
+                                                    {% for error in form.content.errors %}
+                                                        <p class="red-text mb-1">{{ error|safe }}</p>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                <form action="" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="topic" id="id_topic" value="{{ topic.id }}" />
+                                                    <input type="hidden" name="author" id="id_author" value="{{ request.user.userprofile.id }}" />
+                                                    {{ form.content }}
+                                                    <button class="btn btn-primary" type="submit">Reply</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </article>
                                 </div>
+                                <div class="PostStream">
+                                    <!--answers-->
+                                    {% include 'forum/mixins/topic_answer_list_mixin.html' with answer_list=answer_list %}
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -285,6 +171,10 @@
             </div>
         </div>
     </main>
+{% endblock %}
+
+{% block customscripts %}
+    {{ form.media }}
 {% endblock %}
 
 {% block footer %}

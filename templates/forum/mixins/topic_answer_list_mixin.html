@@ -1,0 +1,60 @@
+{% load staticfiles humanize %}
+{% for answer in answer_list %}
+    <div class="PostStream-item">
+        <article class="Post undefined CommentPost">
+            <div>
+                <div class="Post-header">
+                    <ul>
+                        <li class="item-user">
+                            <div class="PostUser"><h3><a
+                                    href="{{ answer.author.get_absolute_url }}"><img
+                                    class="Avatar PostUser-avatar"
+                                    src="{% if answer.author.avatar %}{{ answer.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
+                                <span class="username"><a
+                                        href="{{ answer.author.get_absolute_url }}"> {{ answer.author.user.get_full_name }}</a></span></a>
+                            </h3>
+                                <ul class="PostUser-badges badges"></ul>
+                            </div>
+                        </li>
+                        <li class="item-meta">
+                            <div class="Dropdown PostMeta">{{ answer.created_at|naturaltime }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="description"
+                     class="Post-body">{{ answer.content|safe }}</div>
+                <aside class="Post-actions">
+                    <ul>
+                        <li class="item-reply">
+                            <a href="#">
+                                <button class="Button Button--link" type="button"
+                                        title="Comment">
+                                    <span class="Button-label">Comment</span>
+                                </button>
+                            </a>
+                        </li>
+                        <li class="item-reply">
+                            <a href="#">
+                                <button class="Button Button--link" type="button"
+                                        title="Upvote">
+                                    <span class="Button-label"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+                                </button>
+                            </a>
+                        </li>
+                        <li class="item-reply">
+                            <a href="#">
+                                <button class="Button Button--link" type="button"
+                                        title="Downvote">
+                                    <span class="Button-label"><i class="fa fa-thumbs-down"
+                                                                  aria-hidden="true"></i></span>
+                                </button>
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+        </article>
+        <div class="Post-quoteButtonContainer"></div>
+    </div>
+{% endfor %}

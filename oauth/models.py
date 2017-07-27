@@ -22,9 +22,9 @@ class KonnektQueryset(models.query.QuerySet):
                                          Q(user__last_name__icontains=term)) | result
                 else:
                     result = self.filter(Q(skills__icontains=term)) | result
-            return result.distinct()
+            return result.distinct().order_by('user__first_name')
         else:
-            return self
+            return self.none()
 
 
 class UserProfileManager(models.Manager):

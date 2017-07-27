@@ -9,6 +9,7 @@ from .models import UserProfile, SocialLink
 class UserProfileUpdateForm(forms.ModelForm):
     phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'length': '10'}))
     about = forms.TextInput(attrs={'class': 'md-textarea', 'length': '160'})
+    year = forms.ChoiceField(choices=UserProfile.YEAR_CHOICES, widget=forms.Select(attrs={'class': 'mdb-select'}))
 
     class Meta:
         model = UserProfile
@@ -16,6 +17,7 @@ class UserProfileUpdateForm(forms.ModelForm):
 
 
 class SocialLinkForm(forms.ModelForm):
+
     class Meta:
         model = SocialLink
         fields = ['social_media', 'link']

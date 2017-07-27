@@ -156,12 +156,7 @@
                             <div class="md-form form-sm">
                                 <i class="fa fa-calendar-o text-primary prefix"></i>
                                 <div class="ml-5">
-                                    <select class="mdb-select" name="{{ form.year.name }}"
-                                            id="{{ form.year.id_for_label }}" required>
-                                        {% for value, label in form.year.field.choices %}
-                                            <option value="{{ value }}"
-                                                    {% if userprofile.year == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
-                                    </select>
+                                    {{ form.year }}
                                     <label class="ml-5" for="{{ form.year.id_for_label }}">{{ form.year.label }}</label>
                                 </div>
                             </div>

@@ -13,8 +13,8 @@ urlpatterns = [
     url(r'^sociallink/add$', SocialLinkCreateView.as_view(), name='link-add'),
     url(r'^(?P<roll>[\w]+)$', ProfileDetailView.as_view(), name='detail'),
     url(r'^(?P<roll>[\w]+)/edit$', ProfileEditView.as_view(), name='edit'),
-    url(r'sociallink/(?P<username>[\w-]+)-(?P<social_media>[\w]{2})$', SocialLinkUpdateView.as_view(),
+    url(r'sociallink/(?P<username>[\w.-]+)-(?P<social_media>[\w]{2})$', SocialLinkUpdateView.as_view(),
         name='link-edit'),
-    url(r'sociallink/(?P<username>[\w-]+)-(?P<social_media>[\w]{2})/delete$', SocialLinkDeleteView.as_view(),
+    url(r'sociallink/(?P<username>[\w.-]+)-(?P<social_media>[\w]{2})/delete$', SocialLinkDeleteView.as_view(),
         name='link-delete'),
 ]

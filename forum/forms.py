@@ -12,9 +12,9 @@ class TopicForm(forms.ModelForm):
         fields = ['category', 'title', 'tags', 'content']
 
 
-class AnswerForm(forms.Form):
+class AnswerForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Answer
-        fields = ['content']
+        fields = ('topic', 'author', 'content')

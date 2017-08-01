@@ -19,8 +19,12 @@ Requirements:
 
 Procedure:
 - Install [python](https://www.python.org/downloads/) in your environment
-- Use pip to install other dependencies
+- Use pip to install other dependencies from `requirements.txt`
+- Setup the database in `src/gymkhana/settings.py` (more details at [djangoproject.com](https://docs.djangoproject.com/) )
+- Change to `src` directory
+- Make database migrations with `python manage.py makemigrations` followed by `python manage.py migrate`
+- Create a superuser with `python manage.py createsuperuser`
+- Run development server on localhost with `python manage.py runserver`
 #### SuperUser Details
     username: admin 
     password: golmaalkarke9211
-    

@@ -1,6 +1,7 @@
 from django import forms
 from .models import Topic, Answer
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from django.utils.html import strip_tags
 
 
 class TopicForm(forms.ModelForm):
@@ -18,3 +19,11 @@ class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = ('topic', 'author', 'content')
+
+    def clean_content(self):
+        content = strip_tags(self.data['content']).split()
+        content = [x for x in content if x != '&nbsp;']
+        if len(content) == 0:
+            raise forms.ValidationError('This field is required')
+        else:
+            return self.data['content']

@@ -3193,15 +3193,9 @@ a {
     text-decoration: none
 }
 
-a:hover {
-    text-decoration: underline
-}
-
 hr {
     margin-top: 15px;
     margin-bottom: 15px;
-    border: 0;
-    border-top: 2px solid #e7edf3
 }
 
 p {
@@ -6630,7 +6624,6 @@ textarea.FormControl {
 }
 
 .Post-header {
-    margin-bottom: 15px;
     color: #667d99
 }
 
@@ -6884,7 +6877,8 @@ a.PostMeta-permalink {
 }
 
 .EventPost-info {
-    font-size: 14px
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .Post-footer > ul, .Post-actions > ul {
@@ -7063,7 +7057,6 @@ a.PostMeta-permalink {
     font-size: 15px;
     cursor: text;
     overflow: hidden;
-    margin-top: 50px;
     border: 2px dashed #e7edf3;
     color: #667d99;
     border-radius: 10px
@@ -7969,7 +7962,7 @@ img.emoji {
     text-decoration: none
 }
 
-.PostLikesModal-list a:hover .username {
+.PostLikesModal-list a:hover .username, .PostUser a:hover {
     text-decoration: underline
 }
 
@@ -8849,11 +8842,36 @@ blockquote .PostMention, blockquote .UserMention {
 
 .Hero .header-container {
     margin-left: 240px;
-    padding-top: 5.25rem;
+    padding-top: 5.25rem !important;
 }
 
 @media (max-width: 1440px) {
     .Hero .header-container {
         margin-left: 0
+    }
+}
+
+.Avatar.Avatar-Ques {
+    left: -108px;
+    width: 100px;
+    height: 100px;
+}
+
+@media (max-width: 767px) {
+    .Avatar.Avatar-Ques {
+        left: 0;
+        width: 56px;
+        height: 56px;
+        border-radius: 5rem;
+    }
+}
+
+.App-content div#content {
+    min-height: 40vh;
+}
+
+@media (max-width: 690px) {
+    .Post {
+        margin: 0;
     }
 }

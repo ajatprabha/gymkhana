@@ -40,9 +40,10 @@ class Society(models.Model):
                                 help_text="Upload high quality picture")
     skin = models.CharField(max_length=32, choices=SKIN_CHOICES, blank=True, default='mdb-skin',
                             help_text="Choose a skin while displaying society page.")
-    secretary = models.ForeignKey(UserProfile, related_name='secy')
-    joint_secretary = models.ForeignKey(UserProfile, related_name='joint_secy')
-    mentor = models.ForeignKey(UserProfile, related_name='smentor')
+    secretary = models.ForeignKey(UserProfile, related_name='secy', limit_choices_to={'user__is_staff': True})
+    joint_secretary = models.ForeignKey(UserProfile, related_name='joint_secy',
+                                        limit_choices_to={'user__is_staff': True})
+    mentor = models.ForeignKey(UserProfile, related_name='smentor', limit_choices_to={'user__is_staff': True})
     faculty_advisor = models.ForeignKey(FacultyAdvisor, blank=True, null=True, default=None, on_delete=models.SET_NULL)
     gallery = models.ForeignKey(Gallery, blank=True, null=True, on_delete=models.SET_NULL,
                                 help_text="Select a carousel gallery to link to this society.")
@@ -79,9 +80,13 @@ class Club(models.Model):
                                 help_text="Upload high quality picture")
     skin = models.CharField(max_length=32, choices=SKIN_CHOICES, blank=True, default='mdb-skin',
                             help_text="Choose a skin while displaying club page.")
-    captain = models.ForeignKey(UserProfile, related_name='captain')
-    vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one', blank=True, null=True, default=None)
-    vice_captain_two = models.ForeignKey(UserProfile, related_name='vice_cap_two', blank=True, null=True, default=None)
+    captain = models.ForeignKey(UserProfile, related_name='captain', limit_choices_to={'user__is_staff': True})
+    vice_captain_one = models.ForeignKey(UserProfile, related_name='vice_cap_one',
+                                         limit_choices_to={'user__is_staff': True},
+                                         blank=True, null=True, default=None)
+    vice_captain_two = models.ForeignKey(UserProfile, related_name='vice_cap_two',
+                                         limit_choices_to={'user__is_staff': True},
+                                         blank=True, null=True, default=None)
     mentor = models.ForeignKey(UserProfile, related_name='cmentor', blank=True, null=True, default=None)
     core_members = models.ManyToManyField(UserProfile, blank=True)
     gallery = models.ForeignKey(Gallery, blank=True, null=True, on_delete=models.SET_NULL,

@@ -7057,7 +7057,6 @@ a.PostMeta-permalink {
     font-size: 15px;
     cursor: text;
     overflow: hidden;
-    margin-top: 50px;
     border: 2px dashed #e7edf3;
     color: #667d99;
     border-radius: 10px
@@ -8869,4 +8868,10 @@ blockquote .PostMention, blockquote .UserMention {
 
 .App-content div#content {
     min-height: 40vh;
+}
+
+@media (max-width: 768px) {
+    .Post#topicAuthor {
+        margin: 0;
+    }
 }

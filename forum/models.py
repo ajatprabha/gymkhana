@@ -19,6 +19,7 @@ class Topic(models.Model, HitCountMixin):
     title = models.CharField(max_length=256)
     content = RichTextUploadingField()
     tags = models.CharField(max_length=50, blank=True, null=True, default=None)
+    upvotes = models.ManyToManyField(UserProfile, blank=True, related_name='topic_upvotes')
     created_at = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(unique=True, blank=True)
 
@@ -31,6 +32,9 @@ class Topic(models.Model, HitCountMixin):
 
     def get_absolute_url(self):
         return reverse('forum:detail', kwargs={'slug': self.slug})
+
+    def get_api_upvote_toggle_url(self):
+        return reverse('forum_api:topic-upvote-toggle', kwargs={'slug': self.slug})
 
     def tags_as_list(self):
         if self.tags == '' or not self.tags:
@@ -53,48 +57,14 @@ class Answer(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, verbose_name="topic of answer")
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name="author of answer")
     content = RichTextUploadingField(blank=True)
+    upvotes = models.ManyToManyField(UserProfile, blank=True, related_name='answer_upvotes')
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-created_at']
 
-    @property
-    def number_of_votes(self):
-        return self.vote_set.count()
+    def get_api_upvote_toggle_url(self):
+        return reverse('forum_api:answer-upvote-toggle', kwargs={'id': self.id})
 
     def __str__(self):
         return "On: " + str(self.topic.title) + " by " + str(self.author.user.first_name) + " " + str(self.author.user.last_name)
-
-
-class Reply(models.Model):
-    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
-    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name="author of reply")
-    content = RichTextUploadingField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name_plural = 'replies'
-
-
-class Vote(models.Model):
-    # Choices
-    VOTE_CHOICE = (
-        (-1, 'Dislike'),
-        (0, 'Neutral'),
-        (1, 'Like'),
-    )
-    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
-    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    value = models.SmallIntegerField(choices=VOTE_CHOICE, default=0)
-
-
-class Tag(models.Model):
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    name = models.CharField(max_length=16)
-    hits = models.PositiveIntegerField(default=1)
-
-
-class TopicFavourite(models.Model):
-    author = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    is_favourite = models.BooleanField(default=False)

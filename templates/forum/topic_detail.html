@@ -24,10 +24,10 @@
             </ul>
         </div>
     </div>
-    <main class="pt-2">
+    <main class="container-fluid pt-2 pr-0">
         <div class="container-fluid">
             <div class="PostStream-item">
-                <article class="Post undefined CommentPost Post--edited">
+                <article id="topicAuthor" class="Post undefined CommentPost Post--edited">
                     <div>
                         <div class="Post-header mb-1">
                             <ul>
@@ -35,6 +35,7 @@
                                     <div class="PostUser"><h3><a href="{{ topic.author.get_absolute_url }}"><img
                                             class="Avatar PostUser-avatar Avatar-Ques"
                                             src="
+
                                                     {% if topic.author.avatar %}{{ topic.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
                                         <span class="username"><a
                                                 href="{{ topic.author.get_absolute_url }}">{{ topic.author.user.get_full_name }}</a></span></a>
@@ -63,74 +64,28 @@
                 </article>
             </div>
         </div>
-        <div class="App-content mb-3">
+        <div class="container-fluid App-content mb-3">
             <div id="content">
                 <div class="DiscussionPage">
                     <div class="DiscussionPage-discussion">
                         <!--right side nav-->
                         <div class="container">
-                            <nav class="DiscussionPage-nav">
-                                <ul>
-                                    <li class="item-controls">
-                                        <div class="ButtonGroup Dropdown dropdown App-primaryControl Dropdown--split itemCount1">
-                                            <a href="#">
-                                                <button class=" SplitDropdown-button Button Button--primary secondary-color hasIcon"
-                                                        type="button" title="Log In to Reply"><i
-                                                        class="icon fa fa-fw fa-reply Button-icon"></i><span
-                                                        class="Button-label">Reply</span></button>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li class="item-subscription">
-                                        <div class="Dropdown ButtonGroup SubscriptionMenu">
-                                            <button class="Button SubscriptionMenu-button SubscriptionMenu-button--false hasIcon"
-                                                    title="" type="button"
-                                                    data-original-title="Get an email when there are new posts"><i
-                                                    class="icon fa fa-fw fa-star-o Button-icon"></i><span
-                                                    class="Button-label">Follow</span></button>
-                                            <button class="Dropdown-toggle Button Button--icon SubscriptionMenu-button--false"
-                                                    data-toggle="dropdown" aria-expanded="false"><i
-                                                    class="icon fa fa-fw fa-caret-down Button-icon"></i></button>
-                                            <ul class="Dropdown-menu dropdown-menu Dropdown-menu--right">
-                                                <li>
-                                                    <button class="SubscriptionMenuItem hasIcon"><i
-                                                            class="icon fa fa-fw fa-check Button-icon"></i><span
-                                                            class="SubscriptionMenuItem-label"><i
-                                                            class="icon fa fa-fw fa-star-o Button-icon"></i><strong>Not Following</strong><span
-                                                            class="SubscriptionMenuItem-description">Be notified only when @mentioned.</span></span>
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button class="SubscriptionMenuItem hasIcon"><span
-                                                            class="SubscriptionMenuItem-label"><i
-                                                            class="icon fa fa-fw fa-star Button-icon"></i><strong>Following</strong><span
-                                                            class="SubscriptionMenuItem-description">Be notified of all replies.</span></span>
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button class="SubscriptionMenuItem hasIcon"><span
-                                                            class="SubscriptionMenuItem-label"><i
-                                                            class="icon fa fa-fw fa-eye-slash Button-icon"></i><strong>Ignoring</strong><span
-                                                            class="SubscriptionMenuItem-description">Never be notified. Hide from the discussion list.</span></span>
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </nav>
                             <!-- main topic-->
-                            <div class="DiscussionPage-stream">
+                            <div class="">
                                 <div class="PostStream">
                                     <div class="PostStream-item">
                                         <article class="Post undefined EventPost DiscussionTaggedPost">
                                             <div><i class="icon fa fa-fw fa-tag EventPost-icon"></i>
-                                                <div class="EventPost-info"><span class="username bold">
+                                                <div class="EventPost-info">
+                                                    <span class="username bold">
                                                 {% if topic.number_of_answers %}
-                                                    Got {{ topic.number_of_answers }} answer{{ topic.number_of_answers|pluralize }}
+                                                    Got {{ topic.number_of_answers }}
+                                                    answer{{ topic.number_of_answers|pluralize }}
                                                 {% else %}
                                                     No answers yet. Be the first to answer!!!
-                                                {% endif %}</span></div>
+                                                {% endif %}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </article>
                                     </div>
@@ -142,6 +97,7 @@
                                                 src="{% if request.user.userprofile.avatar %}{{ request.user.userprofile.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
                                                 class="Avatar PostUser-avatar"/>
                                             <div>
+                                                Write a reply...
                                                 {{ form.non_field_errors }}
                                                 {% if form.content.errors %}
                                                     {% for error in form.content.errors %}
@@ -150,8 +106,10 @@
                                                 {% endif %}
                                                 <form action="" method="post">
                                                     {% csrf_token %}
-                                                    <input type="hidden" name="topic" id="id_topic" value="{{ topic.id }}" />
-                                                    <input type="hidden" name="author" id="id_author" value="{{ request.user.userprofile.id }}" />
+                                                    <input type="hidden" name="topic" id="id_topic"
+                                                           value="{{ topic.id }}"/>
+                                                    <input type="hidden" name="author" id="id_author"
+                                                           value="{{ request.user.userprofile.id }}"/>
                                                     {{ form.content }}
                                                     <button class="btn btn-primary" type="submit">Reply</button>
                                                 </form>

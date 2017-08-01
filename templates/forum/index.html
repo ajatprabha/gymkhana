@@ -7,7 +7,14 @@
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/forumindex.css' %}">
-    <link rel="stylesheet" href="{% static 'css/forum.css' %}">{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/forum.css' %}">
+    <style>
+        .item-excerpt img {
+            max-height: 10rem;
+            margin: 0 auto;
+        }
+    </style>
+{% endblock %}
 {% block navtitle %}Students' Gymkhana Forum{% endblock %}
 
 {% block main %}
@@ -51,6 +58,7 @@
                                                     data-original-title="">
                                                 <img class="Avatar"
                                                      src="
+
                                                              {% if topic.author.avatar %}{{ topic.author.avatar.crop.50x50 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"></a>
                                                 <a href="{{ topic.get_absolute_url }}"
                                                    class="DiscussionListItem-main">
@@ -69,7 +77,6 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-
                                                         <span style="font-size: small">
                                                             <b>{{ topic.author.user.get_full_name }}</b>, {{ topic.author.user.userprofile.get_prog_display }}, {{ topic.author.user.userprofile.get_branch_display }}, {{ topic.author.user.userprofile.get_year_display }}
                                                         </span>

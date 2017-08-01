@@ -93,7 +93,6 @@ class UserProfile(models.Model):
         ('EE', 'Electrical Engineering'),
         ('ME', 'Mechanical Engineering'),
     )
-
     # Database Model
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email_confirmed = models.BooleanField(default=False)

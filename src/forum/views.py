@@ -11,13 +11,33 @@ from .mixins import UserAuthorMixin
 
 
 class IndexView(LoginRequiredMixin, ListView):
-    model = Topic
     template_name = 'forum/index.html'
     context_object_name = 'topic_list'
-    paginate_by = 15
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
+        context['range'] = range(context["paginator"].num_pages)
+        return context
+
+    def get_queryset(self):
+        if self.request.GET.get('q'):
+            query = self.request.GET.get('q')
+            return Topic.objects.search(query)
+        else:
+            return Topic.objects.all()
+
+
+class AnswerView(LoginRequiredMixin, ListView):
+    template_name = 'forum/answerd_by_user.html'
+    context_object_name = 'topic_list'
+    paginate_by = 20
+
+    def get_queryset(self):
+        return Topic.objects.filter(author=self.request.user.userprofile)
+
+    def get_context_data(self, **kwargs):
+        context = super(AnswerView, self).get_context_data(**kwargs)
         context['range'] = range(context["paginator"].num_pages)
         return context
 

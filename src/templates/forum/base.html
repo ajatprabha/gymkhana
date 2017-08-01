@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
     {% endblock %}
-    <title>{% block title %}Students' Gymkhana{% endblock %}</title>
+    <title>{% block title %}Students' Gymkhana Forum{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     {% block mdbcss %}<link rel="stylesheet" href="{% static 'css/compiled.min.css' %}">{% endblock %}
@@ -50,7 +50,7 @@
                         <ul id="side-menu" class="collapsible collapsible-accordion">
                             <li id="menu-item-12031"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12031">
-                                <a class="collapsible-header waves-effect" href="#">
+                                <a class="collapsible-header waves-effect" href="{{ request.user.userprofile.get_absolute_url }}">
                                     <i class="fa fa-user"></i>
                                     Profile</a></li>
                             <li id="menu-item-13028"
@@ -64,32 +64,18 @@
                                     <ul class="sub-menu">
                                         <li id="menu-item-338"
                                             class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-338">
-                                            <a class="collapsible-header waves-effect" href="#">All Questions</a></li>
+                                            <a class="collapsible-header waves-effect" href="{% url 'forum:index' %}">All Questions</a></li>
                                         <li id="menu-item-338"
                                             class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-338">
-                                            <a class="collapsible-header waves-effect" href="#">Trending</a></li>
-                                        <li id="menu-item-338"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-338">
-                                            <a class="collapsible-header waves-effect" href="#">Answered By You</a></li>
-                                        <li id="menu-item-338"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-338">
-                                            <a class="collapsible-header waves-effect" href="#">Marked</a></li>
-                                        <li id="menu-item-338"
-                                            class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-338">
-                                            <a class="collapsible-header waves-effect" href="#">Feedback</a></li>
+                                            <a class="collapsible-header waves-effect" href="{% url 'forum:answered-by-user' %}">Answered By You</a></li>
                                     </ul>
                                 </div>
                             </li>
-                            <li id="menu-item-12031"
+                            {% comment %}<li id="menu-item-12031"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12031">
                                 <a class="collapsible-header waves-effect" href="#">
                                     <i class="fa fa-calendar"></i>
-                                    Events</a></li>
-                            <li id="menu-item-12031"
-                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12031">
-                                <a class="collapsible-header waves-effect" href="#">
-                                    <i class="fa fa-cogs"></i>
-                                    Settings</a></li>
+                                    Events</a></li>{% endcomment %}
                             <li id="menu-item-12031"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12031">
                                 <a class="collapsible-header waves-effect" href="{% url 'main:index' %}">
@@ -165,9 +151,8 @@
 <!--Footer-->
 {% block footer %}
     <!--Footer-->
-    <footer class="page-footer center-on-small-only">
-
-        <!--Footer Links-->
+    <footer class="page-footer center-on-small-only pt-0">
+        {% comment %}<!--Footer Links-->
         <div class="container-fluid">
             <div class="row">
 
@@ -225,7 +210,7 @@
                 <li><a class="btn-floating btn-small btn-ins"><i class="fa fa-instagram"> </i></a></li>
             </ul>
         </div>
-        <!--/.Social buttons-->
+        <!--/.Social buttons-->{% endcomment %}
         <!--Copyright-->
         <div class="footer-copyright">
             <div class="container-fluid">

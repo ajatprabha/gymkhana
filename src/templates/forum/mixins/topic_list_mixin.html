@@ -23,6 +23,10 @@
                             <div class="col-md-2 pull-right">
                                 <span style="font-size: small">
                                     <span class="mr-2" data-toggle="tooltip" data-placement="left"
+                                          title="Upvote{{ topic.upvotes.count|pluralize }}">
+                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i> {{ topic.upvotes.count }}
+                                    </span>
+                                    <span class="mr-2" data-toggle="tooltip" data-placement="left"
                                           title="Answer{{ topic.answer_set.count|pluralize }}">
                                         <i class="fa fa-comment-o" aria-hidden="true"></i> {{ topic.answer_set.count }}
                                     </span>

@@ -1,10 +1,34 @@
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import pre_save
 from .utils import unique_slug_generator
 from oauth.models import UserProfile
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.urlresolvers import reverse
 from hitcount.models import HitCountMixin
+
+
+class TopicQueryset(models.query.QuerySet):
+    def search(self, query):
+        if query:
+            return self.filter(
+                Q(author__user__first_name__icontains=query) |
+                Q(author__user__last_name__icontains=query) |
+                Q(title__icontains=query) |
+                Q(content__icontains=query) |
+                Q(tags__icontains=query) |
+                Q(answer__content__icontains=query)
+            ).distinct()
+        else:
+            return self.none()
+
+
+class TopicManager(models.Manager):
+    def get_topic_queryset(self):
+        return TopicQueryset(self.model, using=self._db)
+
+    def search(self, query):
+        return self.get_topic_queryset().search(query)
 
 
 class Topic(models.Model, HitCountMixin):
@@ -23,6 +47,8 @@ class Topic(models.Model, HitCountMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(unique=True, blank=True)
 
+    objects = TopicManager()
+
     @property
     def number_of_answers(self):
         return self.answer_set.count()
@@ -35,6 +61,9 @@ class Topic(models.Model, HitCountMixin):
 
     def get_api_upvote_toggle_url(self):
         return reverse('forum_api:topic-upvote-toggle', kwargs={'slug': self.slug})
+
+    def get_edit_url(self):
+        return reverse('forum:update_topic', kwargs={'slug': self.slug})
 
     def get_delete_url(self):
         return reverse('forum:delete_topic', kwargs={'slug': self.slug})

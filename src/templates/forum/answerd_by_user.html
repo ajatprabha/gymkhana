@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load humanize %}
 {% load hitcount_tags %}
-{% block title %}Students' Gymkhana Forum{% endblock %}
+{% block title %}Topics answered by you | {{ block.super }}{% endblock %}
 {% block mdbcss %}
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
 {% block customstyles %}
@@ -15,23 +15,13 @@
         }
     </style>
 {% endblock %}
-{% block navtitle %}Students' Gymkhana Forum{% endblock %}
+{% block navtitle %}Topics answered by you{% endblock %}
 
 {% block main %}
     <div class="fixed-action-btn-fix"><a class="btn-floating btn-large red waves-effect waves-light"
                                          data-placement="left" data-toggle="tooltip" href="{% url 'forum:add_topic' %}"
                                          role="button" title="" data-original-title="Create New Topic"><i
             class="fa fa-plus"></i></a></div>
-    <div class="container">
-        <form method="GET" action="">
-            <div class="md-form input-group">
-                <input type="search" role="search" name="q" class="form-control" value="{{ request.GET.q }}" id="id_q"
-                       placeholder="Search forum...">
-                <span class="input-group-btn"><button class="btn btn-primary btn-lg" type="submit"><i
-                        class="fa fa-search"></i></button></span>
-            </div>
-        </form>
-    </div>
     <div class="App-content rellax header mb-3">
         <div id="content">
             <div class="IndexPage">

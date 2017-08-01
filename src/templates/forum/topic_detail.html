@@ -41,10 +41,6 @@
                                     <div class="PostUser"><h3><a href="{{ topic.author.get_absolute_url }}"><img
                                             class="Avatar PostUser-avatar Avatar-Ques"
                                             src="
-
-
-
-
                                                     {% if topic.author.avatar %}{{ topic.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
                                         <span class="username"><a
                                                 href="{{ topic.author.get_absolute_url }}">{{ topic.author.user.get_full_name }}</a></span></a>
@@ -60,9 +56,9 @@
                         <!--topic content-->
                         <div class="Post-body">{{ topic.content|safe }}</div>
                         <aside class="Post-actions">
-                            <ul class="smooth-scroll">
+                            <ul>
                                 {% include 'forum/mixins/upvote_mixin.html' with object=topic %}
-                                <li class="item-reply ml-2 mr-5">
+                                <li class="item-reply smooth-scroll ml-2">
                                     <a href="#reply" data-toggle="tooltip" data-placement="left" title="Reply">
                                         <button class="Button Button--link" type="button" data-toggle="collapse"
                                                 data-target="#collapseReply" aria-expanded="false"
@@ -71,7 +67,7 @@
                                     </a>
                                 </li>
                                 {% if topic.author == request.user.userprofile %}
-                                    <li class="item-reply">
+                                    <li class="item-reply mr-2 ml-5">
                                         <form action="{{ topic.get_delete_url }}" method="post"
                                               onsubmit="return confirm('Are you sure you want to delete this topic?')">
                                             {% csrf_token %}
@@ -80,6 +76,14 @@
                                                 <span class="Button-label"><i class="fa fa-trash-o"></i></span>
                                             </button>
                                         </form>
+                                    </li>
+                                    <li class="item-reply">
+                                    <a href="{{ topic.get_edit_url }}" data-toggle="tooltip" data-placement="left"
+                                       title="Edit">
+                                        <button class="Button Button--link" type="button">
+                                            <span class="Button-label"><i class="fa fa-pencil"></i></span>
+                                        </button>
+                                    </a>
                                     </li>
                                 {% endif %}
                             </ul>
@@ -119,6 +123,7 @@
                                     <article class="Post ReplyPlaceholder">
                                         <div class="Post-header"><img
                                                 src="
+
                                                         {% if request.user.userprofile.avatar %}{{ request.user.userprofile.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
                                                 class="Avatar PostUser-avatar"/>
                                             <div>

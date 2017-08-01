@@ -1,9 +1,9 @@
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView, FormView, View
 from django.views.generic.detail import SingleObjectMixin
-from .models import Topic
+from .models import Topic, Answer
 from .forms import TopicForm, AnswerForm
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import render, Http404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from hitcount.views import HitCountDetailView
@@ -86,6 +86,16 @@ class TopicUpdateView(UserAuthorMixin, UpdateView):
 class TopicDeleteView(UserAuthorMixin, DeleteView):
     model = Topic
     success_url = reverse_lazy('forum:index')
+
+
+class AnswerDeleteView(UserAuthorMixin, DeleteView):
+    model = Answer
+
+    def get(self, request, *args, **kwargs):
+        raise Http404
+
+    def get_success_url(self):
+        return self.get_object().get_absolute_url()
 
 
 @login_required

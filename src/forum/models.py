@@ -66,5 +66,11 @@ class Answer(models.Model):
     def get_api_upvote_toggle_url(self):
         return reverse('forum_api:answer-upvote-toggle', kwargs={'id': self.id})
 
+    def get_absolute_url(self):
+        return self.topic.get_absolute_url()
+
+    def get_delete_url(self):
+        return reverse('forum:delete_answer', kwargs={'pk': self.pk})
+
     def __str__(self):
         return "On: " + str(self.topic.title) + " by " + str(self.author.user.first_name) + " " + str(self.author.user.last_name)

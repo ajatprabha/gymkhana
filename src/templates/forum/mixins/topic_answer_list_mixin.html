@@ -9,9 +9,7 @@
                             <div class="PostUser"><h3><a
                                     href="{{ answer.author.get_absolute_url }}"><img
                                     class="Avatar PostUser-avatar"
-                                    src="
-
-                                            {% if answer.author.avatar %}{{ answer.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
+                                    src="{% if answer.author.avatar %}{{ answer.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
                                 <span class="username"><a
                                         href="{{ answer.author.get_absolute_url }}"> {{ answer.author.user.get_full_name }}</a></span></a>
                             </h3>
@@ -28,6 +26,7 @@
                      class="Post-body">{{ answer.content|safe }}</div>
                 <aside class="Post-actions">
                     <ul>
+                        {% include 'forum/mixins/upvote_mixin.html' with object=answer %}
                         {% if answer.author == request.user.userprofile %}
                             <li class="item-reply">
                                 <form action="{{ answer.get_delete_url }}" method="post"
@@ -39,13 +38,6 @@
                                 </form>
                             </li>
                         {% endif %}
-                        <li class="item-reply">
-                            <a href="#">
-                                <button class="Button Button--link" type="button" title="Upvote">
-                                    <span class="Button-label"><i class="fa fa-thumbs-up"></i></span>
-                                </button>
-                            </a>
-                        </li>
                     </ul>
                 </aside>
             </div>

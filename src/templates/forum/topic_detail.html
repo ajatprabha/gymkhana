@@ -61,6 +61,15 @@
                         <div class="Post-body">{{ topic.content|safe }}</div>
                         <aside class="Post-actions">
                             <ul class="smooth-scroll">
+                                {% include 'forum/mixins/upvote_mixin.html' with object=topic %}
+                                <li class="item-reply ml-2 mr-5">
+                                    <a href="#reply" data-toggle="tooltip" data-placement="left" title="Reply">
+                                        <button class="Button Button--link" type="button" data-toggle="collapse"
+                                                data-target="#collapseReply" aria-expanded="false"
+                                                aria-controls="collapseReply">
+                                            <span class="Button-label"><i class="fa fa-reply"></i></span></button>
+                                    </a>
+                                </li>
                                 {% if topic.author == request.user.userprofile %}
                                     <li class="item-reply">
                                         <form action="{{ topic.get_delete_url }}" method="post"
@@ -73,13 +82,6 @@
                                         </form>
                                     </li>
                                 {% endif %}
-                                <li class="item-reply"><a href="#reply" data-toggle="tooltip" data-placement="left" title="Reply">
-                                    <button class="Button Button--link" type="button" data-toggle="collapse"
-                                            data-target="#collapseReply" aria-expanded="false"
-                                            aria-controls="collapseReply">
-                                        <span class="Button-label"><i class="fa fa-reply"></i></span></button>
-                                </a>
-                                </li>
                             </ul>
                         </aside>
                     </div>
@@ -116,7 +118,8 @@
                                 <div class="PostStream-item collapse" id="collapseReply">
                                     <article class="Post ReplyPlaceholder">
                                         <div class="Post-header"><img
-                                                src="{% if request.user.userprofile.avatar %}{{ request.user.userprofile.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
+                                                src="
+                                                        {% if request.user.userprofile.avatar %}{{ request.user.userprofile.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
                                                 class="Avatar PostUser-avatar"/>
                                             <div>
                                                 Post answer/reply...
@@ -155,6 +158,47 @@
 
 {% block customscripts %}
     {{ form.media }}
+    <script>
+        function updateCount(btn, upvoteCount, help_text) {
+            btn.find('.upvoteCount').text(upvoteCount);
+            btn.attr('title', help_text);
+            btn.attr('data-original-title', help_text);
+        }
+
+        $('.upvote-btn').click(function (e) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            var this_ = $(this);
+            var upvoteUrl = this_.attr("data-url");
+            var upvoteCount = parseInt(this_.attr("data-upvotes"));
+            $.ajax({
+                url: upvoteUrl,
+                method: 'GET',
+                data: {},
+                success: function (data) {
+                    if (data.updated) {
+                        if (data.upvoted) {
+                            upvoteCount++;
+                            updateCount(this_, upvoteCount, "Remove Upvote");
+                            this_.attr("data-upvotes", upvoteCount);
+                        }
+                        else {
+                            upvoteCount--;
+                            updateCount(this_, upvoteCount, "Upvote");
+                            this_.attr("data-upvotes", upvoteCount);
+                        }
+                    }
+                    else {
+                        return alert("Unable to perform action! Check if you're logged by refreshing!");
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    console.log('error')
+                }
+            })
+        })
+    </script>
 {% endblock %}
 
 {% block footer %}

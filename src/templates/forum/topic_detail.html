@@ -5,7 +5,13 @@
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
 {% block customstyles %}
     <link rel="stylesheet" href="{% static 'css/topicdetail.css' %}">
-    <link rel="stylesheet" href="{% static 'css/forum.css' %}">{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/forum.css' %}">
+    <style>
+        article#topicAuthor {
+            min-height: 10rem;
+        }
+    </style>
+{% endblock %}
 {% block navtitle %}{{ topic.title }} - detail{% endblock %}
 
 
@@ -36,6 +42,9 @@
                                             class="Avatar PostUser-avatar Avatar-Ques"
                                             src="
 
+
+
+
                                                     {% if topic.author.avatar %}{{ topic.author.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
                                         <span class="username"><a
                                                 href="{{ topic.author.get_absolute_url }}">{{ topic.author.user.get_full_name }}</a></span></a>
@@ -51,11 +60,24 @@
                         <!--topic content-->
                         <div class="Post-body">{{ topic.content|safe }}</div>
                         <aside class="Post-actions">
-                            <ul>
-                                <li class="item-reply"><a href="#">
-                                    <button class="Button Button--link" type="button"
-                                            title="Reply">
-                                        <span class="Button-label">Reply</span></button>
+                            <ul class="smooth-scroll">
+                                {% if topic.author == request.user.userprofile %}
+                                    <li class="item-reply">
+                                        <form action="{{ topic.get_delete_url }}" method="post"
+                                              onsubmit="return confirm('Are you sure you want to delete this topic?')">
+                                            {% csrf_token %}
+                                            <button class="Button Button--link" type="submit" data-toggle="tooltip"
+                                                    data-placement="left" title="Delete">
+                                                <span class="Button-label"><i class="fa fa-trash-o"></i></span>
+                                            </button>
+                                        </form>
+                                    </li>
+                                {% endif %}
+                                <li class="item-reply"><a href="#reply" data-toggle="tooltip" data-placement="left" title="Reply">
+                                    <button class="Button Button--link" type="button" data-toggle="collapse"
+                                            data-target="#collapseReply" aria-expanded="false"
+                                            aria-controls="collapseReply">
+                                        <span class="Button-label"><i class="fa fa-reply"></i></span></button>
                                 </a>
                                 </li>
                             </ul>
@@ -71,7 +93,7 @@
                         <!--right side nav-->
                         <div class="container">
                             <!-- main topic-->
-                            <div class="">
+                            <div id="reply">
                                 <div class="PostStream">
                                     <div class="PostStream-item">
                                         <article class="Post undefined EventPost DiscussionTaggedPost">
@@ -91,13 +113,13 @@
                                     </div>
                                 </div>
                                 <!--write new answer div-->
-                                <div class="PostStream-item">
+                                <div class="PostStream-item collapse" id="collapseReply">
                                     <article class="Post ReplyPlaceholder">
                                         <div class="Post-header"><img
                                                 src="{% if request.user.userprofile.avatar %}{{ request.user.userprofile.avatar.crop.200x200 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
                                                 class="Avatar PostUser-avatar"/>
                                             <div>
-                                                Write a reply...
+                                                Post answer/reply...
                                                 {{ form.non_field_errors }}
                                                 {% if form.content.errors %}
                                                     {% for error in form.content.errors %}

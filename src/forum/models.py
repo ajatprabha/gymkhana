@@ -36,6 +36,9 @@ class Topic(models.Model, HitCountMixin):
     def get_api_upvote_toggle_url(self):
         return reverse('forum_api:topic-upvote-toggle', kwargs={'slug': self.slug})
 
+    def get_delete_url(self):
+        return reverse('forum:delete_topic', kwargs={'slug': self.slug})
+
     def tags_as_list(self):
         if self.tags == '' or not self.tags:
             return ''

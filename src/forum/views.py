@@ -87,6 +87,9 @@ class TopicDeleteView(UserAuthorMixin, DeleteView):
     model = Topic
     success_url = reverse_lazy('forum:index')
 
+    def get(self, request, *args, **kwargs):
+        raise Http404
+
 
 class AnswerDeleteView(UserAuthorMixin, DeleteView):
     model = Answer

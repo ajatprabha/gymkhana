@@ -5,5 +5,5 @@ app_name = 'konnekt'
 
 urlpatterns = [
     url(r'^$', HomeView.as_view(), name='index'),
-    url(r'^search$', SearchView.as_view(), name='search'),
+    url(r'^search/$', SearchView.as_view(), name='search'),
 ]

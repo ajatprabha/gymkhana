@@ -1,6 +1,6 @@
 {% extends 'forum/base.html' %}
 {% load staticfiles %}
-{% block title %}{{ topic.title }} - {{ topic.number_of_answers }} answers{% endblock %}
+{% block title %}{{ topic.title }} - {{ topic.number_of_answers }} answer{{ topic.number_of_answers|pluralize }} | {{ block.super }}{% endblock %}
 {% block mdbcss %}
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
 {% block customstyles %}
@@ -151,7 +151,6 @@
                                     <!--answers-->
                                     {% include 'forum/mixins/topic_answer_list_mixin.html' with answer_list=answer_list %}
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -163,47 +162,6 @@
 
 {% block customscripts %}
     {{ form.media }}
-    <script>
-        function updateCount(btn, upvoteCount, help_text) {
-            btn.find('.upvoteCount').text(upvoteCount);
-            btn.attr('title', help_text);
-            btn.attr('data-original-title', help_text);
-        }
-
-        $('.upvote-btn').click(function (e) {
-            e.stopImmediatePropagation();
-            e.preventDefault();
-            var this_ = $(this);
-            var upvoteUrl = this_.attr("data-url");
-            var upvoteCount = parseInt(this_.attr("data-upvotes"));
-            $.ajax({
-                url: upvoteUrl,
-                method: 'GET',
-                data: {},
-                success: function (data) {
-                    if (data.updated) {
-                        if (data.upvoted) {
-                            upvoteCount++;
-                            updateCount(this_, upvoteCount, "Remove Upvote");
-                            this_.attr("data-upvotes", upvoteCount);
-                        }
-                        else {
-                            upvoteCount--;
-                            updateCount(this_, upvoteCount, "Upvote");
-                            this_.attr("data-upvotes", upvoteCount);
-                        }
-                    }
-                    else {
-                        return alert("Unable to perform action! Check if you're logged by refreshing!");
-                    }
-                },
-                error: function (error) {
-                    console.log(error);
-                    console.log('error')
-                }
-            })
-        })
-    </script>
 {% endblock %}
 
 {% block footer %}

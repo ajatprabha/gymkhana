@@ -11,7 +11,7 @@
             height: 100%;
         }
 
-        .background {
+        .konnekt-background {
             margin-left: 240px;
             height: 100%;
             background: url('{% static 'assets/others/konnekt.svg' %}') no-repeat center;
@@ -19,14 +19,14 @@
         }
 
         @media (max-width: 540px) {
-            .background {
+            .konnekt-background {
                 background: url('{% static 'assets/others/konnekt-sm.svg' %}') no-repeat center;
                 background-size: cover;
             }
         }
 
         @media (max-width: 1440px) {
-            .background {
+            .konnekt-background {
                 margin-left: 0;
             }
         }
@@ -38,7 +38,7 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div class="background">
+    <div class="konnekt-background">
         <main>
             <div class="container">
                 <div class="row flex-center">

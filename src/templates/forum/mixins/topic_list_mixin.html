@@ -1,4 +1,9 @@
 {% load staticfiles humanize %}
+{% if not topic_list %}
+    <div class="flex-center" style="height: 50vh">
+        <h2 class="h2-responsive animated fadeIn">No topics found</h2>
+    </div>
+{% else %}
 {% for topic in topic_list %}
     <li>
         <div class="DiscussionListItem"><a
@@ -59,3 +64,4 @@
         </div>
     </li>
 {% endfor %}
+{% endif %}

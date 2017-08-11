@@ -86,7 +86,8 @@ class RegisterView(CreateView):
     def form_valid(self, form):
         user = form.save()
         RegisterView.create_profile(user, **form.cleaned_data)
-        messages.success(self.request, 'Hi %s,' % user.get_full_name())
+        messages.success(self.request, user.get_full_name(), extra_tags='username')
+        messages.success(self.request, user.userprofile.get_activation_url, extra_tags='activation-link')
         return super(RegisterView, self).form_valid(form)
 
     @staticmethod
@@ -97,10 +98,10 @@ class RegisterView(CreateView):
                                                  phone=kwargs['phone'], branch=kwargs['branch'])
         userprofile.save()
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     if self.request.user.is_authenticated:
-    #         logout(self.request)
-    #     return super(RegisterView, self).dispatch(request, *args, *kwargs)
+        # def dispatch(self, request, *args, **kwargs):
+        #     if self.request.user.is_authenticated:
+        #         logout(self.request)
+        #     return super(RegisterView, self).dispatch(request, *args, *kwargs)
 
 
 class RegisterSuccessView(TemplateView):
@@ -109,7 +110,7 @@ class RegisterSuccessView(TemplateView):
 
 class AccountActivationView(RedirectView):
     def get(self, request, uidb64=None, token=None, *args, **kwargs):
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             logout(self.request)
         activated_user = UserProfile.objects.activate_account(uidb64=uidb64, token=token)
 

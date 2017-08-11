@@ -32,7 +32,8 @@
                                 <form action="{{ answer.get_delete_url }}" method="post"
                                         onsubmit="return confirm('Are you sure you want to delete this answer?')">
                                     {% csrf_token %}
-                                    <button class="Button Button--link" type="submit" title="Delete">
+                                    <button class="Button Button--link" type="submit" data-toggle="tooltip"
+                                            data-placement="left" title="Delete">
                                         <span class="Button-label"><i class="fa fa-trash-o"></i></span>
                                     </button>
                                 </form>

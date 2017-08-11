@@ -12600,7 +12600,7 @@ button.picker__close:focus {
   padding-left: 0; }
 
 body {
-  background-color: #eee; }
+  background-color: #fff; }
 
 .fa h2 {
   font-family: "Roboto", sans-serif;
@@ -13250,3 +13250,51 @@ ul.striped li {
 .mdb-skin .dropdown-primary .dropdown-content li a:hover,
 .mdb-skin .dropdown-primary .dropdown-content li span:hover {
   background-color: #1dade2; }
+
+.side-nav .li-user-view, .side-nav .li-userView {
+    position: relative;
+    height: 175px;
+    z-index: 0;
+} .side-nav .user-view {
+    padding: 32px;
+    height: 175px;
+    cursor: default;
+}
+
+.side-nav li .background, .side-nav li .background {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+.side-nav .li-user-view .background img, .side-nav .li-userView .background img {
+    height: 100%;
+}
+
+.side-nav .user-view>a, .side-nav .userView>div {
+    height: auto;
+    padding: 0;
+    line-height: 20px;
+}
+
+.side-nav .user-view .name, .side-nav .userView .name {
+    margin-top: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 35px;
+}
+
+.side-nav .user-view .email, .side-nav .userView .email {
+    padding-bottom: 16px;
+    font-weight: 400;
+}
+
+.side-nav .user-view img.circle {
+    height: 64px;
+    width: 64px;
+    border-radius: 40px;
+    border: 2px solid #fff;
+}

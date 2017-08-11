@@ -26,7 +26,7 @@ DEBUG = True
 
 HTML_MINIFY = False
 
-ALLOWED_HOSTS = ['students.iitj.ac.in', '127.0.0.1']
+ALLOWED_HOSTS = ['students.iitj.ac.in', '127.0.0.2']
 
 # Application definition
 

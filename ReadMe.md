@@ -25,6 +25,3 @@ Procedure:
 - Make database migrations with `python manage.py makemigrations` followed by `python manage.py migrate`
 - Create a superuser with `python manage.py createsuperuser`
 - Run development server on localhost with `python manage.py runserver`
-#### SuperUser Details
-    username: admin 
-    password: golmaalkarke9211

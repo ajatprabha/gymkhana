@@ -19,6 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
 
+admin.site.site_title = 'Gymkhana Administration'
+admin.site.site_header = 'Gymkhana Administration'
+admin.site.index_title = 'Control Panel'
+
 urlpatterns = [
     url(
         '^login/$',

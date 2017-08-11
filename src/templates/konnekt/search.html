@@ -23,7 +23,7 @@
             </div>
         </form>
         <hr/>
-        <div class="col-md-12" style="min-height: 40vh;">
+        <div class="col-md-12" style="min-height: 65vh;">
             {% if not userprofile_list %}
                 <div class="flex-center" style="height: 40vh;">
                     <h4 class="h4-responsive">No results matching your search!</h4>
@@ -53,23 +53,6 @@
                     </div>
                 {% endfor %}
             </div>
-            {% comment %}<div class="media mb-1">
-                    <a class="media-left waves-light" href="{% url 'oauth:detail' user.id %}">
-                        <img class="rounded-circle" src="
-
-                                {% if user.avatar %}{{ user.avatar.crop.100x100 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
-                             alt="Generic placeholder image">
-                    </a>
-                    <div class="media-body ml-3">
-                        <h4 class="media-heading">{{ user.user.get_full_name }}</h4>
-                        <h4 class="d-flex flex-wrap">
-                            {% for skill in user.skills_as_list %}
-                                <span class="chip"><a
-                                        href="{% url 'konnekt:search' %}?q={{ skill|urlencode }}">{{ skill }}</a></span>{% endfor %}
-                        </h4>
-                    </div>
-                </div>{% endcomment %}
-
         </div>
     </div>
 {% endblock %}

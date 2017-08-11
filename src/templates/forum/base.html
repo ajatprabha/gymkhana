@@ -10,7 +10,10 @@
     <title>{% block title %}Students' Gymkhana Forum{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-    {% block mdbcss %}<link rel="stylesheet" href="{% static 'css/compiled.min.css' %}">{% endblock %}
+    {% block mdbcss %}
+        <link rel="stylesheet" href="{% static 'css/compiled.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">
+    {% endblock %}
     <link rel="icon" href="/static/assets/default-favicon.ico">
     {% block customstyles %}
     {% endblock %}
@@ -23,26 +26,23 @@
             <!-- Sidebar navigation -->
             <ul id="slide-out" class="side-nav fixed sn-bg-1 custom-scrollbar">
                 <!-- Logo -->
-                <li>
-                    <div class="user-box">
-                        <img src="{% if request.user.userprofile.avatar %}{{ request.user.userprofile.avatar.crop.150x150 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}"
-                             class="img-fluid rounded-circle">
-                        <p class="user text-center text-primary">{{ request.user.get_full_name }}</p>
+                <li class="li-user-view">
+                    <div class="background">
+                        <img src="{% include 'oauth/mixins/user_cover_src_small_mixin.html' with userprofile=request.user.userprofile %}">
+                    </div>
+                    <div class="hm-black-light">
+                        <div class="user-view mask">
+                            <div><img class="circle" src="
+
+
+                                    {% if request.user.userprofile.avatar %}{{ request.user.userprofile.avatar.crop.64x64 }}{% else %}{% static 'assets/others/missing.png' %}{% endif %}">
+                            </div>
+                            <div><span class="white-text name">{{ request.user.get_full_name }}</span></div>
+                            <div><span class="white-text email">{{ request.user.email }}</span></div>
+                        </div>
                     </div>
                 </li>
                 <!--/. Logo -->
-                <!--Social-->
-                <li>
-                    <form class="search-form" role="search" method="GET"
-                          autocomplete="off">
-                        <div class="form-group waves-light">
-                            <input type="text" class="form-control mb-0" name="mdw_serach" placeholder="Search"
-                                   id="mdw_main_search">
-                        </div>
-                        <div class="dropdown-wrapper"></div>
-                    </form>
-                </li>
-                <!--/Social-->
                 <br>
                 {% block sidenavlower %}
                     <!-- Side navigation categories -->
@@ -50,7 +50,8 @@
                         <ul id="side-menu" class="collapsible collapsible-accordion">
                             <li id="menu-item-12031"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12031">
-                                <a class="collapsible-header waves-effect" href="{{ request.user.userprofile.get_absolute_url }}">
+                                <a class="collapsible-header waves-effect"
+                                   href="{{ request.user.userprofile.get_absolute_url }}">
                                     <i class="fa fa-user"></i>
                                     Profile</a></li>
                             <li id="menu-item-13028"
@@ -64,10 +65,12 @@
                                     <ul class="sub-menu">
                                         <li id="menu-item-338"
                                             class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-338">
-                                            <a class="collapsible-header waves-effect" href="{% url 'forum:index' %}">All Questions</a></li>
+                                            <a class="collapsible-header waves-effect" href="{% url 'forum:index' %}">All
+                                                Questions</a></li>
                                         <li id="menu-item-338"
                                             class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-338">
-                                            <a class="collapsible-header waves-effect" href="{% url 'forum:answered-by-user' %}">Answered By You</a></li>
+                                            <a class="collapsible-header waves-effect"
+                                               href="{% url 'forum:answered-by-user' %}">Answered By You</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -232,6 +235,7 @@
     <script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="{% static 'js/compiled.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/upvote-toggle.js' %}"></script>
 {% endblock %}
 
 {% block customscripts %}
@@ -248,7 +252,7 @@
             $('[data-toggle="tooltip"]').tooltip({
                 'trigger': 'hover'
             })
-        })
+        });
     </script>
 {% endblock %}
 </body>

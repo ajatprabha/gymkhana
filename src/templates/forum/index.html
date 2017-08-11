@@ -2,7 +2,6 @@
 {% load staticfiles %}
 {% load humanize %}
 {% load hitcount_tags %}
-{% block title %}Students' Gymkhana Forum{% endblock %}
 {% block mdbcss %}
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
 {% block customstyles %}
@@ -32,7 +31,7 @@
             </div>
         </form>
     </div>
-    <div class="App-content rellax header mb-3">
+    <div class="App-content rellax header mb-3" style="min-height: 65vh;">
         <div id="content">
             <div class="IndexPage">
                 <!--main body-->

@@ -1,6 +1,6 @@
 {% extends 'forum/base.html' %}
 {% load staticfiles %}
-{% block title %}Add New Topic{% endblock %}
+{% block title %}Add New Topic | {{ block.super }}{% endblock %}
 {% block mdbcss %}
     <link rel="stylesheet" href="{% static 'css/mdbadmin.min.css' %}">{% endblock %}
 {% block main %}

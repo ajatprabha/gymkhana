@@ -105,4 +105,5 @@ class Answer(models.Model):
         return reverse('forum:delete_answer', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return "On: " + str(self.topic.title) + " by " + str(self.author.user.first_name) + " " + str(self.author.user.last_name)
+        return "On: " + str(self.topic.title) + " by " + str(self.author.user.first_name) + " " + str(
+            self.author.user.last_name)

@@ -16,3 +16,7 @@ staticfiles/*
 static/
 static
 db.sqlite3
+templates
+/templates
+templates/*
+/templates/*

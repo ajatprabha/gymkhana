@@ -74,6 +74,7 @@ class UserProfile(models.Model):
     PROG_CHOICES = (
         ('BT', 'B.Tech'),
         ('MT', 'M.Tech'),
+        ('MSc', 'M.Sc'),
         ('PhD', 'PhD')
     )
     YEAR_CHOICES = (
@@ -81,17 +82,25 @@ class UserProfile(models.Model):
         ('1', 'First Year'),
         ('2', 'Second Year'),
         ('3', 'Third Year'),
-        ('4', 'Fourth Year')
+        ('4', 'Fourth Year'),
+        ('5', 'Fifth Year')
     )
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
-        ('T', 'Transgender'),
+        ('T', 'Transgender')
     )
     BRANCH_CHOICES = (
         ('CSE', 'Computer Science and Engineering'),
         ('EE', 'Electrical Engineering'),
         ('ME', 'Mechanical Engineering'),
+        ('CH', 'Chemistry'),
+        ('MA', 'Mathematics'),
+        ('PHY', 'Physics'),
+        ('HSS', 'Humanities and Social Sciences'),
+        ('BBE', 'Biosciences and Bioengineering'),
+        ('BISS', 'BISS'),
+        ('SS', 'SS')
     )
     # Database Model
     user = models.OneToOneField(User, on_delete=models.CASCADE)

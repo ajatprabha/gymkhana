@@ -73,7 +73,7 @@ class SignUpForm(UserCreationForm):
         elif User.objects.filter(email__iexact=self.data['email']).exists():
             raise forms.ValidationError('Email address is already registered')
         else:
-            return self.data['email']
+            return self.data['email'].lower()
 
     def clean_username(self):
         username_submit = self.data['username']
@@ -81,7 +81,7 @@ class SignUpForm(UserCreationForm):
         if username_submit != e_username:
             raise forms.ValidationError("Username doesn't comply with provided email")
         else:
-            return self.data['username']
+            return self.data['username'].lower()
 
     def clean_roll(self):
         if len(self.data['roll']) < 7:

@@ -36,14 +36,14 @@ class Society(models.Model):
     # Model
     name = models.CharField(max_length=128)
     description = RichTextUploadingField(blank=True)
-    cover = VersatileImageField('Cover', upload_to='society_%Y', blank=True, null=True,
-                                help_text="Upload high quality picture")
+    cover = VersatileImageField('Cover', upload_to='society_%Y', help_text="Upload high quality picture")
     skin = models.CharField(max_length=32, choices=SKIN_CHOICES, blank=True, default='mdb-skin',
                             help_text="Choose a skin while displaying society page.")
     secretary = models.ForeignKey(UserProfile, related_name='secy', limit_choices_to={'user__is_staff': True})
     joint_secretary = models.ForeignKey(UserProfile, related_name='joint_secy',
                                         limit_choices_to={'user__is_staff': True})
-    mentor = models.ForeignKey(UserProfile, related_name='smentor', limit_choices_to={'user__is_staff': True})
+    mentor = models.ForeignKey(UserProfile, related_name='smentor', limit_choices_to={'user__is_staff': True},
+                               null=True, blank=True, on_delete=models.SET_NULL, default=None)
     faculty_advisor = models.ForeignKey(FacultyAdvisor, blank=True, null=True, default=None, on_delete=models.SET_NULL)
     gallery = models.ForeignKey(Gallery, blank=True, null=True, on_delete=models.SET_NULL,
                                 help_text="Select a carousel gallery to link to this society.")
@@ -153,8 +153,7 @@ class Senate(models.Model):
     # Model
     name = models.CharField(max_length=128)
     description = RichTextUploadingField(blank=True)
-    cover = VersatileImageField('Cover', upload_to='society_%Y', blank=True, null=True,
-                                help_text="Upload high quality picture")
+    cover = VersatileImageField('Cover', upload_to='society_%Y', help_text="Upload high quality picture")
     skin = models.CharField(max_length=32, choices=SKIN_CHOICES, blank=True, default='mdb-skin',
                             help_text="Choose a skin while displaying senate page.")
     members = models.ManyToManyField(UserProfile, through='SenateMembership', through_fields=('senate', 'userprofile'))

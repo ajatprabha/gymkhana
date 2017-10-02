@@ -12,4 +12,7 @@ staticfiles
 /staticfiles
 staticfiles/*
 /staticfiles/*
+/static/*
+static/
+static
 db.sqlite3

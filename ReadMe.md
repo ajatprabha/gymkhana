@@ -1,9 +1,8 @@
-![Students' Gymkhana 2017](https://img.shields.io/badge/Students'%20Gymkhana-2017-red.svg)
 ![Status active](https://img.shields.io/badge/Status-active%20development-2eb3c1.svg)
 ![Django 1.11.3](https://img.shields.io/badge/Django-1.11.3-green.svg)
-![Build beta-0.1](https://img.shields.io/badge/Build-beta--0.1-orange.svg)
-# Dynamic web portal and forum for Students' Gymkhana of IIT Jodhpur
-## Summer project for Students' Gymkhana, IIT Jodhpur
+![Django 1.11.3](https://img.shields.io/badge/Python-3.6-blue.svg)
+# Dynamic web portal and forum for Students' Gymkhana of IIT Jodhpur  
+This project is now moved to ![devlup-labs/gymkhana_portal](https://github.com/devlup-labs/gymkhana_portal)  
 ### Purpose
 Simplify the workflow of updating the gymkhana website without much knowledge on how to code. And also provide certain utility features.
 
